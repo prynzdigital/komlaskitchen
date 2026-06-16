@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <!-- Cooking pot with steam (top-left) -->
+  <g opacity="0.09" stroke="#c0392b" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="30" cy="40" rx="14" ry="5" stroke-width="1.4"/>
+    <path d="M16 40 Q16 56 30 56 Q44 56 44 40" stroke-width="1.4"/>
+    <line x1="16" y1="43" x2="10" y2="43" stroke-width="1.4"/>
+    <line x1="44" y1="43" x2="50" y2="43" stroke-width="1.4"/>
+    <path d="M24 32 Q22 26 24 20" stroke-width="1.1"/>
+    <path d="M30 32 Q28 26 30 20" stroke-width="1.1"/>
+    <path d="M36 32 Q34 26 36 20" stroke-width="1.1"/>
+  </g>
+
+  <!-- Palm / plantain leaf (top-right) -->
+  <g opacity="0.08" stroke="#c0392b" fill="none" stroke-linecap="round">
+    <path d="M90 8 Q106 24 90 40 Q74 24 90 8Z" stroke-width="1.3"/>
+    <line x1="90" y1="8" x2="90" y2="40" stroke-width="0.9"/>
+    <line x1="82" y1="20" x2="98" y2="20" stroke-width="0.8"/>
+    <line x1="80" y1="28" x2="100" y2="28" stroke-width="0.8"/>
+    <line x1="82" y1="36" x2="98" y2="36" stroke-width="0.8"/>
+  </g>
+
+  <!-- Ladle / spoon (bottom-left) -->
+  <g opacity="0.08" stroke="#c0392b" fill="none" stroke-linecap="round">
+    <ellipse cx="22" cy="80" rx="8" ry="9" stroke-width="1.3"/>
+    <line x1="22" y1="89" x2="22" y2="112" stroke-width="1.3"/>
+    <line x1="17" y1="106" x2="27" y2="112" stroke-width="1"/>
+  </g>
+
+  <!-- Fork (bottom-right) -->
+  <g opacity="0.08" stroke="#c0392b" fill="none" stroke-linecap="round">
+    <line x1="86" y1="70" x2="86" y2="112" stroke-width="1.3"/>
+    <line x1="82" y1="70" x2="82" y2="84" stroke-width="1.1"/>
+    <line x1="86" y1="70" x2="86" y2="84" stroke-width="1.1"/>
+    <line x1="90" y1="70" x2="90" y2="84" stroke-width="1.1"/>
+    <path d="M82 84 Q86 90 90 84" stroke-width="1.1"/>
+  </g>
+
+  <!-- Decorative pepper dots (center) -->
+  <g opacity="0.06" fill="#c0392b">
+    <circle cx="60" cy="58" r="3"/>
+    <circle cx="54" cy="66" r="1.8"/>
+    <circle cx="66" cy="50" r="1.8"/>
+    <circle cx="52" cy="52" r="1.2"/>
+    <circle cx="68" cy="64" r="1.2"/>
+  </g>
+
+  <!-- Small stars (scattered) -->
+  <g opacity="0.05" fill="#f5a623">
+    <polygon points="60,8 61.2,11.6 65,11.6 62,14 63,17.6 60,15.5 57,17.6 58,14 55,11.6 58.8,11.6"/>
+    <polygon points="10,90 10.8,92.5 13.5,92.5 11.4,94 12.2,96.5 10,95 7.8,96.5 8.6,94 6.5,92.5 9.2,92.5"/>
+  </g>
+</svg>
