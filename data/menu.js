@@ -114,6 +114,16 @@ export const menuItems = [
     alt: "Golden fried sweet plantain slices",
     popular: false,
   },
+  {
+    id: 13,
+    category: "sides",
+    name: "Kelewele",
+    description: "Spiced fried plantain cubes seasoned with ginger, chili, and aromatic spices — a beloved Ghanaian street food snack.",
+    price: "$7.99",
+    image: "/pictures/kelewele.jpeg",
+    alt: "Ghanaian kelewele spiced fried plantain",
+    popular: true,
+  },
 
   // Beverages
   {

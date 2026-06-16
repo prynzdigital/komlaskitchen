@@ -29,8 +29,8 @@ const CATEGORY_TILES = [
   { label: "Rice Dishes", count: "4 dishes", image: "/pictures/jollof.jpeg" },
   { label: "Soups & Stews", count: "3 dishes", image: "/pictures/okro_soup.jpeg" },
   { label: "Grilled Specials", count: "1 dish", image: "/pictures/dishes.jpeg" },
-  { label: "Sides", count: "2 dishes", image: "/pictures/beans_and_plantain.jpeg" },
-  { label: "Beverages", count: "2 drinks", image: "/pictures/jollof_main.jpeg" },
+  { label: "Sides", count: "3 dishes", image: "/pictures/kelewele.jpeg" },
+  { label: "Beverages", count: "2 drinks", image: "/pictures/sobolo.jpg" },
 ];
 
 const STEPS = [
@@ -213,12 +213,12 @@ const HomePage = () => {
       {/* ── Split Hero ── */}
       <section style={{ background: "rgba(8,4,1,0.72)", padding: "24px 0 32px" }}>
         <div className="container">
-          <div style={{ display: "flex", gap: 16, height: 480 }}>
+          <div className="hero-split">
 
             {/* Left large card (~70%) — fade slideshow */}
             <div
+              className="hero-main-card"
               style={{
-                flex: "0 0 68%",
                 borderRadius: 20,
                 overflow: "hidden",
                 position: "relative",
@@ -378,8 +378,8 @@ const HomePage = () => {
 
             {/* Right card — Meal of the Week slide-left carousel */}
             <div
+              className="hero-week-card"
               style={{
-                flex: "0 0 calc(32% - 16px)",
                 borderRadius: 20,
                 overflow: "hidden",
                 position: "relative",

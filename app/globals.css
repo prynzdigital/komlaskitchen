@@ -53,6 +53,34 @@ body {
 .flaticon-clock::before           { content: "\e90a"; }
 .flaticon-location::before        { content: "\e90b"; }
 
+/* ── Hero split layout — responsive ── */
+.hero-split {
+  display: flex;
+  gap: 16px;
+  height: 480px;
+}
+.hero-main-card {
+  flex: 0 0 68%;
+}
+.hero-week-card {
+  flex: 0 0 calc(32% - 16px);
+}
+
+@media (max-width: 767px) {
+  .hero-split {
+    flex-direction: column;
+    height: auto;
+  }
+  .hero-main-card {
+    flex: none;
+    height: 340px;
+  }
+  .hero-week-card {
+    flex: none;
+    height: 400px;
+  }
+}
+
 /* ── Ticker marquee animation ── */
 @keyframes ticker {
   0%   { transform: translateX(0); }
