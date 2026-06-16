@@ -122,7 +122,7 @@ export const menuItems = [
     name: "Sobolo (Hibiscus Drink)",
     description: "Refreshing hibiscus flower drink blended with ginger, cloves, and a hint of fruit. Naturally sweet and vibrant.",
     price: "$4.99",
-    image: "/pictures/jollof_main.jpeg",
+    image: "/pictures/sobolo.jpg",
     alt: "Sobolo hibiscus drink served chilled",
     popular: false,
   },
