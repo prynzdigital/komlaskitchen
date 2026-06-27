@@ -35,9 +35,10 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: "/pictures/favicon.png", type: "image/png" },
+      { url: "/icon.png", sizes: "any", type: "image/png" },
     ],
-    apple: "/pictures/favicon.png",
+    apple: "/icon.png",
+    shortcut: "/icon.png",
   },
   alternates: {
     canonical: "https://komlas-kitchen.com",
