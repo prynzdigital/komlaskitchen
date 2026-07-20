@@ -53,11 +53,11 @@ const Footer = () => {
                   <h4 style={{ color: "var(--paper)" }}>Popular Dishes</h4>
                 </div>
                 <ul className="list-items">
-                  <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Jollof Rice</Link></li>
+                  <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Jollof or Fried Rice Tray</Link></li>
+                  <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Jollof Rice with Chicken</Link></li>
                   <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Kontomire Stew</Link></li>
-                  <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Okro Soup</Link></li>
-                  <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Beans &amp; Plantain</Link></li>
-                  <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Vegetable Rice</Link></li>
+                  <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Okra Soup Tray</Link></li>
+                  <li><Link href="/food-menu" style={{ color: "var(--paper-dim)" }}>Beans &amp; Plantain Tray</Link></li>
                 </ul>
               </div>
             </div>

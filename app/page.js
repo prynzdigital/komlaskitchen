@@ -6,30 +6,31 @@ import { featuredDishes } from "@/data/menu";
 
 const CATEGORY_CARDS = [
   {
-    title: "Rice Dishes",
-    sub: "Ghanaian Party Jollof, Fried Rice & more",
+    title: "Family Trays",
+    sub: "Jollof/Fried Rice, Okra Soup, Beans & Plantain — party size",
     image: "/pictures/jollof_main_dish.jpeg",
-    count: "4 dishes",
+    count: "3 trays",
   },
   {
-    title: "Soups & Stews",
-    sub: "Kontomire, Okro Soup, Light Soup & more",
-    image: "/pictures/kontomire_stew.jpeg",
-    count: "3 dishes",
+    title: "Rice Dishes",
+    sub: "Jollof Rice with Chicken & more",
+    image: "/pictures/jollof.jpeg",
+    count: "2 dishes",
   },
   {
     title: "Sides & Drinks",
-    sub: "Red Red, Kelewele, Sobolo & more",
-    image: "/pictures/beans_and_plantain.jpeg",
-    count: "4 items",
+    sub: "Banku, Kelewele, Ghana Salad, Sobolo & more",
+    image: "/pictures/beans_and_plantain2.jpeg",
+    count: "8 items",
   },
 ];
 
 const CATEGORY_TILES = [
-  { label: "Rice Dishes", count: "4 dishes", image: "/pictures/jollof.jpeg" },
-  { label: "Soups & Stews", count: "3 dishes", image: "/pictures/okro_soup.jpeg" },
+  { label: "Family Trays", count: "3 trays", image: "/pictures/jollof_main_dish.jpeg" },
+  { label: "Rice Dishes", count: "2 dishes", image: "/pictures/jollof.jpeg" },
+  { label: "Soups & Stews", count: "2 dishes", image: "/pictures/kontomire_stew.jpeg" },
   { label: "Grilled Specials", count: "1 dish", image: "/pictures/dishes.jpeg" },
-  { label: "Sides", count: "3 dishes", image: "/pictures/beans_and_plantain2.jpeg" },
+  { label: "Sides", count: "6 dishes", image: "/pictures/beans_and_plantain2.jpeg" },
   { label: "Beverages", count: "2 drinks", image: "/pictures/sobolo.jpg" },
 ];
 
@@ -128,13 +129,13 @@ const FEATURES = [
 ];
 
 const WEEKLY_DISHES = [
-  {
-    image: "/pictures/jollof_main_dish.jpeg",
-    category: "Rice Dishes",
-    name: "Jollof Rice",
-    price: "$14.99",
-    tag: "🏆 Best Seller",
-  },
+  // {
+  //   image: "/pictures/jollof.jpeg",
+  //   category: "Rice Dishes",
+  //   name: "Jollof Rice with Chicken",
+  //   price: "$18.99",
+  //   tag: "🏆 Best Seller",
+  // },
   {
     image: "/pictures/kontomire_stew.jpeg",
     category: "Soups & Stews",

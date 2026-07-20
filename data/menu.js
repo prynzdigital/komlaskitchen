@@ -1,4 +1,5 @@
 export const menuCategories = [
+  { id: "trays", label: "Family Trays" },
   { id: "rice", label: "Rice Dishes" },
   { id: "soups", label: "Soups & Stews" },
   { id: "grilled", label: "Grilled Specials" },
@@ -7,47 +8,74 @@ export const menuCategories = [
 ];
 
 export const menuItems = [
-  // Rice Dishes
+  // Family Trays — party/family-size, priced by tray size
   {
-    id: 1,
-    category: "rice",
-    name: "Jollof Rice",
-    description: "Our signature perfectly seasoned tomato-based rice, slow-cooked with herbs and spices for that authentic smoky flavor.",
-    price: "$14.99",
+    id: 101,
+    category: "trays",
+    name: "Jollof or Fried Rice Tray",
+    description: "Choose Jollof or Fried Rice as your base, add a protein, and feed the whole family or party.",
     image: "/pictures/jollof_main_dish.jpeg",
-    alt: "Komla's Kitchen signature Jollof Rice served in a bowl",
+    alt: "Jollof or fried rice tray, perfect for parties and family gatherings",
     popular: true,
+    baseOptions: ["Jollof Rice", "Fried Rice"],
+    sizes: [
+      { label: "Small", price: 85 },
+      { label: "Medium", price: 110 },
+      { label: "Large", price: 150 },
+    ],
+    proteinAddOns: [
+      { name: "No Protein", prices: { Small: 0, Medium: 0, Large: 0 } },
+      { name: "Chicken", prices: { Small: 25, Medium: 35, Large: 45 } },
+      { name: "Goat", prices: { Small: 35, Medium: 45, Large: 60 } },
+    ],
   },
   {
-    id: 2,
-    category: "rice",
-    name: "Jollof Rice with Chicken",
-    description: "Classic jollof rice paired with succulent grilled chicken. A hearty and satisfying complete meal.",
-    price: "$18.99",
-    image: "/pictures/jollof.jpeg",
-    alt: "Jollof rice served with grilled chicken",
+    id: 102,
+    category: "trays",
+    name: "Okra Soup Tray",
+    description: "Rich okra soup made family-size, with your choice of protein — great for sharing.",
+    image: "/pictures/okro_soup.jpeg",
+    alt: "Okra soup tray with a choice of protein",
     popular: true,
+    sizes: [{ label: "Tray", price: 140 }],
+    proteinOptions: ["Goat", "Tripe", "Crab", "Mackerel"],
   },
   {
-    id: 3,
-    category: "rice",
-    name: "Vegetable Fried Rice",
-    description: "Fragrant fried rice tossed with fresh seasonal vegetables, onions, and African spices.",
-    price: "$13.99",
-    image: "/pictures/vegetable_rice.jpeg",
-    alt: "African vegetable fried rice with fresh vegetables",
-    popular: false,
+    id: 103,
+    category: "trays",
+    name: "Beans & Plantain Tray",
+    description: "Creamy stewed beans with fried sweet plantain, family-size.",
+    image: "/pictures/beans_and_plantain.jpeg",
+    alt: "Beans and plantain tray",
+    badge: "Available Mondays only",
+    sizes: [
+      { label: "Small", price: 30 },
+      { label: "Medium", price: 45 },
+      { label: "Large", price: 60 },
+    ],
   },
-  {
-    id: 4,
-    category: "rice",
-    name: "Jollof Rice Platter",
-    description: "A generous platter of our famous jollof rice, perfect for sharing or a big appetite.",
-    price: "$16.99",
-    image: "/pictures/jollof2.jpeg",
-    alt: "Large jollof rice platter",
-    popular: false,
-  },
+
+  // Rice Dishes
+  // {
+  //   id: 2,
+  //   category: "rice",
+  //   name: "Jollof Rice with Chicken",
+  //   description: "Classic jollof rice paired with succulent grilled chicken. A hearty and satisfying complete meal.",
+  //   price: "$18.99",
+  //   image: "/pictures/jollof.jpeg",
+  //   alt: "Jollof rice served with grilled chicken",
+  //   popular: true,
+  // },
+  // {
+  //   id: 4,
+  //   category: "rice",
+  //   name: "Jollof Rice Platter",
+  //   description: "A generous platter of our famous jollof rice, perfect for sharing or a big appetite.",
+  //   price: "$16.99",
+  //   image: "/pictures/jollof2.jpeg",
+  //   alt: "Large jollof rice platter",
+  //   popular: false,
+  // },
 
   // Soups & Stews
   {
@@ -70,16 +98,6 @@ export const menuItems = [
     alt: "Kontomire stew served with rice",
     popular: false,
   },
-  {
-    id: 7,
-    category: "soups",
-    name: "Okro Soup",
-    description: "Rich and silky okra soup made with tender meat, crayfish, and palm oil. A West African comfort classic.",
-    price: "$15.99",
-    image: "/pictures/okro_soup.jpeg",
-    alt: "West African okra soup with tender meat",
-    popular: true,
-  },
 
   // Grilled Specials
   {
@@ -94,16 +112,6 @@ export const menuItems = [
   },
 
   // Sides
-  {
-    id: 9,
-    category: "sides",
-    name: "Beans & Plantain",
-    description: "Creamy stewed beans served alongside perfectly caramelized fried sweet plantains. A beloved West African pairing.",
-    price: "$11.99",
-    image: "/pictures/beans_and_plantain.jpeg",
-    alt: "Stewed beans served with fried sweet plantains",
-    popular: true,
-  },
   {
     id: 10,
     category: "sides",
@@ -123,6 +131,50 @@ export const menuItems = [
     image: "/pictures/beans_and_plantain2.jpeg",
     alt: "Ghanaian kelewele spiced fried plantain",
     popular: true,
+  },
+  {
+    id: 104,
+    category: "sides",
+    name: "Banku",
+    description: "Traditional fermented corn and cassava dough, the perfect pairing for any soup.",
+    image: null,
+    alt: "Banku",
+    sizes: [
+      { label: "6 pieces", price: 7 },
+      { label: "8 pieces", price: 10 },
+      { label: "10 pieces", price: 12 },
+    ],
+  },
+  {
+    id: 105,
+    category: "sides",
+    name: "Grilled Tilapia",
+    description: "Whole grilled tilapia, seasoned and charred to perfection.",
+    image: null,
+    alt: "Grilled tilapia",
+    sizes: [{ label: "2 pieces", price: 40 }],
+  },
+  {
+    id: 106,
+    category: "sides",
+    name: "Boiled Eggs",
+    description: "Simple boiled eggs, a classic side.",
+    image: null,
+    alt: "Boiled eggs",
+    sizes: [{ label: "5 pieces", price: 5 }],
+  },
+  {
+    id: 107,
+    category: "sides",
+    name: "Ghana Salad",
+    description: "Fresh Ghanaian-style salad with a creamy dressing.",
+    image: null,
+    alt: "Ghana salad",
+    sizes: [
+      { label: "Small", price: 20 },
+      { label: "Medium", price: 35 },
+      { label: "Large", price: 50 },
+    ],
   },
 
   // Beverages

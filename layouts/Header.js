@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useState } from "react";
+import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -30,6 +31,7 @@ const TICKER_ITEMS = [
 const Header = () => {
   const [toggle, setToggle] = useState(false);
   const pathname = usePathname();
+  const { itemCount } = useCart();
 
   return (
     <Fragment>
@@ -153,6 +155,47 @@ const Header = () => {
                     <i className="fab fa-tiktok" />
                   </a>
                 </div>
+
+                {/* Cart */}
+                <Link
+                  href="/cart"
+                  aria-label={`Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`}
+                  style={{
+                    position: "relative",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 40,
+                    height: 40,
+                    color: "var(--paper)",
+                    fontSize: "1.15rem",
+                    textDecoration: "none",
+                  }}
+                >
+                  <i className="fas fa-shopping-cart" />
+                  {itemCount > 0 && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        background: "var(--red-500)",
+                        color: "#fff",
+                        borderRadius: "50%",
+                        minWidth: 18,
+                        height: 18,
+                        fontSize: "0.65rem",
+                        fontWeight: 800,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "0 3px",
+                      }}
+                    >
+                      {itemCount}
+                    </span>
+                  )}
+                </Link>
 
                 {/* Order Now CTA */}
                 <a

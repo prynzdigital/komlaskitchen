@@ -1,6 +1,7 @@
 "use client";
 
 import PageBanner from "@/components/PageBanner";
+import MenuItemCard from "@/components/MenuItemCard";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import Link from "next/link";
 import { useState } from "react";
@@ -82,90 +83,7 @@ const MenuPage = () => {
                 className="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
                 data-wow-delay={`${0.2 + (i % 3) * 0.15}s`}
               >
-                <div
-                  style={{
-                    background: "#fff",
-                    borderRadius: 12,
-                    overflow: "hidden",
-                    boxShadow:
-                      "0 0 0 1px oklch(0 0 0 / 0.06), 0 1px 2px -1px oklch(0 0 0 / 0.06), 0 8px 24px oklch(0 0 0 / 0.35)",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-4px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 0 0 1px oklch(0 0 0 / 0.08), 0 2px 4px -1px oklch(0 0 0 / 0.08), 0 14px 32px oklch(0 0 0 / 0.4)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow =
-                      "0 0 0 1px oklch(0 0 0 / 0.06), 0 1px 2px -1px oklch(0 0 0 / 0.06), 0 8px 24px oklch(0 0 0 / 0.35)";
-                  }}
-                >
-                  <div style={{ position: "relative", height: 200, overflow: "hidden" }}>
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      loading="lazy"
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                    {item.popular && (
-                      <span
-                        style={{
-                          position: "absolute",
-                          top: 10,
-                          left: 10,
-                          background: "var(--red-500)",
-                          color: "#fff",
-                          padding: "3px 10px",
-                          borderRadius: 20,
-                          fontSize: "0.72rem",
-                          fontWeight: 700,
-                          textTransform: "uppercase",
-                          letterSpacing: 0.5,
-                        }}
-                      >
-                        Popular
-                      </span>
-                    )}
-                    <span
-                      style={{
-                        position: "absolute",
-                        top: 10,
-                        right: 10,
-                        background: "rgba(0,0,0,0.65)",
-                        color: "var(--gold-400)",
-                        padding: "3px 12px",
-                        borderRadius: 20,
-                        fontWeight: 700,
-                        fontSize: "0.9rem",
-                      }}
-                    >
-                      {item.price}
-                    </span>
-                  </div>
-                  <div style={{ padding: "1.25rem", flex: 1, display: "flex", flexDirection: "column" }}>
-                    <h4 style={{ fontWeight: 700, marginBottom: "0.5rem", color: "#1c1c1c" }}>{item.name}</h4>
-                    <p style={{ color: "#57534e", fontSize: "0.88rem", lineHeight: 1.6, flex: 1 }}>
-                      {item.description}
-                    </p>
-                    <a
-                      href="tel:3122878155"
-                      className="theme-btn mt-3"
-                      style={{ textAlign: "center", display: "block" }}
-                    >
-                      <span className="button-content-wrapper d-flex align-items-center justify-content-center">
-                        <span className="button-icon">
-                          <i className="fas fa-phone" />
-                        </span>
-                        <span className="button-text">Call to Order</span>
-                      </span>
-                    </a>
-                  </div>
-                </div>
+                <MenuItemCard item={item} />
               </div>
             ))}
           </div>

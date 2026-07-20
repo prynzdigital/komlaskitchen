@@ -2,6 +2,7 @@ import "./globals.css";
 import 'rc-slider/assets/index.css';
 
 import Preloader from "@/layouts/Preloader";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata = {
   metadataBase: new URL("https://komlas-kitchen.com"),
@@ -114,7 +115,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Preloader />
-        {children}
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );
