@@ -1,21 +1,162 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* ══════════════════════════════════════════════════════════════
+   Komla's Kitchen — Design Tokens
+   Midnight Black / Gold / Red + Green accent (Ghana flag palette,
+   elevated into a premium dark UI).
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  /* Midnight — cool near-black neutral scale, H 258 */
+  --ink-950: oklch(0.12 0.012 258); /* page background */
+  --ink-900: oklch(0.16 0.014 258); /* header / ticker / sticky surfaces */
+  --ink-800: oklch(0.21 0.016 258); /* cards / panels */
+  --ink-700: oklch(0.27 0.018 258); /* raised / hover surfaces */
+  --ink-line: oklch(1 0 0 / 0.08); /* hairline border-as-shadow (dark) */
+  --ink-line-hover: oklch(1 0 0 / 0.13);
+  --paper: oklch(0.97 0.004 258); /* primary text on dark */
+  --paper-dim: oklch(0.97 0.004 258 / 0.72);
+  --paper-faint: oklch(0.97 0.004 258 / 0.5);
 
-/* ── Fixed full-page background — site scrolls over this ── */
-body {
-  background-image: url('/pictures/chicken_bg.jpeg');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #1a0a04;
+  /* Gold — H 82 */
+  --gold-300: oklch(0.86 0.1 82);
+  --gold-400: oklch(0.8 0.15 82);
+  --gold-500: oklch(0.74 0.16 80);
+  --gold-600: oklch(0.62 0.15 76);
+
+  /* Red — H 25 (primary CTA) */
+  --red-400: oklch(0.66 0.19 27);
+  --red-500: oklch(0.56 0.2 25);
+  --red-600: oklch(0.47 0.185 24);
+  --red-100: oklch(0.94 0.035 25);
+
+  /* Green — H 150, accent only (fresh / traditional / success) */
+  --green-400: oklch(0.72 0.15 150);
+  --green-500: oklch(0.6 0.14 150);
+  --green-600: oklch(0.48 0.13 150);
+  --green-100: oklch(0.93 0.045 150);
+
+  /* Shadows-as-borders (dark mode) */
+  --shadow-border: 0 0 0 1px var(--ink-line), 0 20px 60px oklch(0 0 0 / 0.5);
+  --shadow-border-hover: 0 0 0 1px var(--ink-line-hover), 0 24px 70px oklch(0 0 0 / 0.55);
+
+  /* Fonts */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* ── Cascade the palette into the legacy "FoodKing" template variables ── */
+  --theme: var(--red-500);
+  --theme2: var(--red-600);
+  --theme3: var(--gold-400);
+  --base: var(--red-500);
+  --bg: var(--ink-900);
+  --text: var(--paper-dim);
+  --border: var(--ink-line);
+  --ratting: var(--gold-400);
 }
 
-/* ── Override template CSS variables for Komla's Kitchen ── */
-:root {
-  --theme:  #e8272a;
-  --theme2: #c01e20;
-  --theme3: #f5a623;
-  --base:   #e8272a;
+/* ── Base typography ── */
+html body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+}
+html body h1,
+html body h2,
+html body h3,
+html body h4,
+html body h5,
+html body h6 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+html body p {
+  line-height: 1.6;
+}
+
+/* ── Tricolor accent stripe — red / gold / green, a nod to the Ghana flag ── */
+.tricolor-stripe {
+  height: 3px;
+  width: 64px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--red-500) 0%,
+    var(--red-500) 33%,
+    var(--gold-400) 33%,
+    var(--gold-400) 66%,
+    var(--green-500) 66%,
+    var(--green-500) 100%
+  );
+}
+
+/* ── Mobile offcanvas menu — dark surface to match the new palette ── */
+.offcanvas__info {
+  background: var(--ink-900) !important;
+  border-left: 2px solid var(--red-500) !important;
+}
+.offcanvas__info .offcanvas__contact h4,
+.offcanvas__info .mean-nav ul li a {
+  color: var(--paper) !important;
+}
+.offcanvas__info .offcanvas__contact-text,
+.offcanvas__info .offcanvas__contact-text a {
+  color: var(--paper-dim) !important;
+}
+.offcanvas__info .offcanvas__close button {
+  color: var(--paper) !important;
+}
+
+/* ── Contact form — no existing template rule targets .contact-form-items,
+     so inputs previously rendered unstyled (white text, no background/border) ── */
+.contact-form-items .form-clt {
+  position: relative;
+  margin-bottom: 18px;
+}
+.contact-form-items .form-clt input,
+.contact-form-items .form-clt textarea {
+  width: 100%;
+  outline: none;
+  border: 1px solid var(--ink-line);
+  border-radius: 10px;
+  padding: 16px 46px 16px 18px;
+  font-size: 16px;
+  font-family: var(--font-body);
+  color: var(--paper);
+  background-color: var(--ink-800);
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+}
+.contact-form-items .form-clt textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+.contact-form-items .form-clt input::placeholder,
+.contact-form-items .form-clt textarea::placeholder {
+  color: var(--paper-faint);
+}
+.contact-form-items .form-clt input:focus,
+.contact-form-items .form-clt textarea:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 0 3px oklch(0.8 0.15 82 / 0.18);
+}
+.contact-form-items .form-clt .icon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  pointer-events: none;
+}
+.contact-form-items .form-clt .icon i {
+  color: var(--paper-faint);
+}
+.contact-form-items .form-clt-big .icon {
+  top: 18px;
+}
+
+/* ── Full-page background — static midnight gradient, no fixed-attachment
+     photo (background-attachment:fixed is a known source of iOS Safari
+     jank and is unreliable on mobile) ── */
+body {
+  background: radial-gradient(ellipse at top, var(--ink-900) 0%, var(--ink-950) 60%);
+  background-color: var(--ink-950);
 }
 
 /* ── Flaticon — absolute paths so they survive Next.js bundling ── */
@@ -85,6 +226,15 @@ body {
 @keyframes ticker {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+/* ── Hero scroll cue ── */
+@keyframes scrollCueBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+.scroll-cue {
+  animation: scrollCueBounce 2s ease-in-out infinite;
 }
 
 /* ── image popup ── */

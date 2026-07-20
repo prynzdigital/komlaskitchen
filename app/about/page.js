@@ -15,7 +15,7 @@ const AboutPage = () => {
           <div className="about-wrapper">
             <div className="row align-items-center g-5">
               <div className="col-xl-6 col-lg-6 wow fadeInUp" data-wow-delay=".3s">
-                <div className="about-image" style={{ borderRadius: 16, overflow: "hidden", boxShadow: "0 12px 40px rgba(0,0,0,0.15)" }}>
+                <div className="about-image" style={{ borderRadius: 16, overflow: "hidden", boxShadow: "var(--shadow-border)" }}>
                   <img
                     src="/pictures/jollof_main_dish.jpeg"
                     alt="Komla's Kitchen signature dishes made with love"
@@ -94,16 +94,16 @@ const AboutPage = () => {
       <section
         className="main-cta-banner-2 section-padding bg-cover"
         style={{
-          background: "linear-gradient(135deg, #1a1a2e 0%, #e8272a 100%)",
+          background: "linear-gradient(135deg, var(--ink-950) 0%, var(--red-600) 100%)",
         }}
       >
         <div className="container">
           <div className="row align-items-center justify-content-between g-4">
             <div className="col-lg-7">
               <div className="section-title mb-0">
-                <span className="wow fadeInUp" style={{ color: "#f5a623" }}>Our Mission</span>
+                <span className="wow fadeInUp" style={{ color: "var(--gold-400)" }}>Our Mission</span>
                 <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">
-                  Bringing People Together Through <span style={{ color: "#f5a623" }}>Food.</span>
+                  Bringing People Together Through <span style={{ color: "var(--gold-400)" }}>Food.</span>
                 </h2>
                 <p className="text-white wow fadeInUp" data-wow-delay=".5s" style={{ opacity: 0.9, marginTop: "1rem", lineHeight: 1.8 }}>
                   To bring people together through flavorful meals that celebrate
@@ -115,7 +115,7 @@ const AboutPage = () => {
             </div>
             <div className="col-lg-4 text-lg-end wow fadeInUp" data-wow-delay=".6s">
               <div className="delivery-man">
-                <img src="assets/img/delivery-man-2.png" alt="Fast delivery from Komla's Kitchen" />
+                <img src="/assets/img/delivery-man-2.png" alt="Fast delivery from Komla's Kitchen" />
               </div>
             </div>
           </div>
@@ -238,7 +238,7 @@ const AboutPage = () => {
           <div className="row justify-content-center text-center">
             <div className="col-lg-8">
               <div className="section-title">
-                <span className="wow fadeInUp" style={{ color: "#f5a623" }}>
+                <span className="wow fadeInUp" style={{ color: "var(--gold-400)" }}>
                   Ready to Taste Africa?
                 </span>
                 <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">
@@ -252,9 +252,9 @@ const AboutPage = () => {
                     <span className="button-text">Order Now</span>
                   </span>
                 </Link>
-                <a href="tel:3122878155" className="theme-btn" style={{ background: "#fff", color: "#e8272a" }}>
+                <a href="tel:3122878155" className="theme-btn" style={{ background: "#fff", color: "var(--red-500)" }}>
                   <span className="button-content-wrapper d-flex align-items-center">
-                    <span className="button-icon"><i className="fas fa-phone" style={{ color: "#e8272a" }} /></span>
+                    <span className="button-icon"><i className="fas fa-phone" style={{ color: "var(--red-500)" }} /></span>
                     <span className="button-text">Call Us</span>
                   </span>
                 </a>

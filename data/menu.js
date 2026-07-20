@@ -120,7 +120,7 @@ export const menuItems = [
     name: "Kelewele",
     description: "Spiced fried plantain cubes seasoned with ginger, chili, and aromatic spices — a beloved Ghanaian street food snack.",
     price: "$7.99",
-    image: "/pictures/kelewele.jpeg",
+    image: "/pictures/beans_and_plantain2.jpeg",
     alt: "Ghanaian kelewele spiced fried plantain",
     popular: true,
   },
