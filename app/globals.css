@@ -40,8 +40,16 @@
   /* Fonts */
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
 
-  /* ── Cascade the palette into the legacy "FoodKing" template variables ── */
+/* ── Cascade the palette into the legacy "FoodKing" template variables ──
+   `html:root` (not `:root`) is required here: main.css also declares these
+   on a bare `:root`, which ties with ours on specificity, so the later
+   stylesheet in the DOM silently wins — that was main.css, meaning --theme,
+   --bg, --text etc. were still resolving to the original green/cream
+   template values everywhere they're used directly (e.g. .theme-btn
+   backgrounds, .section-bg). The extra type-selector bump wins unconditionally. */
+html:root {
   --theme: var(--red-500);
   --theme2: var(--red-600);
   --theme3: var(--gold-400);
@@ -87,6 +95,39 @@ html body p {
     var(--green-500) 66%,
     var(--green-500) 100%
   );
+}
+
+/* ── Section headings/testimonials — main.css never sets a color on plain
+   h2/h3/h4 (only the eyebrow <span> and accent words get one), so they
+   default to browser-initial black. Invisible on light "section-bg"
+   sections; unreadable on dark ones. ── */
+.section-title h2,
+.testimonial-content h3,
+.testimonial-content .client-info h4 {
+  color: var(--paper);
+}
+
+/* ── "Our Values" card titles — same missing-color bug as above, but only
+   half-visible: the default card sits directly on the dark section
+   background (no card background of its own until .active/:hover apply
+   the gold fill), so black text is invisible there while looking fine on
+   the gold state it was written for. Light by default, dark on the gold
+   surface. ── */
+.food-processing-wrapper .food-processing-items .food-processing-content h3 {
+  color: var(--paper);
+}
+.food-processing-wrapper .food-processing-items.active .food-processing-content h3,
+.food-processing-wrapper .food-processing-items:hover .food-processing-content h3 {
+  color: var(--ink-950);
+}
+
+/* ── "Our Values" number badge overlapping the card text below it —
+   .food-processing-image has no image in this build (just the number
+   circle), so with no height of its own it collapses to 0px, and the
+   absolutely-positioned badge (top:25px) floats into the content that
+   follows instead of sitting above it. Give the wrapper real height. ── */
+.food-processing-wrapper .food-processing-items .food-processing-image {
+  height: 70px;
 }
 
 /* ── Mobile offcanvas menu — dark surface to match the new palette ── */
