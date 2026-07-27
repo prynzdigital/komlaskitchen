@@ -4,10 +4,9 @@ import Link from "next/link";
 import PageBanner from "@/components/PageBanner";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import { useCart } from "@/context/CartContext";
-import { formatCurrency } from "@/lib/pricing";
+import { formatCurrency, describeCartItemSelections } from "@/lib/pricing";
 
-const describeSelections = (item) =>
-  [item.selectedBase, item.selectedSize, item.selectedProtein].filter(Boolean).join(" · ");
+const describeSelections = (item) => describeCartItemSelections(item);
 
 const CartPage = () => {
   const { items, removeItem, updateQuantity, subtotal, hydrated } = useCart();

@@ -5,7 +5,7 @@ import Link from "next/link";
 import PageBanner from "@/components/PageBanner";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import { useCart } from "@/context/CartContext";
-import { formatCurrency } from "@/lib/pricing";
+import { formatCurrency, describeCartItemSelections } from "@/lib/pricing";
 
 const inputStyle = {
   width: "100%",
@@ -206,9 +206,7 @@ const CheckoutPage = () => {
                       <div key={item.cartItemId} style={{ display: "flex", justifyContent: "space-between", marginBottom: 8, color: "var(--paper-dim)", fontSize: "0.9rem" }}>
                         <span>
                           {item.quantity}× {item.name}
-                          {[item.selectedBase, item.selectedSize, item.selectedProtein].filter(Boolean).length > 0
-                            ? ` (${[item.selectedBase, item.selectedSize, item.selectedProtein].filter(Boolean).join(", ")})`
-                            : ""}
+                          {describeCartItemSelections(item, ", ") ? ` (${describeCartItemSelections(item, ", ")})` : ""}
                         </span>
                         <span style={{ color: "var(--paper)", fontWeight: 600 }}>{formatCurrency(item.unitPrice * item.quantity)}</span>
                       </div>

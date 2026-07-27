@@ -1,11 +1,12 @@
 import { Resend } from "resend";
+import { describeCartItemSelections } from "@/lib/pricing";
 
 const FROM_ADDRESS = "Komla's Kitchen <jacob@komlaskitchen.com>";
 
 const formatMoney = (amount) => `$${Number(amount).toFixed(2)}`;
 
 const describeItem = (item) => {
-  const details = [item.selectedBase, item.selectedSize, item.selectedProtein].filter(Boolean).join(", ");
+  const details = describeCartItemSelections(item, ", ");
   return details ? `${item.name} (${details})` : item.name;
 };
 
@@ -63,20 +64,33 @@ export async function POST(request) {
       <p style="color:#a00;">This is not independently verified — please confirm the transfer actually landed in your Zelle account before preparing the order.</p>
     `;
 
-    await Promise.all([
-      resend.emails.send({
-        from: FROM_ADDRESS,
-        to: notifyEmail,
-        subject: `New Order Received — ${orderRef}`,
-        html: orderHtml,
-      }),
-      resend.emails.send({
-        from: FROM_ADDRESS,
-        to: notifyEmail,
-        subject: `Zelle Payment Confirmed — ${orderRef}`,
-        html: paymentHtml,
-      }),
+    const [orderResult, paymentResult] = await Promise.all([
+      resend.emails.send(
+        {
+          from: FROM_ADDRESS,
+          to: notifyEmail,
+          subject: `New Order Received — ${orderRef}`,
+          html: orderHtml,
+        },
+        { idempotencyKey: `order-received/${orderRef}` }
+      ),
+      resend.emails.send(
+        {
+          from: FROM_ADDRESS,
+          to: notifyEmail,
+          subject: `Zelle Payment Confirmed — ${orderRef}`,
+          html: paymentHtml,
+        },
+        { idempotencyKey: `payment-confirmed/${orderRef}` }
+      ),
     ]);
+
+    // The Resend SDK returns { data, error } rather than throwing —
+    // errors must be checked explicitly or a failed send goes unnoticed.
+    if (orderResult.error || paymentResult.error) {
+      console.error("Order email error:", orderResult.error || paymentResult.error);
+      return Response.json({ error: "Failed to send order notification." }, { status: 500 });
+    }
 
     return Response.json({ ok: true, orderRef });
   } catch (err) {

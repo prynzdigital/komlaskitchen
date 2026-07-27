@@ -197,8 +197,8 @@ const AboutPage = () => {
           </div>
           <div className="row g-3 mt-3">
             {[
-              { src: "/pictures/kontomire_stew.jpeg", alt: "Traditional Ghanaian kontomire stew" },
-              { src: "/pictures/okro_soup.jpeg", alt: "West African okra soup" },
+              { src: "/pictures/kontomire_stew.jpg", alt: "Traditional Ghanaian kontomire stew" },
+              { src: "/pictures/okro_soup.webp", alt: "West African okra soup" },
               { src: "/pictures/beans_and_plantain.jpeg", alt: "Beans and fried plantain" },
               { src: "/pictures/vegetable_rice.jpeg", alt: "African vegetable fried rice" },
               { src: "/pictures/jollof.jpeg", alt: "Jollof rice with chicken" },
