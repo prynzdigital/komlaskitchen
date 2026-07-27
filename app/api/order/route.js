@@ -5,9 +5,19 @@ const FROM_ADDRESS = "Komla's Kitchen <jacob@komlaskitchen.com>";
 
 const formatMoney = (amount) => `$${Number(amount).toFixed(2)}`;
 
+const escapeHtml = (str) =>
+  String(str).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  }[c]));
+
 const describeItem = (item) => {
-  const details = describeCartItemSelections(item, ", ");
-  return details ? `${item.name} (${details})` : item.name;
+  const details = escapeHtml(describeCartItemSelections(item, ", "));
+  const name = escapeHtml(item.name);
+  return details ? `${name} (${details})` : name;
 };
 
 const buildItemsHtml = (items) =>
@@ -43,13 +53,17 @@ export async function POST(request) {
     const orderRef = `KK-${Date.now().toString(36).toUpperCase()}`;
     const fulfillmentLine =
       customer.fulfillment === "delivery"
-        ? `Delivery to: ${customer.address || "(no address provided)"}`
+        ? `Delivery to: ${escapeHtml(customer.address || "(no address provided)")}`
         : "Pickup at 3718 S Indiana Ave, Chicago, IL";
+
+    const customerName = escapeHtml(customer.name);
+    const customerPhone = escapeHtml(customer.phone);
+    const customerEmail = escapeHtml(customer.email);
 
     const orderHtml = `
       <h2>New Order Received — ${orderRef}</h2>
-      <p><strong>${customer.name}</strong><br/>
-      ${customer.phone} · ${customer.email}</p>
+      <p><strong>${customerName}</strong><br/>
+      ${customerPhone} · ${customerEmail}</p>
       <p>${fulfillmentLine}</p>
       <table style="width:100%;border-collapse:collapse;margin-top:12px;">
         ${buildItemsHtml(items)}
@@ -60,7 +74,7 @@ export async function POST(request) {
 
     const paymentHtml = `
       <h2>Zelle Payment Confirmed (Customer-Reported) — ${orderRef}</h2>
-      <p>${customer.name} reported completing a Zelle payment of <strong>${formatMoney(subtotal)}</strong> for order ${orderRef}.</p>
+      <p>${customerName} reported completing a Zelle payment of <strong>${formatMoney(subtotal)}</strong> for order ${orderRef}.</p>
       <p style="color:#a00;">This is not independently verified — please confirm the transfer actually landed in your Zelle account before preparing the order.</p>
     `;
 
