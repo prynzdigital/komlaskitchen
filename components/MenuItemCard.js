@@ -87,8 +87,7 @@ const MenuItemCard = ({ item }) => {
                 background: "linear-gradient(135deg, var(--ink-900) 0%, var(--ink-800) 100%)",
                 color: "var(--gold-400)",
               }}
-            >
-              <i className="fas fa-utensils" style={{ fontSize: "1.8rem" }} />
+              <i className="fas fa-utensils" aria-hidden="true" style={{ fontSize: "1.8rem" }} />
               <span style={{ color: "var(--paper-faint)", fontSize: "0.78rem", fontWeight: 600 }}>Photo coming soon</span>
             </div>
           )}
