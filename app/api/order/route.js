@@ -88,7 +88,7 @@ export async function POST(request) {
     // The Resend SDK returns { data, error } rather than throwing —
     // errors must be checked explicitly or a failed send goes unnoticed.
     if (orderResult.error || paymentResult.error) {
-      console.error("Order email error:", orderResult.error || paymentResult.error);
+      console.error("Order email error:", { order: orderResult.error, payment: paymentResult.error });
       return Response.json({ error: "Failed to send order notification." }, { status: 500 });
     }
 
