@@ -349,7 +349,7 @@ const MenuItemCard = ({ item }) => {
         {item.includedProteins && (
           <div style={{ marginBottom: 12 }}>
             <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#3a3a3a", marginBottom: 6 }}>
-              Included proteins (uncheck to remove — price stays the same)
+              Included proteins (click to remove — price stays the same)
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
               {item.includedProteins.map((protein) => {
