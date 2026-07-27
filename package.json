@@ -16,6 +16,7 @@
     "react-dom": "^18",
     "react-nice-select": "^1.0.6",
     "react-player": "^2.16.0",
+    "resend": "^6.17.2",
     "swiper": "^11.1.14",
     "wowjs": "^1.1.3"
   }

@@ -2,6 +2,7 @@ import "./globals.css";
 import 'rc-slider/assets/index.css';
 
 import Preloader from "@/layouts/Preloader";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata = {
   metadataBase: new URL("https://komlas-kitchen.com"),
@@ -53,6 +54,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* Fraunces (display/headings) + Plus Jakarta Sans (body/UI) */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
         {/* Served as static files so relative ../fonts/ paths resolve correctly */}
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/assets/css/font-awesome.css" />
@@ -107,7 +115,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Preloader />
-        {children}
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );

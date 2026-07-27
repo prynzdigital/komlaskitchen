@@ -1,6 +1,7 @@
 "use client";
 
 import PageBanner from "@/components/PageBanner";
+import MenuItemCard from "@/components/MenuItemCard";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import Link from "next/link";
 import { useState } from "react";
@@ -23,17 +24,17 @@ const MenuPage = () => {
         <div className="container">
           <div className="section-title text-center">
             <span className="wow fadeInUp">Authentic African Cuisine</span>
-            <h2 className="wow fadeInUp" data-wow-delay=".3s">
+            <h2 className="wow fadeInUp" style={{ color: "white" }} data-wow-delay=".3s">
               Explore Our <span>Full Menu</span>
             </h2>
             <p
               className="wow fadeInUp"
               data-wow-delay=".5s"
-              style={{ maxWidth: 550, margin: "1rem auto 0", color: "#666" }}
+              style={{ maxWidth: 550, margin: "1rem auto 0", color: "var(--paper-dim)" }}
             >
               Every dish is prepared fresh using traditional recipes and quality
               ingredients. Call us at{" "}
-              <a href="tel:3122878155" style={{ color: "#e8272a", fontWeight: 600 }}>
+              <a href="tel:3122878155" style={{ color: "var(--red-500)", fontWeight: 600 }}>
                 312-287-8155
               </a>{" "}
               to place your order.
@@ -49,8 +50,8 @@ const MenuPage = () => {
               onClick={() => setActiveCategory("all")}
               className={`theme-btn ${activeCategory === "all" ? "" : "bg-transparent"}`}
               style={{
-                border: "2px solid #e8272a",
-                color: activeCategory === "all" ? "#fff" : "#e8272a",
+                border: "2px solid var(--red-500)",
+                color: activeCategory === "all" ? "#fff" : "var(--red-500)",
                 padding: "8px 20px",
                 fontSize: "0.9rem",
               }}
@@ -63,8 +64,8 @@ const MenuPage = () => {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`theme-btn ${activeCategory === cat.id ? "" : "bg-transparent"}`}
                 style={{
-                  border: "2px solid #e8272a",
-                  color: activeCategory === cat.id ? "#fff" : "#e8272a",
+                  border: "2px solid var(--red-500)",
+                  color: activeCategory === cat.id ? "#fff" : "var(--red-500)",
                   padding: "8px 20px",
                   fontSize: "0.9rem",
                 }}
@@ -82,87 +83,7 @@ const MenuPage = () => {
                 className="col-xl-4 col-lg-6 col-md-6 wow fadeInUp"
                 data-wow-delay={`${0.2 + (i % 3) * 0.15}s`}
               >
-                <div
-                  style={{
-                    background: "#fff",
-                    borderRadius: 12,
-                    overflow: "hidden",
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-4px)";
-                    e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.14)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)";
-                  }}
-                >
-                  <div style={{ position: "relative", height: 200, overflow: "hidden" }}>
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      loading="lazy"
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                    {item.popular && (
-                      <span
-                        style={{
-                          position: "absolute",
-                          top: 10,
-                          left: 10,
-                          background: "#e8272a",
-                          color: "#fff",
-                          padding: "3px 10px",
-                          borderRadius: 20,
-                          fontSize: "0.72rem",
-                          fontWeight: 700,
-                          textTransform: "uppercase",
-                          letterSpacing: 0.5,
-                        }}
-                      >
-                        Popular
-                      </span>
-                    )}
-                    <span
-                      style={{
-                        position: "absolute",
-                        top: 10,
-                        right: 10,
-                        background: "rgba(0,0,0,0.65)",
-                        color: "#f5a623",
-                        padding: "3px 12px",
-                        borderRadius: 20,
-                        fontWeight: 700,
-                        fontSize: "0.9rem",
-                      }}
-                    >
-                      {item.price}
-                    </span>
-                  </div>
-                  <div style={{ padding: "1.25rem", flex: 1, display: "flex", flexDirection: "column" }}>
-                    <h4 style={{ fontWeight: 700, marginBottom: "0.5rem" }}>{item.name}</h4>
-                    <p style={{ color: "#666", fontSize: "0.88rem", lineHeight: 1.6, flex: 1 }}>
-                      {item.description}
-                    </p>
-                    <a
-                      href="tel:3122878155"
-                      className="theme-btn mt-3"
-                      style={{ textAlign: "center", display: "block" }}
-                    >
-                      <span className="button-content-wrapper d-flex align-items-center justify-content-center">
-                        <span className="button-icon">
-                          <i className="fas fa-phone" />
-                        </span>
-                        <span className="button-text">Call to Order</span>
-                      </span>
-                    </a>
-                  </div>
-                </div>
+                <MenuItemCard item={item} />
               </div>
             ))}
           </div>
@@ -184,7 +105,7 @@ const MenuPage = () => {
             <div className="col-lg-7">
               <div className="booking-content">
                 <div className="section-title">
-                  <span className="wow fadeInUp" style={{ color: "#f5a623" }}>
+                  <span className="wow fadeInUp" style={{ color: "var(--gold-400)" }}>
                     Ready to Order?
                   </span>
                   <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">
@@ -203,7 +124,7 @@ const MenuPage = () => {
                     <i className="fas fa-phone" />
                   </div>
                   <div className="content">
-                    <h5 style={{ color: "#f5a623" }}>Call to Order</h5>
+                    <h5 style={{ color: "var(--gold-400)" }}>Call to Order</h5>
                     <h3>
                       <a href="tel:3122878155" style={{ color: "#fff" }}>
                         312-287-8155
@@ -219,7 +140,7 @@ const MenuPage = () => {
                 <div style={{ color: "#fff", opacity: 0.9 }}>
                   <div className="d-flex justify-content-between mb-2">
                     <span>Monday – Sunday</span>
-                    <span style={{ color: "#f5a623", fontWeight: 600 }}>Open</span>
+                    <span style={{ color: "var(--gold-400)", fontWeight: 600 }}>Open</span>
                   </div>
                   <div className="d-flex justify-content-between mb-3">
                     <span>Hours</span>
@@ -227,7 +148,7 @@ const MenuPage = () => {
                   </div>
                   <hr style={{ borderColor: "rgba(255,255,255,0.2)" }} />
                   <div className="d-flex align-items-start gap-2 mt-3" style={{ fontSize: "0.9rem" }}>
-                    <i className="fas fa-map-marker-alt mt-1" style={{ color: "#f5a623" }} />
+                    <i className="fas fa-map-marker-alt mt-1" style={{ color: "var(--gold-400)" }} />
                     <span>3718 S Indiana Ave, Chicago, IL</span>
                   </div>
                 </div>
