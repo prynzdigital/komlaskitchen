@@ -5,10 +5,10 @@
    ══════════════════════════════════════════════════════════════ */
 :root {
   /* Midnight — cool near-black neutral scale, H 258 */
-  --ink-950: oklch(0.12 0.012 258); /* page background */
-  --ink-900: oklch(0.16 0.014 258); /* header / ticker / sticky surfaces */
-  --ink-800: oklch(0.21 0.016 258); /* cards / panels */
-  --ink-700: oklch(0.27 0.018 258); /* raised / hover surfaces */
+  --ink-950: oklch(0.17 0.014 258); /* page background */
+  --ink-900: oklch(0.21 0.016 258); /* header / ticker / sticky surfaces */
+  --ink-800: oklch(0.26 0.018 258); /* cards / panels */
+  --ink-700: oklch(0.32 0.02 258); /* raised / hover surfaces */
   --ink-line: oklch(1 0 0 / 0.08); /* hairline border-as-shadow (dark) */
   --ink-line-hover: oklch(1 0 0 / 0.13);
   --paper: oklch(0.97 0.004 258); /* primary text on dark */
