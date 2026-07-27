@@ -76,6 +76,14 @@ html body h6 {
   font-family: var(--font-display);
   line-height: 1.1;
   letter-spacing: -0.015em;
+  /* main.css's own `h1..h6 { color: var(--header) }` (near-black) was the
+     single root cause behind every "invisible heading" bug across the site
+     (testimonials, section titles, card titles) — nearly all page
+     backgrounds are dark now, so headings default light here. Any heading
+     that legitimately sits on a light/white surface (e.g. .contact-info-items
+     cards) gets its own higher-specificity override below, scoped to that
+     surface only. */
+  color: var(--paper);
 }
 html body p {
   line-height: 1.6;
@@ -97,28 +105,44 @@ html body p {
   );
 }
 
-/* ── Section headings/testimonials — main.css never sets a color on plain
-   h2/h3/h4 (only the eyebrow <span> and accent words get one), so they
-   default to browser-initial black. Invisible on light "section-bg"
-   sections; unreadable on dark ones. ── */
-.section-title h2,
-.testimonial-content h3,
-.testimonial-content .client-info h4 {
-  color: var(--paper);
-}
+/* ── Headings on light surfaces — exceptions to the sitewide light-heading
+   default above, for the few spots where a heading sits on its own light
+   card rather than the dark page background. ── */
 
-/* ── "Our Values" card titles — same missing-color bug as above, but only
-   half-visible: the default card sits directly on the dark section
-   background (no card background of its own until .active/:hover apply
-   the gold fill), so black text is invisible there while looking fine on
-   the gold state it was written for. Light by default, dark on the gold
-   surface. ── */
-.food-processing-wrapper .food-processing-items .food-processing-content h3 {
-  color: var(--paper);
-}
+/* "Our Values" cards: transparent/dark by default (inherits light from the
+   sitewide rule, correct), but .active/:hover fill the card with gold —
+   needs dark text there instead. */
 .food-processing-wrapper .food-processing-items.active .food-processing-content h3,
 .food-processing-wrapper .food-processing-items:hover .food-processing-content h3 {
   color: var(--ink-950);
+}
+
+/* Contact page info cards: white by default, red on .active/:hover
+   (main.css already whites the text for that state — see .contact-info-items
+   rules — this only needs to restore dark text for the default white card). */
+.contact-info-items .content h3,
+.contact-info-items .content p {
+  color: var(--ink-950);
+}
+.contact-info-items:hover .content p,
+.contact-info-items.active .content p {
+  color: var(--paper);
+}
+
+/* Eyebrow labels + inline accent words (.section-title span, and the same
+   pattern reused standalone) use --theme2, which is deliberately a dark
+   "hover fill" red for buttons — too dark to read as text on our near-black
+   page background. Brighter accent red for text specifically.
+   `html body` bump: main.css declares the same selector at equal
+   specificity and loads later, so it wins the tie without this. */
+html body .section-title span {
+  color: var(--red-500);
+}
+
+/* "Our Story" icon items (About page): explicit dark text hardcoded for
+   what was originally a light section — wrong now that it's dark. */
+.about-wrapper .about-content .icon-area .icon-items .content p {
+  color: var(--paper-dim);
 }
 
 /* ── "Our Values" number badge overlapping the card text below it —

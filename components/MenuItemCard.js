@@ -385,18 +385,18 @@ const MenuItemCard = ({ item }) => {
                 type="button"
                 aria-label="Decrease quantity"
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                style={{ width: 36, height: 36, background: "none", border: "none", cursor: "pointer", fontSize: "1rem" }}
+                style={{ width: 36, height: 36, background: "none", border: "none", cursor: "pointer", fontSize: "1rem", color: "#1c1c1c" }}
               >
                 –
               </button>
-              <span style={{ width: 32, textAlign: "center", fontWeight: 700, fontSize: "0.9rem" }}>
+              <span style={{ width: 32, textAlign: "center", fontWeight: 700, fontSize: "0.9rem", color: "#1c1c1c" }}>
                 {quantity}
               </span>
               <button
                 type="button"
                 aria-label="Increase quantity"
                 onClick={() => setQuantity((q) => q + 1)}
-                style={{ width: 36, height: 36, background: "none", border: "none", cursor: "pointer", fontSize: "1rem" }}
+                style={{ width: 36, height: 36, background: "none", border: "none", cursor: "pointer", fontSize: "1rem", color: "#1c1c1c" }}
               >
                 +
               </button>
