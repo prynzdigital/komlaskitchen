@@ -28,7 +28,7 @@ const CATEGORY_CARDS = [
 const CATEGORY_TILES = [
   { label: "Family Trays", count: "3 trays", image: "/pictures/jollof_main_dish.jpeg" },
   { label: "Rice Dishes", count: "2 dishes", image: "/pictures/jollof.jpeg" },
-  { label: "Soups & Stews", count: "2 dishes", image: "/pictures/kontomire_stew.jpeg" },
+  { label: "Soups & Stews", count: "2 dishes", image: "/pictures/kontomire_stew.jpg" },
   { label: "Grilled Specials", count: "1 dish", image: "/pictures/dishes.jpeg" },
   { label: "Sides", count: "6 dishes", image: "/pictures/beans_and_plantain2.jpeg" },
   { label: "Beverages", count: "2 drinks", image: "/pictures/sobolo.jpg" },
@@ -81,8 +81,8 @@ const TESTIMONIALS = [
 
 const SLIDES = [
   { image: "/pictures/jollof_main_dish.jpeg", category: "🔥 Ghanaian Party Jollof",   dish: "Jollof Rice" },
-  { image: "/pictures/kontomire_stew.jpeg",   category: "🌿 Ghanaian Classic",        dish: "Kontomire Stew" },
-  { image: "/pictures/okro_soup.jpeg",        category: "🍲 Traditional Favourite",   dish: "Okro Soup" },
+  { image: "/pictures/kontomire_stew.jpg",   category: "🌿 Ghanaian Classic",        dish: "Kontomire Stew" },
+  { image: "/pictures/okro_soup.webp",        category: "🍲 Traditional Favourite",   dish: "Okro Soup" },
   { image: "/pictures/beans_and_plantain.jpeg", category: "🌱 Red Red — Ghanaian Style", dish: "Beans & Plantain" },
   { image: "/pictures/vegetable_rice.jpeg",   category: "🥗 Cooked Fresh Daily",      dish: "Vegetable Fried Rice" },
   { image: "/pictures/dishes.jpeg",           category: "🎉 Celebration Platter",     dish: "Grilled Feast" },
@@ -137,7 +137,7 @@ const WEEKLY_DISHES = [
   //   tag: "🏆 Best Seller",
   // },
   {
-    image: "/pictures/kontomire_stew.jpeg",
+    image: "/pictures/kontomire_stew.jpg",
     category: "Soups & Stews",
     name: "Kontomire Stew",
     price: "$15.99",
@@ -193,7 +193,7 @@ const HomePage = () => {
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(ellipse at center, oklch(0.12 0.012 258 / 0) 0%, var(--ink-950) 80%)",
+              "radial-gradient(ellipse at center, oklch(0.12 0.012 230 / 0) 0%, var(--ink-950) 80%)",
           }}
         />
         <div className="container" style={{ position: "relative" }}>

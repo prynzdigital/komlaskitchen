@@ -95,7 +95,7 @@ const MenuPage = () => {
         className="booking-section mt-0 fix section-padding bg-cover"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('/pictures/kontomire_stew.jpeg')",
+            "linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)), url('/pictures/kontomire_stew.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

@@ -1,12 +1,23 @@
 import { Resend } from "resend";
+import { describeCartItemSelections } from "@/lib/pricing";
 
 const FROM_ADDRESS = "Komla's Kitchen <jacob@komlaskitchen.com>";
 
 const formatMoney = (amount) => `$${Number(amount).toFixed(2)}`;
 
+const escapeHtml = (str) =>
+  String(str).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  }[c]));
+
 const describeItem = (item) => {
-  const details = [item.selectedBase, item.selectedSize, item.selectedProtein].filter(Boolean).join(", ");
-  return details ? `${item.name} (${details})` : item.name;
+  const details = escapeHtml(describeCartItemSelections(item, ", "));
+  const name = escapeHtml(item.name);
+  return details ? `${name} (${details})` : name;
 };
 
 const buildItemsHtml = (items) =>
@@ -42,13 +53,17 @@ export async function POST(request) {
     const orderRef = `KK-${Date.now().toString(36).toUpperCase()}`;
     const fulfillmentLine =
       customer.fulfillment === "delivery"
-        ? `Delivery to: ${customer.address || "(no address provided)"}`
+        ? `Delivery to: ${escapeHtml(customer.address || "(no address provided)")}`
         : "Pickup at 3718 S Indiana Ave, Chicago, IL";
+
+    const customerName = escapeHtml(customer.name);
+    const customerPhone = escapeHtml(customer.phone);
+    const customerEmail = escapeHtml(customer.email);
 
     const orderHtml = `
       <h2>New Order Received — ${orderRef}</h2>
-      <p><strong>${customer.name}</strong><br/>
-      ${customer.phone} · ${customer.email}</p>
+      <p><strong>${customerName}</strong><br/>
+      ${customerPhone} · ${customerEmail}</p>
       <p>${fulfillmentLine}</p>
       <table style="width:100%;border-collapse:collapse;margin-top:12px;">
         ${buildItemsHtml(items)}
@@ -59,24 +74,37 @@ export async function POST(request) {
 
     const paymentHtml = `
       <h2>Zelle Payment Confirmed (Customer-Reported) — ${orderRef}</h2>
-      <p>${customer.name} reported completing a Zelle payment of <strong>${formatMoney(subtotal)}</strong> for order ${orderRef}.</p>
+      <p>${customerName} reported completing a Zelle payment of <strong>${formatMoney(subtotal)}</strong> for order ${orderRef}.</p>
       <p style="color:#a00;">This is not independently verified — please confirm the transfer actually landed in your Zelle account before preparing the order.</p>
     `;
 
-    await Promise.all([
-      resend.emails.send({
-        from: FROM_ADDRESS,
-        to: notifyEmail,
-        subject: `New Order Received — ${orderRef}`,
-        html: orderHtml,
-      }),
-      resend.emails.send({
-        from: FROM_ADDRESS,
-        to: notifyEmail,
-        subject: `Zelle Payment Confirmed — ${orderRef}`,
-        html: paymentHtml,
-      }),
+    const [orderResult, paymentResult] = await Promise.all([
+      resend.emails.send(
+        {
+          from: FROM_ADDRESS,
+          to: notifyEmail,
+          subject: `New Order Received — ${orderRef}`,
+          html: orderHtml,
+        },
+        { idempotencyKey: `order-received/${orderRef}` }
+      ),
+      resend.emails.send(
+        {
+          from: FROM_ADDRESS,
+          to: notifyEmail,
+          subject: `Zelle Payment Confirmed — ${orderRef}`,
+          html: paymentHtml,
+        },
+        { idempotencyKey: `payment-confirmed/${orderRef}` }
+      ),
     ]);
+
+    // The Resend SDK returns { data, error } rather than throwing —
+    // errors must be checked explicitly or a failed send goes unnoticed.
+    if (orderResult.error || paymentResult.error) {
+      console.error("Order email error:", { order: orderResult.error, payment: paymentResult.error });
+      return Response.json({ error: "Failed to send order notification." }, { status: 500 });
+    }
 
     return Response.json({ ok: true, orderRef });
   } catch (err) {
