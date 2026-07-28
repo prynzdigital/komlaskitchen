@@ -34,8 +34,8 @@ const MenuPage = () => {
             >
               Every dish is prepared fresh using traditional recipes and quality
               ingredients. Call us at{" "}
-              <a href="tel:3122878155" style={{ color: "var(--red-500)", fontWeight: 600 }}>
-                312-287-8155
+              <a href="tel:7088080303" style={{ color: "var(--red-500)", fontWeight: 600 }}>
+                708-808-0303
               </a>{" "}
               to place your order.
             </p>
@@ -126,8 +126,8 @@ const MenuPage = () => {
                   <div className="content">
                     <h5 style={{ color: "var(--gold-400)" }}>Call to Order</h5>
                     <h3>
-                      <a href="tel:3122878155" style={{ color: "#fff" }}>
-                        312-287-8155
+                      <a href="tel:7088080303" style={{ color: "#fff" }}>
+                        708-808-0303
                       </a>
                     </h3>
                   </div>

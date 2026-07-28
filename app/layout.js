@@ -8,7 +8,7 @@ export const metadata = {
   metadataBase: new URL("https://komlas-kitchen.com"),
   title: "Komla's Kitchen | Authentic African Food Delivery in Chicago",
   description:
-    "Enjoy authentic African cuisine delivered fresh in Chicago. Discover flavorful dishes made with love at Komla's Kitchen. Order online or call 312-287-8155.",
+    "Enjoy authentic African cuisine delivered fresh in Chicago. Discover flavorful dishes made with love at Komla's Kitchen. Order online or call 708-808-0303.",
   keywords:
     "African food delivery Chicago, jollof rice Chicago, West African cuisine, authentic African restaurant Chicago, Komla's Kitchen",
   openGraph: {
@@ -80,7 +80,7 @@ export default function RootLayout({ children }) {
               description:
                 "Authentic African cuisine delivered fresh in Chicago. Traditional recipes made with quality ingredients and love.",
               url: "https://komlas-kitchen.com",
-              telephone: "+13122878155",
+              telephone: "+17088080303",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "3718 S Indiana Ave",

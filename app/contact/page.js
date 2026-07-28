@@ -5,7 +5,7 @@ import ContactForm from "./ContactForm";
 export const metadata = {
   title: "Contact Us | Komla's Kitchen - Chicago African Food",
   description:
-    "Contact Komla's Kitchen for authentic African food delivery in Chicago. Call 312-287-8155 or visit us at 3718 S Indiana Ave, Chicago, IL.",
+    "Contact Komla's Kitchen for authentic African food delivery in Chicago. Call 708-808-0303 or visit us at 3718 S Indiana Ave, Chicago, IL.",
 };
 
 const contactInfo = [
@@ -19,10 +19,10 @@ const contactInfo = [
   {
     icon: "fal fa-phone",
     title: "Phone Number",
-    lines: ["312-287-8155"],
+    lines: ["708-808-0303"],
     delay: ".5s",
     active: true,
-    link: "tel:3122878155",
+    link: "tel:7088080303",
   },
   {
     icon: "fal fa-clock",

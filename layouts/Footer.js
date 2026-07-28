@@ -75,7 +75,7 @@ const Footer = () => {
                   </div>
                   <div className="d-flex align-items-center gap-2 mb-2">
                     <i className="fas fa-phone" style={{ color: "var(--red-400)", minWidth: 14 }} />
-                    <a href="tel:3122878155" style={{ color: "var(--paper-dim)" }}>312-287-8155</a>
+                    <a href="tel:7088080303" style={{ color: "var(--paper-dim)" }}>708-808-0303</a>
                   </div>
                   <div className="d-flex align-items-start gap-2 mb-2">
                     <i className="fas fa-clock mt-1" style={{ color: "var(--red-400)", minWidth: 14 }} />

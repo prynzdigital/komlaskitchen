@@ -20,7 +20,7 @@ const TICKER_ITEMS = [
   "✦",
   "🍛 Try our legendary Party Jollof Rice",
   "✦",
-  "📞 Call us: 312-287-8155",
+  "📞 Call us: 708-808-0303",
   "✦",
   "🌿 Kontomire · Okro Soup · Red Red · Sobolo",
   "✦",
@@ -199,7 +199,7 @@ const Header = () => {
 
                 {/* Order Now CTA */}
                 <a
-                  href="tel:3122878155"
+                  href="tel:7088080303"
                   className="d-none d-md-inline-flex"
                   style={{
                     alignItems: "center",
@@ -306,13 +306,13 @@ const Header = () => {
                       <i className="far fa-phone" />
                     </div>
                     <div className="offcanvas__contact-text">
-                      <a href="tel:3122878155">312-287-8155</a>
+                      <a href="tel:7088080303">708-808-0303</a>
                     </div>
                   </li>
                 </ul>
                 <div className="header-button mt-4">
                   <a
-                    href="tel:3122878155"
+                    href="tel:7088080303"
                     className="theme-btn"
                     onClick={() => setToggle(false)}
                     style={{ display: "block", textAlign: "center" }}

@@ -252,7 +252,7 @@ const AboutPage = () => {
                     <span className="button-text">Order Now</span>
                   </span>
                 </Link>
-                <a href="tel:3122878155" className="theme-btn" style={{ background: "#fff", color: "var(--red-500)" }}>
+                <a href="tel:7088080303" className="theme-btn" style={{ background: "#fff", color: "var(--red-500)" }}>
                   <span className="button-content-wrapper d-flex align-items-center">
                     <span className="button-icon"><i className="fas fa-phone" style={{ color: "var(--red-500)" }} /></span>
                     <span className="button-text">Call Us</span>

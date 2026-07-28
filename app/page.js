@@ -45,7 +45,7 @@ const STEPS = [
     emoji: "📞",
     step: "02",
     title: "Call to Order",
-    desc: "Call us at 312-287-8155. We'll confirm your order, delivery address, and estimated time — quick and easy.",
+    desc: "Call us at 708-808-0303. We'll confirm your order, delivery address, and estimated time — quick and easy.",
   },
   {
     emoji: "🚚",
@@ -97,7 +97,7 @@ const TICKER_ITEMS = [
   "✦",
   "🍛 Try our legendary Party Jollof Rice",
   "✦",
-  "📞 Call us: 312-287-8155",
+  "📞 Call us: 708-808-0303",
   "✦",
   "🌿 Kontomire · Okro Soup · Red Red · Sobolo",
   "✦",
@@ -124,7 +124,7 @@ const FEATURES = [
   {
     icon: "fas fa-phone",
     title: "Easy Ordering",
-    desc: "Just call 312-287-8155 — we make it simple",
+    desc: "Just call 708-808-0303 — we make it simple",
   },
 ];
 
@@ -251,7 +251,7 @@ const HomePage = () => {
               style={{ gap: 12, marginBottom: 36 }}
             >
               <a
-                href="tel:3122878155"
+                href="tel:7088080303"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -496,7 +496,7 @@ const HomePage = () => {
 
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
                   <a
-                    href="tel:3122878155"
+                    href="tel:7088080303"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -698,7 +698,7 @@ const HomePage = () => {
                             {dish.price}
                           </span>
                           <a
-                            href="tel:3122878155"
+                            href="tel:7088080303"
                             style={{
                               background: "var(--red-500)",
                               color: "#fff",
@@ -1131,7 +1131,7 @@ const HomePage = () => {
                       {dish.description}
                     </p>
                     <a
-                      href="tel:3122878155"
+                      href="tel:7088080303"
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -1237,7 +1237,7 @@ const HomePage = () => {
             <div className="col-lg-4">
               <div className="d-flex flex-column gap-3 align-items-lg-end">
                 <a
-                  href="tel:3122878155"
+                  href="tel:7088080303"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -1252,7 +1252,7 @@ const HomePage = () => {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  <i className="fas fa-phone" /> 312-287-8155
+                  <i className="fas fa-phone" /> 708-808-0303
                 </a>
                 <Link
                   href="/food-menu"
@@ -1465,7 +1465,7 @@ const HomePage = () => {
             </p>
             <div className="d-flex justify-content-center gap-3 flex-wrap">
               <a
-                href="tel:3122878155"
+                href="tel:7088080303"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1480,7 +1480,7 @@ const HomePage = () => {
                   boxShadow: "0 6px 24px oklch(0.56 0.2 25 / 0.4)",
                 }}
               >
-                <i className="fas fa-phone" /> Order Now · 312-287-8155
+                <i className="fas fa-phone" /> Order Now · 708-808-0303
               </a>
               <Link
                 href="/food-menu"

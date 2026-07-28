@@ -39,7 +39,7 @@ const ContactForm = () => {
         <h4 style={{ color: "var(--green-600)" }}>Message Sent!</h4>
         <p style={{ color: "#3f3a35" }}>
           Thank you for reaching out. We&apos;ll get back to you shortly. Or call us at{" "}
-          <a href="tel:3122878155" style={{ color: "var(--red-500)" }}>312-287-8155</a>.
+          <a href="tel:7088080303" style={{ color: "var(--red-500)" }}>708-808-0303</a>.
         </p>
       </div>
     );

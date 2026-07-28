@@ -133,7 +133,7 @@ const MenuItemCard = ({ item }) => {
             {item.description}
           </p>
           <a
-            href="tel:3122878155"
+            href="tel:7088080303"
             style={{
               display: "flex",
               alignItems: "center",
@@ -428,7 +428,7 @@ const MenuItemCard = ({ item }) => {
               {added ? <><i className="fas fa-check" /> Added</> : <><i className="fas fa-cart-plus" /> Add to Cart</>}
             </button>
             <a
-              href="tel:3122878155"
+              href="tel:7088080303"
               aria-label="Call to order"
               style={{
                 display: "flex",
