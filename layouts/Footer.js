@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const linkStyle = { color: "rgba(255,255,255,0.78)", textDecoration: "none" };
-const headStyle = { color: "#fff", fontFamily: "var(--font-display)", fontSize: "1rem", letterSpacing: 2, textTransform: "uppercase" };
+const headStyle = { color: "#fff", fontFamily: "var(--font-caps)", fontSize: "1rem", letterSpacing: 2, textTransform: "uppercase" };
 const iconStyle = { color: "#c9a24d", minWidth: 14 };
 
 const Footer = () => {
@@ -16,7 +16,7 @@ const Footer = () => {
                   <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
                     <img src="/pictures/logo.png" alt="Komla's Kitchen logo" style={{ height: 56, width: "auto", objectFit: "contain" }} />
                     <div style={{ lineHeight: 1.1 }}>
-                      <div style={{ fontFamily: "var(--font-display)", color: "#fff", fontSize: "1.2rem", letterSpacing: 2 }}>KOMLA&apos;S</div>
+                      <div style={{ fontFamily: "var(--font-caps)", color: "#fff", fontSize: "1.2rem", letterSpacing: 2 }}>KOMLA&apos;S</div>
                       <div style={{ color: "#c9a24d", fontSize: "0.62rem", letterSpacing: 4, textTransform: "uppercase" }}>Ghanaian Kitchen</div>
                     </div>
                   </Link>

@@ -62,7 +62,7 @@ const Header = () => {
             <Link href="/" aria-label="Komla's Kitchen – Home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
               <img src="/pictures/logo.png" alt="Komla's Kitchen logo" style={{ height: 44, width: "auto", objectFit: "contain" }} />
               <div style={{ lineHeight: 1.1 }}>
-                <div style={{ fontFamily: "var(--font-display)", color: "#fff", fontSize: "1.15rem", fontWeight: 600, letterSpacing: 2 }}>KOMLA&apos;S</div>
+                <div style={{ fontFamily: "var(--font-caps)", color: "#fff", fontSize: "1.15rem", fontWeight: 600, letterSpacing: 2 }}>KOMLA&apos;S</div>
                 <div style={{ fontFamily: "var(--font-body)", color: "#c9a24d", fontSize: "0.62rem", letterSpacing: 4, textTransform: "uppercase" }}>Ghanaian Kitchen</div>
               </div>
             </Link>

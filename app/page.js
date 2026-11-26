@@ -1,235 +1,441 @@
 "use client";
+import "./home.css";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { menuItems } from "@/data/menu";
 import { formatCurrency } from "@/lib/pricing";
 
+const IG_URL = "https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz";
+
 const HERO_SLIDES = [
-  "/pictures/jollof_main_dish.jpeg",
-  "/pictures/dishes.jpeg",
-  "/pictures/kontomire_stew.jpg",
-  "/pictures/kelewele.jpg",
+  { src: "/pictures/opt/okro_soup_tall.webp", alt: "Okro soup with seafood" },
+  { src: "/pictures/opt/kelewele.webp", alt: "Spiced kelewele" },
+  { src: "/pictures/opt/beans_and_plantain.webp", alt: "Red red with fried plantain and eggs" },
+  { src: "/pictures/opt/chicken_bg.webp", alt: "Grilled chicken with peppers" },
 ];
 
-const SIGNATURE_IDS = [101, 5, 13, 8];
-const SIGNATURE_DISHES = SIGNATURE_IDS.map((id) => menuItems.find((m) => m.id === id)).filter(Boolean);
+const byId = (id) => menuItems.find((m) => m.id === id);
 
 const priceLabel = (item) => {
+  if (!item) return "";
   if (item.callOnly) return "Call to price";
-  if (item.sizes?.length) return `From ${formatCurrency(Math.min(...item.sizes.map((s) => s.price)))}`;
+  if (item.sizes?.length) {
+    const min = Math.min(...item.sizes.map((s) => s.price));
+    return item.sizes.length > 1 ? `from ${formatCurrency(min)}` : formatCurrency(min);
+  }
   return item.price;
 };
 
+const firstSentence = (text = "") => text.split(/(?<=[.!?])\s/)[0];
+
+const SIGNATURES = [
+  { id: 101, image: "/pictures/opt/jollof_main_dish.webp" },
+  { id: 102, image: "/pictures/opt/okro_soup_sq.webp" },
+  { id: 13, image: "/pictures/opt/kelewele.webp" },
+  { id: 103, image: "/pictures/opt/beans_and_plantain.webp" },
+]
+  .map((s) => ({ ...byId(s.id), image: s.image }))
+  .filter((s) => s.id);
+
 const CATEGORIES = [
-  { label: "Family Trays", sub: "Party-size", image: "/pictures/jollof_main_dish.jpeg", icon: "fas fa-users" },
-  { label: "Rice Dishes", sub: "Party Jollof", image: "/pictures/jollof.jpeg", icon: "fas fa-utensils" },
-  { label: "Soups & Stews", sub: "Kontomire", image: "/pictures/kontomire_stew.jpg", icon: "fas fa-mortar-pestle" },
-  { label: "Grilled", sub: "Party Platter", image: "/pictures/dishes.jpeg", icon: "fas fa-fire" },
-  { label: "Sides", sub: "Kelewele", image: "/pictures/kelewele.jpg", icon: "fas fa-leaf" },
-  { label: "Beverages", sub: "Sobolo", image: "/pictures/sobolo.jpg", icon: "fas fa-glass-whiskey" },
+  { label: "Family Trays", sub: "Party-size", image: "/pictures/opt/jollof2.webp" },
+  { label: "Rice", sub: "Jollof & fried", image: "/pictures/opt/jollof_main.webp" },
+  { label: "Soups & Stews", sub: "Okro · Kontomire", image: "/pictures/opt/okro_soup_sq.webp" },
+  { label: "Grilled", sub: "Chicken · Tilapia", image: "/pictures/opt/chicken_bg.webp" },
+  { label: "Sides", sub: "Kelewele · Banku", image: "/pictures/opt/kelewele.webp" },
+  { label: "Drinks", sub: "Sobolo", image: "/pictures/opt/sobolo.webp" },
 ];
 
-const EXPERIENCE_PHOTOS = [
-  { src: "/pictures/jollof2.jpeg", alt: "Jollof rice platter" },
-  { src: "/pictures/okro_soup.webp", alt: "Okro soup" },
-  { src: "/pictures/beans_and_plantain2.jpeg", alt: "Fried plantain" },
-  { src: "/pictures/vegetable_rice.jpeg", alt: "Vegetable fried rice" },
+const MENU_GROUPS = [
+  { title: "Trays & Mains", ids: [101, 102, 103, 5, 6, 105] },
+  { title: "Sides & Drinks", ids: [13, 10, 104, 107, 11, 12] },
 ];
 
-const WHY_CHOOSE = [
-  { icon: "fas fa-user-tie", title: "Heritage Recipes", desc: "Generations-old Ghanaian recipes, cooked with care." },
-  { icon: "fas fa-leaf", title: "Fresh Ingredients", desc: "Quality produce and spices, prepared daily." },
-  { icon: "fas fa-gem", title: "Premium Presentation", desc: "Packed beautifully and delivered hot." },
-  { icon: "fas fa-concierge-bell", title: "Personal Service", desc: "Call us and we tailor every order to you." },
+const GALLERY = [
+  "/pictures/opt/chicken_bg.webp",
+  "/pictures/opt/okro_soup_sq.webp",
+  "/pictures/opt/kelewele.webp",
+  "/pictures/opt/jollof2.webp",
+  "/pictures/opt/sobolo.webp",
+  "/pictures/opt/beans_and_plantain.webp",
 ];
 
 const TESTIMONIALS = [
-  { initials: "AM", name: "Abena M.", location: "Chicago, IL", text: "The Party Jollof is smoky, perfectly seasoned and tastes exactly like home. Best Ghanaian food in Chicago." },
-  { initials: "KB", name: "Kwame B.", location: "Oak Park, IL", text: "Kontomire stew that tastes just like my grandma's. Delivery was fast and the food arrived piping hot." },
-  { initials: "EA", name: "Esi A.", location: "Evanston, IL", text: "The Red Red, Kelewele and Sobolo are unmatched. Komla's Kitchen is a blessing to this city." },
+  { name: "Abena M.", location: "Chicago, IL", text: "The Party Jollof is smoky, perfectly seasoned and tastes exactly like home. The best Ghanaian food in Chicago." },
+  { name: "Kwame B.", location: "Oak Park, IL", text: "Kontomire stew that tastes just like my grandmother's. Delivery was quick and everything arrived piping hot." },
+  { name: "Esi A.", location: "Evanston, IL", text: "The Red Red, Kelewele and Sobolo are unmatched. Komla's Kitchen is a blessing to this city." },
 ];
+
+const MARQUEE = ["Party Jollof", "Kontomire", "Okro Soup", "Kelewele", "Red Red", "Banku", "Grilled Tilapia", "Sobolo"];
+
+const Orn = () => (
+  <div className="kk-orn" aria-hidden="true">
+    <span />✦<span />
+  </div>
+);
 
 const HomePage = () => {
   const [slide, setSlide] = useState(0);
+  const [quote, setQuote] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setSlide((i) => (i + 1) % HERO_SLIDES.length), 6000);
+    const t = setInterval(() => setSlide((i) => (i + 1) % HERO_SLIDES.length), 5500);
     return () => clearInterval(t);
   }, []);
 
+  useEffect(() => {
+    const t = setInterval(() => setQuote((i) => (i + 1) % TESTIMONIALS.length), 7000);
+    return () => clearInterval(t);
+  }, [quote]);
+
+  useEffect(() => {
+    const els = document.querySelectorAll(".kk .reveal");
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("in"));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  const tray = byId(101);
+
   return (
     <FoodKingLayout>
-      {/* ── Hero (slides under the floating header) ── */}
-      <section style={{ position: "relative", marginTop: -94, minHeight: "92vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
-        {HERO_SLIDES.map((src, i) => (
-          <img
-            key={src}
-            src={src}
-            alt=""
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: i === slide ? 1 : 0, transform: i === slide ? "scale(1.04)" : "scale(1)", transition: "opacity 1.4s ease, transform 6s ease" }}
-          />
-        ))}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(20,15,10,0.85) 0%, rgba(20,15,10,0.55) 45%, rgba(20,15,10,0.15) 100%)" }} />
-        <div className="container" style={{ position: "relative", paddingTop: 140, paddingBottom: 80 }}>
-          <div style={{ maxWidth: 620 }}>
-            <p className="lux-eyebrow" style={{ color: "#e6cc8a" }}>Authentic Ghanaian Cuisine · Chicago</p>
-            <h1 style={{ fontFamily: "var(--font-display)", color: "#fff", fontWeight: 600, fontSize: "clamp(2.2rem, 5vw, 3.9rem)", lineHeight: 1.12, letterSpacing: 1.5, textTransform: "uppercase", marginBottom: 20 }}>
-              Where Ghanaian Heritage Meets Luxury
-            </h1>
-            <p style={{ color: "rgba(255,255,255,0.82)", fontSize: "1.08rem", lineHeight: 1.7, maxWidth: 480, marginBottom: 34 }}>
-              Experience an unparalleled journey of flavour — smoky Party Jollof, rich Kontomire and spiced Kelewele, crafted fresh and delivered with elegance.
-            </p>
-            <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-              <Link href="/food-menu" className="btn-light-pill">Explore Menu</Link>
-              <a href="tel:3122878155" className="btn-gold">Call to Order</a>
-            </div>
-          </div>
-        </div>
-        <div style={{ position: "absolute", bottom: 28, left: 0, right: 0 }}>
-          <div className="container" style={{ display: "flex", gap: 8 }}>
-            {HERO_SLIDES.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setSlide(i)}
-                aria-label={`Show slide ${i + 1}`}
-                style={{ width: i === slide ? 34 : 10, height: 4, borderRadius: 4, border: "none", padding: 0, cursor: "pointer", background: i === slide ? "#c9a24d" : "rgba(255,255,255,0.45)", transition: "all 0.35s" }}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Signature Dishes ── */}
-      <section style={{ padding: "90px 0 70px" }}>
-        <div className="container">
-          <div style={{ textAlign: "center", marginBottom: 44 }}>
-            <p className="lux-eyebrow">Chef&apos;s Selection</p>
-            <h2 className="lux-title">Signature Dishes</h2>
-          </div>
-          <div className="row g-4">
-            {SIGNATURE_DISHES.map((d) => (
-              <div key={d.id} className="col-6 col-lg-3">
-                <Link href="/food-menu" style={{ textDecoration: "none" }}>
-                  <div className="lux-card" style={{ overflow: "hidden", height: "100%" }}>
-                    <div style={{ position: "relative", height: 210, margin: 8, borderRadius: 12, overflow: "hidden" }}>
-                      <img src={d.image} alt={d.alt || d.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      <span style={{ position: "absolute", top: 10, left: 10, background: "rgba(28,23,18,0.75)", color: "#fff", fontWeight: 600, fontSize: "0.82rem", padding: "4px 12px", borderRadius: 8, backdropFilter: "blur(4px)" }}>{priceLabel(d)}</span>
-                    </div>
-                    <div style={{ padding: "6px 16px 18px", position: "relative" }}>
-                      <span style={{ position: "absolute", right: 14, top: -22, width: 30, height: 30, borderRadius: "50%", background: "#fff", boxShadow: "0 2px 8px rgba(0,0,0,0.15)", display: "flex", alignItems: "center", justifyContent: "center", color: "#c9a24d", fontSize: "0.7rem" }}>★</span>
-                      <div style={{ color: "var(--gold-400)", fontSize: "0.68rem", letterSpacing: 2, textTransform: "uppercase", marginBottom: 4 }}>Chef&apos;s Signature</div>
-                      <div style={{ color: "var(--paper)", fontWeight: 500, fontSize: "1rem", lineHeight: 1.35 }}>{d.name}</div>
-                    </div>
+      <div className="kk">
+        {/* ══ Hero ══ */}
+        <section className="kk-hero">
+          <div className="container">
+            <div className="kk-hero-grid">
+              <div>
+                <p className="kk-eyebrow kk-light reveal in">Authentic Ghanaian Kitchen · Chicago</p>
+                <h1 className="reveal in" style={{ "--d": "0.1s" }}>
+                  Ghanaian heritage, <em>beautifully served.</em>
+                </h1>
+                <p className="kk-lead reveal in" style={{ "--d": "0.2s" }}>
+                  Smoky party jollof, rich okro soup and golden kelewele — family recipes, cooked fresh every day and
+                  delivered across Chicago with care.
+                </p>
+                <div className="kk-hero-ctas reveal in" style={{ "--d": "0.3s" }}>
+                  <Link href="/food-menu" className="kk-btn kk-btn-gold">
+                    Explore the Menu <i className="fas fa-arrow-right" />
+                  </Link>
+                  <a href="tel:3122878155" className="kk-btn kk-btn-ghost">
+                    <i className="fas fa-phone" style={{ transform: "none" }} /> 312-287-8155
+                  </a>
+                </div>
+                <div className="kk-hero-stats reveal in" style={{ "--d": "0.4s" }}>
+                  <div>
+                    <strong>Family</strong>
+                    <span>Heritage recipes</span>
                   </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Curated Menu Categories ── */}
-      <section style={{ padding: "40px 0 90px" }}>
-        <div className="container">
-          <div style={{ textAlign: "center", marginBottom: 44 }}>
-            <p className="lux-eyebrow">Explore the Menu</p>
-            <h2 className="lux-title">Curated Menu Categories</h2>
-          </div>
-          <div className="row g-3 g-md-4">
-            {CATEGORIES.map((c) => (
-              <div key={c.label} className="col-6 col-md-4 col-lg-2">
-                <Link href="/food-menu" style={{ textDecoration: "none" }}>
-                  <div className="lux-card" style={{ padding: "12px 12px 16px", textAlign: "center", borderRadius: "50% 50% 18px 18px / 30% 30% 18px 18px" }}>
-                    <div className="cat-circle">
-                      <img src={c.image} alt={c.label} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    </div>
-                    <div className="cat-badge"><i className={c.icon} /></div>
-                    <div style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.78rem", letterSpacing: 1.5, textTransform: "uppercase", color: "var(--paper)" }}>{c.label}</div>
-                    <div style={{ color: "var(--paper-dim)", fontSize: "0.78rem" }}>{c.sub}</div>
+                  <div>
+                    <strong>Daily</strong>
+                    <span>Cooked fresh</span>
                   </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Dining Experience ── */}
-      <section style={{ padding: "90px 0", background: "linear-gradient(180deg, var(--ink-900), var(--ink-950))" }}>
-        <div className="container">
-          <div className="row g-5 align-items-start">
-            <div className="col-lg-6">
-              <h2 className="lux-title" style={{ textAlign: "center", marginBottom: 28 }}>The Komla&apos;s Experience</h2>
-              <div className="exp-grid">
-                {EXPERIENCE_PHOTOS.map((p) => (
-                  <img key={p.src} src={p.src} alt={p.alt} />
-                ))}
-              </div>
-            </div>
-
-            <div className="col-lg-6">
-              <div style={{ position: "relative", borderRadius: 18, overflow: "hidden", minHeight: 240, boxShadow: "0 14px 36px rgba(0,0,0,0.25)" }}>
-                <img src="/pictures/jollof_main.jpeg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(20,15,10,0.35), rgba(20,15,10,0.85))" }} />
-                <div style={{ position: "relative", padding: "44px 32px", textAlign: "right", display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                  <h3 style={{ fontFamily: "var(--font-display)", color: "#fff", fontSize: "clamp(1.2rem, 2.2vw, 1.6rem)", letterSpacing: 1.5, textTransform: "uppercase", lineHeight: 1.3, marginBottom: 18, maxWidth: 360 }}>
-                    Catering & Private Events Available
-                  </h3>
-                  <a href="tel:3122878155" className="btn-light-pill" style={{ padding: "10px 24px" }}>Book Your Event</a>
+                  <div>
+                    <strong>Chicago</strong>
+                    <span>Delivery & pickup</span>
+                  </div>
                 </div>
               </div>
 
-              <h3 className="lux-title" style={{ fontSize: "1.35rem", textAlign: "center", margin: "44px 0 26px" }}>Why Choose Komla&apos;s</h3>
-              <div className="row g-4">
-                {WHY_CHOOSE.map((w) => (
-                  <div key={w.title} className="col-6 col-md-3" style={{ textAlign: "center" }}>
-                    <i className={w.icon} style={{ color: "#c9a24d", fontSize: "1.7rem", marginBottom: 10, display: "block" }} />
-                    <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "var(--paper)", marginBottom: 4 }}>{w.title}</div>
-                    <div style={{ color: "var(--paper-dim)", fontSize: "0.75rem", lineHeight: 1.5 }}>{w.desc}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div style={{ marginTop: 36, borderRadius: 18, padding: "30px 24px", textAlign: "center", background: "linear-gradient(135deg, #f4e6c1, #e6cc8a 50%, #f4e6c1)", border: "1px solid rgba(201,162,77,0.6)", boxShadow: "0 12px 30px rgba(201,162,77,0.3)" }}>
-                <h3 style={{ fontFamily: "var(--font-display)", color: "var(--paper)", fontSize: "clamp(1.05rem, 2vw, 1.35rem)", letterSpacing: 1.5, textTransform: "uppercase", lineHeight: 1.35, marginBottom: 16 }}>
-                  Order Your Ghanaian Feast Tonight
-                </h3>
-                <Link href="/food-menu" style={{ display: "inline-block", background: "#1c1712", color: "#fff", padding: "11px 30px", borderRadius: 50, fontWeight: 600, fontSize: "0.8rem", letterSpacing: 1.8, textTransform: "uppercase", textDecoration: "none" }}>
-                  Order Now
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Testimonials ── */}
-      <section style={{ padding: "90px 0" }}>
-        <div className="container">
-          <div style={{ textAlign: "center", marginBottom: 44 }}>
-            <p className="lux-eyebrow">Guest Reviews</p>
-            <h2 className="lux-title">Loved Across Chicago</h2>
-          </div>
-          <div className="row g-4">
-            {TESTIMONIALS.map((t) => (
-              <div key={t.name} className="col-lg-4">
-                <div className="lux-card" style={{ padding: 30, height: "100%", display: "flex", flexDirection: "column" }}>
-                  <div style={{ color: "#c9a24d", letterSpacing: 3, marginBottom: 14 }}>★★★★★</div>
-                  <p style={{ color: "#4a3f33", fontStyle: "italic", lineHeight: 1.75, flex: 1 }}>&ldquo;{t.text}&rdquo;</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 18, paddingTop: 16, borderTop: "1px solid rgba(201,162,77,0.2)" }}>
-                    <div style={{ width: 44, height: 44, borderRadius: "50%", background: "linear-gradient(135deg, #e6cc8a, #c9a24d)", color: "#1c1712", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.85rem" }}>{t.initials}</div>
+              <div className="kk-hero-art reveal in" style={{ "--d": "0.25s" }}>
+                <div className="kk-arch-frame" />
+                <div className="kk-arch">
+                  {HERO_SLIDES.map((s, i) => (
+                    <img key={s.src} src={s.src} alt={s.alt} className={i === slide ? "on" : ""} />
+                  ))}
+                </div>
+                <div className="kk-seal" aria-hidden="true">
+                  <svg viewBox="0 0 120 120">
+                    <defs>
+                      <path id="kk-seal-path" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0" />
+                    </defs>
+                    <text fontSize="10.5" letterSpacing="2.5" fontFamily="Cinzel, serif">
+                      <textPath href="#kk-seal-path" textLength="290">
+                        AUTHENTIC ✦ GHANAIAN ✦ KITCHEN ✦ CHICAGO ✦
+                      </textPath>
+                    </text>
+                  </svg>
+                  <img src="/pictures/logo.png" alt="" />
+                </div>
+                {tray && (
+                  <Link href="/food-menu" className="kk-float">
+                    <img src="/pictures/opt/jollof_main_dish.webp" alt="" />
                     <div>
-                      <div style={{ fontWeight: 600, color: "var(--paper)" }}>{t.name}</div>
-                      <div style={{ color: "var(--paper-dim)", fontSize: "0.8rem" }}>{t.location}</div>
+                      <small>Most loved</small>
+                      <b>{tray.name}</b>
+                      <span>{priceLabel(tray)}</span>
                     </div>
-                  </div>
+                  </Link>
+                )}
+                <div className="kk-dots">
+                  {HERO_SLIDES.map((s, i) => (
+                    <button
+                      key={s.src}
+                      className={i === slide ? "on" : ""}
+                      onClick={() => setSlide(i)}
+                      aria-label={`Show ${s.alt}`}
+                    />
+                  ))}
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ Marquee ══ */}
+        <div className="kk-marquee" aria-hidden="true">
+          <div className="kk-marquee-track">
+            {[...MARQUEE, ...MARQUEE, ...MARQUEE, ...MARQUEE].map((w, i) => (
+              <span key={i}>{w}</span>
             ))}
           </div>
         </div>
-      </section>
+
+        {/* ══ Story ══ */}
+        <section className="kk-sec kk-cream">
+          <div className="container">
+            <div className="kk-story">
+              <div className="kk-collage reveal">
+                <div className="kk-collage-frame" />
+                <div className="kk-collage-main">
+                  <img src="/pictures/opt/jollof2.webp" alt="Jollof rice with chicken" />
+                </div>
+                <div className="kk-collage-sub">
+                  <img src="/pictures/opt/sobolo.webp" alt="Chilled sobolo" />
+                </div>
+                <div className="kk-pill-tag">Made with love</div>
+              </div>
+
+              <div>
+                <p className="kk-eyebrow reveal">Our Story</p>
+                <h2 className="kk-h2 reveal" style={{ "--d": "0.1s" }}>
+                  Recipes from Ghana, <em>cooked with care</em> in Chicago.
+                </h2>
+                <p className="kk-lead reveal" style={{ "--d": "0.2s" }}>
+                  Komla&apos;s Kitchen began with a simple wish: to share the food we grew up on. Every pot is slow-cooked
+                  from traditional recipes, seasoned by hand, and packed to arrive the way it left our kitchen — hot,
+                  generous and full of flavour.
+                </p>
+                <div className="kk-pillars">
+                  {[
+                    { icon: "fas fa-seedling", t: "Fresh, honest ingredients", d: "Quality produce and spices, prepared from scratch daily." },
+                    { icon: "fas fa-fire-alt", t: "Slow-cooked tradition", d: "Time-honoured techniques for deep, authentic flavour." },
+                    { icon: "fas fa-hand-holding-heart", t: "Served personally", d: "Call us and we’ll tailor every order to your table." },
+                  ].map((p, i) => (
+                    <div key={p.t} className="kk-pillar reveal" style={{ "--d": `${0.25 + i * 0.1}s` }}>
+                      <i className={p.icon} />
+                      <div>
+                        <h4>{p.t}</h4>
+                        <p>{p.d}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Link href="/about" className="kk-link reveal">
+                  Read our story <i className="fas fa-arrow-right" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ Signature dishes ══ */}
+        <section className="kk-sec kk-dark">
+          <div className="container">
+            <div className="kk-center">
+              <p className="kk-eyebrow kk-both reveal">Chef&apos;s Selection</p>
+              <h2 className="kk-h2 reveal" style={{ "--d": "0.1s" }}>
+                Signature <em>dishes</em>
+              </h2>
+              <p className="kk-lead reveal" style={{ "--d": "0.2s" }}>
+                The plates our guests return for, again and again.
+              </p>
+            </div>
+            <div className="kk-dishes">
+              {SIGNATURES.map((d, i) => (
+                <Link key={d.id} href="/food-menu" className="kk-dish reveal" style={{ "--d": `${i * 0.12}s` }}>
+                  <div className="kk-dish-img">
+                    <img src={d.image} alt={d.alt || d.name} loading="lazy" />
+                  </div>
+                  <span className="kk-dish-num">No. 0{i + 1}</span>
+                  <h3>{d.name}</h3>
+                  <p>{d.description}</p>
+                  <div className="kk-dish-foot">
+                    <b>{priceLabel(d)}</b>
+                    <span>
+                      Order <i className="fas fa-arrow-right" />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══ Categories + menu list ══ */}
+        <section className="kk-sec kk-cream-2">
+          <div className="container">
+            <div className="kk-center">
+              <p className="kk-eyebrow kk-both reveal">The Menu</p>
+              <h2 className="kk-h2 reveal" style={{ "--d": "0.1s" }}>
+                A taste of <em>home</em>
+              </h2>
+              <Orn />
+            </div>
+
+            <div className="kk-cats">
+              {CATEGORIES.map((c, i) => (
+                <Link key={c.label} href="/food-menu" className="kk-cat reveal" style={{ "--d": `${i * 0.07}s` }}>
+                  <div className="kk-cat-ring">
+                    <div>
+                      <img src={c.image} alt={c.label} loading="lazy" />
+                    </div>
+                  </div>
+                  <h5>{c.label}</h5>
+                  <small>{c.sub}</small>
+                </Link>
+              ))}
+            </div>
+
+            <div className="kk-menu-card reveal">
+              <div className="kk-menu-cols">
+                {MENU_GROUPS.map((g) => (
+                  <div key={g.title} className="kk-menu-group">
+                    <h4>{g.title}</h4>
+                    {g.ids
+                      .map(byId)
+                      .filter(Boolean)
+                      .map((item) => (
+                        <div key={item.id} className="kk-menu-item">
+                          <div className="kk-menu-row">
+                            <b>{item.name}</b>
+                            <i />
+                            <span>{priceLabel(item)}</span>
+                          </div>
+                          {item.description && <p>{firstSentence(item.description)}</p>}
+                        </div>
+                      ))}
+                  </div>
+                ))}
+              </div>
+              <div className="kk-center" style={{ marginTop: 34 }}>
+                <Link href="/food-menu" className="kk-btn kk-btn-ink">
+                  Order from the full menu <i className="fas fa-arrow-right" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ Catering ══ */}
+        <section className="kk-events">
+          <div className="kk-events-bg">
+            <img src="/pictures/opt/chicken_bg.webp" alt="" loading="lazy" />
+          </div>
+          <div className="container">
+            <div style={{ maxWidth: 620 }}>
+              <p className="kk-eyebrow kk-light reveal">Catering & Private Events</p>
+              <h2 className="kk-h2 reveal" style={{ color: "#fff", "--d": "0.1s" }}>
+                Let us cater your <em style={{ color: "#e9d39b" }}>next celebration.</em>
+              </h2>
+              <p className="kk-lead reveal" style={{ color: "rgba(255,255,255,0.72)", "--d": "0.2s" }}>
+                From intimate family dinners to naming ceremonies, birthdays and office parties — generous trays and
+                custom platters, prepared fresh and ready to share.
+              </p>
+              <div className="kk-events-sizes reveal" style={{ "--d": "0.3s" }}>
+                <div>
+                  <b>Small</b>
+                  <span>Family table</span>
+                </div>
+                <div>
+                  <b>Medium</b>
+                  <span>Gatherings</span>
+                </div>
+                <div>
+                  <b>Large</b>
+                  <span>Full celebrations</span>
+                </div>
+              </div>
+              <div className="kk-hero-ctas reveal" style={{ "--d": "0.4s" }}>
+                <a href="tel:3122878155" className="kk-btn kk-btn-gold">
+                  Plan your event <i className="fas fa-arrow-right" />
+                </a>
+                <Link href="/food-menu" className="kk-btn kk-btn-ghost">
+                  View family trays
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ Testimonials ══ */}
+        <section className="kk-sec kk-cream">
+          <div className="container kk-center">
+            <p className="kk-eyebrow kk-both reveal">Kind Words</p>
+            <div className="kk-quote reveal" style={{ "--d": "0.1s" }}>
+              <div className="kk-quote-mark">&ldquo;</div>
+              {TESTIMONIALS.map((t, i) => (
+                <figure key={t.name} className={i === quote ? "on" : ""} aria-hidden={i !== quote}>
+                  <div className="kk-stars">★★★★★</div>
+                  <blockquote>{t.text}</blockquote>
+                  <figcaption>
+                    <b>{t.name}</b> &nbsp;·&nbsp; {t.location}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="kk-quote-nav">
+              <button
+                aria-label="Previous review"
+                onClick={() => setQuote((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+              >
+                <i className="fas fa-arrow-left" />
+              </button>
+              <button aria-label="Next review" onClick={() => setQuote((i) => (i + 1) % TESTIMONIALS.length)}>
+                <i className="fas fa-arrow-right" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ Instagram ══ */}
+        <section className="kk-cream" style={{ paddingTop: 20 }}>
+          <div className="container">
+            <div className="kk-gallery-head">
+              <div>
+                <p className="kk-eyebrow reveal">Follow along</p>
+                <h2 className="kk-h2 reveal" style={{ margin: 0, "--d": "0.1s" }}>
+                  <em>@komlaskitchen</em>
+                </h2>
+              </div>
+              <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kk-link reveal">
+                Follow on Instagram <i className="fab fa-instagram" />
+              </a>
+            </div>
+          </div>
+          <div className="kk-gallery">
+            {GALLERY.map((src) => (
+              <a key={src} href={IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Komla's Kitchen on Instagram">
+                <img src={src} alt="" loading="lazy" />
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
     </FoodKingLayout>
   );
 };
