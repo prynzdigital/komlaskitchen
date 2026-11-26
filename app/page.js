@@ -8,8 +8,6 @@ import { useEffect, useRef, useState } from "react";
 import { menuCategories, menuItems } from "@/data/menu";
 import { computeUnitPrice, describeCartItemSelections, formatCurrency } from "@/lib/pricing";
 
-const TIKTOK_URL = "https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe";
-
 const byId = (id) => menuItems.find((m) => m.id === id);
 
 const CRAVINGS = [
@@ -310,51 +308,29 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* ══ Kitchen promo band ══ */}
+        {/* ══ Special offer ══ */}
         <section className="kw-sec">
           <div className="container">
-            <div className="kw-band reveal">
-              <div>
-                <span className="kw-eyebrow">From Our Kitchen</span>
+            <div className="kw-offer reveal">
+              <div className="kw-offer-photo" aria-hidden="true">
+                <img src="/pictures/opt/jollof_main_dish.webp" alt="" loading="lazy" />
+              </div>
+              <i className="fas fa-leaf kw-offer-deco" style={{ left: "44%", top: "14%", fontSize: "1.4rem", rotate: "-30deg" }} aria-hidden="true" />
+              <i className="fas fa-pepper-hot kw-offer-deco" style={{ left: "38%", bottom: "16%", fontSize: "1.1rem", rotate: "20deg" }} aria-hidden="true" />
+              <i className="fas fa-leaf kw-offer-deco" style={{ left: "6%", bottom: "-6px", fontSize: "2.2rem", rotate: "40deg", opacity: 0.25 }} aria-hidden="true" />
+
+              <div className="kw-offer-copy">
+                <img src="/pictures/logo.png" alt="" className="kw-offer-logo" />
+                <span className="kw-offer-kicker">Special Offer</span>
                 <h2>
-                  From Our Kitchen
-                  <br />
-                  To Your Table.
+                  <span>Free</span> Delivery
                 </h2>
-                <p>
-                  Every pot is slow-cooked from traditional Ghanaian recipes, seasoned by hand and packed hot — so it
-                  arrives the way it left our kitchen.
-                </p>
-                <Link href="/about" className="kw-btn kw-btn-fill">
-                  Learn More <i className="fas fa-arrow-right" />
+                <p className="kw-offer-sub">On Orders Over $50</p>
+                <p className="kw-offer-note">Across Chicago · order by 3 PM for same-day delivery</p>
+                <Link href="/food-menu" className="kw-offer-btn">
+                  Order Now <i className="fas fa-arrow-right" />
                 </Link>
               </div>
-
-              <div className="kw-stats">
-                {[
-                  { icon: "fas fa-home", b: "Family", s: "Heritage recipes" },
-                  { icon: "fas fa-fire-alt", b: "Daily", s: "Cooked fresh" },
-                  { icon: "fas fa-map-marker-alt", b: "Chicago", s: "Same-day delivery" },
-                ].map((st) => (
-                  <div key={st.b} className="kw-stat">
-                    <i className={st.icon} />
-                    <div>
-                      <b>{st.b}</b>
-                      <span>{st.s}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="kw-video" aria-label="Watch us cook on TikTok">
-                <img src="/pictures/opt/chicken_bg.webp" alt="" loading="lazy" />
-                <span className="kw-play">
-                  <i className="fas fa-play" />
-                </span>
-                <small>
-                  <i className="fab fa-tiktok" /> Watch us cook on TikTok
-                </small>
-              </a>
             </div>
           </div>
         </section>
