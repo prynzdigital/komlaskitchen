@@ -3,8 +3,8 @@ import "./home.css";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import InstallAppButton from "@/components/InstallAppButton";
 import Link from "next/link";
-import { useEffect } from "react";
-import { menuCategories, menuItems } from "@/data/menu";
+import { useEffect, useRef, useState } from "react";
+import { menuItems } from "@/data/menu";
 import { formatCurrency } from "@/lib/pricing";
 
 const TIKTOK_URL = "https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe";
@@ -20,17 +20,57 @@ const minPrice = (item) => {
   return item.price;
 };
 
-const CATEGORY_LOOK = {
-  trays: { icon: "fas fa-users", image: "/pictures/opt/jollof2.webp" },
-  soups: { icon: "fas fa-mortar-pestle", image: "/pictures/opt/okro_soup_sq.webp" },
-  grilled: { icon: "fas fa-fire", image: "/pictures/opt/chicken_bg.webp" },
-  sides: { icon: "fas fa-leaf", image: "/pictures/opt/kelewele.webp" },
-  beverages: { icon: "fas fa-glass-whiskey", image: "/pictures/opt/sobolo.webp" },
-};
+const CRAVINGS = [
+  { label: "Family Trays", image: "/pictures/opt/jollof2.webp" },
+  { label: "Jollof Rice", image: "/pictures/opt/jollof_main_dish.webp" },
+  { label: "Okro Soup", image: "/pictures/opt/okro_soup_sq.webp" },
+  { label: "Kontomire", image: "/pictures/opt/kontomire_stew2.webp" },
+  { label: "Red Red", image: "/pictures/opt/beans_and_plantain.webp" },
+  { label: "Kelewele", image: "/pictures/opt/kelewele.webp" },
+  { label: "Grilled", image: "/pictures/opt/chicken_bg.webp" },
+  { label: "Plantain", image: "/pictures/beans_and_plantain2.jpeg" },
+  { label: "Sobolo", image: "/pictures/opt/sobolo.webp" },
+];
 
-const CATEGORIES = menuCategories
-  .map((c) => ({ ...c, ...CATEGORY_LOOK[c.id], count: menuItems.filter((m) => m.category === c.id).length }))
-  .filter((c) => c.count > 0 && c.image);
+const CategoryStrip = () => {
+  const track = useRef(null);
+  const [edge, setEdge] = useState({ start: true, end: false });
+
+  const sync = () => {
+    const el = track.current;
+    if (!el) return;
+    setEdge({ start: el.scrollLeft < 12, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 12 });
+  };
+
+  useEffect(() => {
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, []);
+
+  const nudge = (dir) => track.current?.scrollBy({ left: dir * track.current.clientWidth * 0.8, behavior: "smooth" });
+
+  return (
+    <div className="kw-strip reveal">
+      <button type="button" className="kw-arrow kw-arrow-l" aria-label="Scroll categories left" onClick={() => nudge(-1)} disabled={edge.start}>
+        <i className="fas fa-chevron-left" />
+      </button>
+      <div className="kw-strip-track" ref={track} onScroll={sync}>
+        {CRAVINGS.map((c) => (
+          <Link key={c.label} href="/food-menu" className="kw-circ">
+            <span className="kw-circ-img">
+              <img src={c.image} alt="" loading="lazy" />
+            </span>
+            <span className="kw-circ-label">{c.label}</span>
+          </Link>
+        ))}
+      </div>
+      <button type="button" className="kw-arrow kw-arrow-r" aria-label="Scroll categories right" onClick={() => nudge(1)} disabled={edge.end}>
+        <i className="fas fa-chevron-right" />
+      </button>
+    </div>
+  );
+};
 
 const FAVOURITES = [
   { id: 101, image: "/pictures/opt/jollof_main_dish.webp", badge: "Best Seller" },
@@ -183,50 +223,19 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* ══ Shop by category ══ */}
+        {/* ══ Category carousel ══ */}
         <section className="kw-sec">
           <div className="container">
             <div className="kw-head reveal">
               <div>
-                <h2>Shop by Category</h2>
-                <p>Family trays, rich soups, sides and drinks — all made fresh.</p>
+                <h2>What are you craving?</h2>
+                <p>Tap a dish to start your order.</p>
               </div>
               <Link href="/food-menu" className="kw-more">
                 View Full Menu <i className="fas fa-arrow-right" />
               </Link>
             </div>
-            <div className="kw-cats">
-              {CATEGORIES.map((c, i) => (
-                <Link key={c.id} href="/food-menu" className="kw-cat reveal" style={{ "--d": `${i * 0.06}s` }}>
-                  <span className="kw-cat-icon">
-                    <i className={c.icon} />
-                  </span>
-                  <div className="kw-cat-img">
-                    <img src={c.image} alt={c.label} loading="lazy" />
-                  </div>
-                  <b>{c.label}</b>
-                  <div className="kw-cat-foot">
-                    <span>
-                      {c.count} {c.count === 1 ? "item" : "items"}
-                    </span>
-                    <i className="fas fa-arrow-right" />
-                  </div>
-                </Link>
-              ))}
-              <a href="tel:3122878155" className="kw-cat reveal" style={{ "--d": `${CATEGORIES.length * 0.06}s` }}>
-                <span className="kw-cat-icon">
-                  <i className="fas fa-concierge-bell" />
-                </span>
-                <div className="kw-cat-img">
-                  <img src="/pictures/opt/jollof_main.webp" alt="Catering" loading="lazy" />
-                </div>
-                <b>Catering</b>
-                <div className="kw-cat-foot">
-                  <span>Call to plan</span>
-                  <i className="fas fa-arrow-right" />
-                </div>
-              </a>
-            </div>
+            <CategoryStrip />
           </div>
         </section>
 
