@@ -29,7 +29,7 @@ const VALUES = [
 
 const MOSAIC = [
   { src: "/pictures/opt/jollof2.webp", cap: "Party Jollof", cls: "tall" },
-  { src: "/pictures/opt/okro_soup_sq.webp", cap: "Okro Soup", cls: "" },
+  { src: "/pictures/opt/okro_soup_sq.webp", cap: "Okra Soup", cls: "" },
   { src: "/pictures/opt/kelewele.webp", cap: "Kelewele", cls: "" },
   { src: "/pictures/opt/sobolo.webp", cap: "Sobolo", cls: "tall" },
   { src: "/pictures/opt/kontomire_stew2.webp", cap: "Kontomire with Rice", cls: "wide" },
@@ -75,7 +75,7 @@ const AboutPage = () => {
                 <img src="/pictures/opt/jollof2.webp" alt="Party jollof with chicken" loading="lazy" />
               </div>
               <div className="lx-story-side">
-                <img src="/pictures/opt/okro_soup_sq.webp" alt="Okro soup" loading="lazy" />
+                <img src="/pictures/opt/okro_soup_sq.webp" alt="Okra soup" loading="lazy" />
               </div>
               <div className="lx-quote-card lx-glass">
                 <p>&ldquo;Every pot tells a story of home.&rdquo;</p>
@@ -237,7 +237,7 @@ const AboutPage = () => {
             <Link href="/food-menu" className="kw-btn kw-btn-fill">
               <i className="fas fa-motorcycle" /> Order Now
             </Link>
-            <a href="tel:3122878155" className="kw-btn kw-btn-glass">
+            <a href="tel:+17736902745" className="kw-btn kw-btn-glass">
               <i className="fas fa-phone" /> Call Us
             </a>
           </div>

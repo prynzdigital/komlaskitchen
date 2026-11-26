@@ -1,5 +1,5 @@
 // Offline fallback only: pages, prices and the cart always come from the network.
-const CACHE = "kk-offline-v1";
+const CACHE = "kk-offline-v2";
 const OFFLINE_URL = "/offline.html";
 
 self.addEventListener("install", (event) => {

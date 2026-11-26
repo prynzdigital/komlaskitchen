@@ -5,7 +5,7 @@ import ContactForm from "./ContactForm";
 export const metadata = {
   title: "Contact Us | Komla's Kitchen - Chicago African Food",
   description:
-    "Contact Komla's Kitchen for authentic African food delivery in Chicago. Call 312-287-8155 or visit us at 3718 S Indiana Ave, Chicago, IL.",
+    "Contact Komla's Kitchen for authentic African food delivery in Chicago. Call +1 (773) 690-2745 or visit us at 3718 S Indiana Ave, Chicago, IL.",
 };
 
 const ADDRESS = "3718 S Indiana Ave, Chicago, IL 60653";
@@ -14,7 +14,7 @@ const DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
 
 const contactInfo = [
   { icon: "fas fa-map-marker-alt", title: "Visit Us", lines: ["3718 S Indiana Ave", "Chicago, IL"], href: DIRECTIONS, external: true },
-  { icon: "fas fa-phone", title: "Call to Order", lines: ["312-287-8155"], href: "tel:3122878155", featured: true },
+  { icon: "fas fa-phone", title: "Call to Order", lines: ["+1 (773) 690-2745"], href: "tel:+17736902745", featured: true },
   { icon: "fas fa-clock", title: "Opening Hours", lines: ["Monday – Sunday", "11:00 AM – 9:00 PM"] },
 ];
 
@@ -30,9 +30,9 @@ const ContactPage = () => {
         }
         subtitle="Planning a celebration, placing a large order or simply craving home? We'd love to hear from you."
         images={["/pictures/opt/kontomire_stew2.webp", "/pictures/opt/kelewele.webp", "/pictures/opt/sobolo.webp"]}
-        chip={{ icon: "fas fa-phone", title: "312-287-8155", sub: "Open daily, 11 AM – 9 PM" }}
+        chip={{ icon: "fas fa-phone", title: "+1 (773) 690-2745", sub: "Open daily, 11 AM – 9 PM" }}
       >
-        <a href="tel:3122878155" className="kw-btn kw-btn-fill">
+        <a href="tel:+17736902745" className="kw-btn kw-btn-fill">
           <i className="fas fa-phone" /> Call Now
         </a>
         <a href="#message" className="kw-btn kw-btn-glass">

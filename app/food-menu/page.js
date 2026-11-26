@@ -2,6 +2,7 @@
 
 import PageBanner from "@/components/PageBanner";
 import MenuItemCard from "@/components/MenuItemCard";
+import WeeklySchedule from "@/components/WeeklySchedule";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import Link from "next/link";
 import { useState } from "react";
@@ -26,15 +27,21 @@ const MenuPage = () => {
         }
         subtitle="Family trays, slow-simmered soups and golden sides — cooked fresh every day and delivered across Chicago."
         images={["/pictures/opt/jollof2.webp", "/pictures/opt/okro_soup_sq.webp", "/pictures/opt/kelewele.webp"]}
-        chip={{ icon: "fas fa-fire", title: "Cooked fresh daily", sub: "Order by 3 PM for same-day" }}
+        chip={{ icon: "fas fa-fire", title: "Cooked fresh daily", sub: "Deliveries every afternoon" }}
       >
         <a href="#menu" className="kw-btn kw-btn-fill">
           Start Your Order <i className="fas fa-arrow-down" />
         </a>
-        <a href="tel:3122878155" className="kw-btn kw-btn-glass">
-          <i className="fas fa-phone" /> 312-287-8155
+        <a href="tel:+17736902745" className="kw-btn kw-btn-glass">
+          <i className="fas fa-phone" /> +1 (773) 690-2745
         </a>
       </PageBanner>
+
+      <section className="lx-sec" style={{ paddingBottom: 0 }}>
+        <div className="container">
+          <WeeklySchedule />
+        </div>
+      </section>
 
       <section id="menu" className="lx-sec" style={{ scrollMarginTop: 90 }}>
         <div className="container">
@@ -45,8 +52,8 @@ const MenuPage = () => {
             </h2>
             <p className="lx-lead">
               Pick a size, choose your protein and add to cart — or call{" "}
-              <a href="tel:3122878155" style={{ color: "var(--gilt-300)", fontWeight: 600, whiteSpace: "nowrap" }}>
-                312-287-8155
+              <a href="tel:+17736902745" style={{ color: "var(--gilt-300)", fontWeight: 600, whiteSpace: "nowrap" }}>
+                +1 (773) 690-2745
               </a>{" "}
               and we&apos;ll take care of everything.
             </p>
@@ -94,7 +101,7 @@ const MenuPage = () => {
                 be shared. Tell us your guest count and we&apos;ll plan the perfect spread.
               </p>
               <div className="lx-actions">
-                <a href="tel:3122878155" className="kw-btn kw-btn-fill">
+                <a href="tel:+17736902745" className="kw-btn kw-btn-fill">
                   <i className="fas fa-phone" /> Plan Your Order
                 </a>
                 <Link href="/contact" className="kw-btn kw-btn-glass">
@@ -113,8 +120,12 @@ const MenuPage = () => {
                 <b>11:00 AM – 9:00 PM</b>
               </div>
               <div className="lx-hours-row">
-                <span>Same-day delivery</span>
-                <b>Order by 3 PM</b>
+                <span>Wed · Sat · Sun delivery</span>
+                <b>1 PM &amp; 5 PM</b>
+              </div>
+              <div className="lx-hours-row">
+                <span>Mon · Tue · Thu · Fri delivery</span>
+                <b>12 – 5 PM</b>
               </div>
               <div className="lx-hours-row" style={{ borderBottom: 0 }}>
                 <span>

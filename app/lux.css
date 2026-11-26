@@ -1170,3 +1170,196 @@ html body .preloader p {
   letter-spacing: 0.5em;
   color: var(--gilt-400);
 }
+
+/* ══ Weekly schedule ══ */
+.ws {
+  position: relative;
+  padding: 44px;
+  border-radius: 28px;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(45% 70% at 90% 10%, rgba(155, 31, 69, 0.5), transparent 70%),
+    radial-gradient(40% 60% at 0% 100%, rgba(201, 154, 60, 0.14), transparent 70%),
+    linear-gradient(150deg, var(--wine-800), var(--wine-950) 70%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 40px 70px -40px rgba(36, 7, 17, 0.8);
+}
+.ws-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.ws-kicker {
+  display: inline-block;
+  font-family: var(--font-caps);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gilt-300);
+  margin-bottom: 8px;
+}
+html body .ws-head h2 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: #fff;
+  margin: 0 0 6px;
+}
+.ws-head p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.68);
+}
+.ws-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 18px;
+}
+.ws-card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border-radius: 22px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.ws-card.ws-today {
+  border-color: rgba(224, 187, 94, 0.6);
+  box-shadow: 0 0 46px -14px rgba(224, 187, 94, 0.35);
+}
+.ws-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+html body .ws-card h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.8rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #fff;
+  margin: 0;
+}
+.ws-badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--wine-950);
+  background: linear-gradient(135deg, var(--gilt-300), var(--gilt-400));
+}
+.ws-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.ws-days span {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gilt-300);
+  border: 1px solid rgba(224, 187, 94, 0.4);
+  background: rgba(201, 154, 60, 0.08);
+}
+.ws-days span.on {
+  color: var(--wine-950);
+  background: linear-gradient(135deg, var(--gilt-300), var(--gilt-400));
+  border-color: transparent;
+}
+.ws-dishes {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.ws-dishes li {
+  position: relative;
+  padding-left: 22px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.9);
+}
+.ws-dishes li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-size: 0.7rem;
+  color: var(--gilt-400);
+}
+.ws-delivery {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ws-delivery > i {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--gilt-300);
+  background: rgba(201, 154, 60, 0.12);
+  border: 1px solid rgba(224, 187, 94, 0.3);
+}
+.ws-delivery p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+.ws-delivery b {
+  color: #fff;
+  font-weight: 700;
+  margin-left: 4px;
+}
+.ws-note {
+  margin: 20px 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.ws-note a {
+  color: var(--gilt-300);
+  font-weight: 600;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .ws-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 575px) {
+  .ws {
+    padding: 28px 20px;
+    border-radius: 22px;
+  }
+  .ws-card {
+    padding: 22px 18px;
+  }
+}

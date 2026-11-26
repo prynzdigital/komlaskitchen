@@ -3,6 +3,7 @@ import "./home.css";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import InstallAppButton from "@/components/InstallAppButton";
 import { useCart } from "@/context/CartContext";
+import WeeklySchedule from "@/components/WeeklySchedule";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { menuCategories, menuItems } from "@/data/menu";
@@ -13,7 +14,7 @@ const byId = (id) => menuItems.find((m) => m.id === id);
 const CRAVINGS = [
   { label: "Family Trays", image: "/pictures/opt/jollof2.webp" },
   { label: "Jollof Rice", image: "/pictures/opt/jollof_main_dish.webp" },
-  { label: "Okro Soup", image: "/pictures/opt/okro_soup_sq.webp" },
+  { label: "Okra Soup", image: "/pictures/opt/okro_soup_sq.webp" },
   { label: "Kontomire", image: "/pictures/opt/kontomire_stew2.webp" },
   { label: "Red Red", image: "/pictures/opt/beans_and_plantain.webp" },
   { label: "Kelewele", image: "/pictures/opt/kelewele.webp" },
@@ -245,7 +246,7 @@ const HomePage = () => {
                   <span>Delivered</span> Fresh.
                 </h1>
                 <p className="kw-hero-lead kk-fade" style={{ "--d": "0.35s" }}>
-                  Party jollof, okro soup, kelewele and more — traditional recipes cooked fresh every day and delivered to
+                  Party jollof, okra soup, kelewele and more — traditional recipes cooked fresh every day and delivered to
                   your door across Chicago.
                 </p>
                 <div className="kw-ctas kk-fade" style={{ "--d": "0.5s" }}>
@@ -285,7 +286,7 @@ const HomePage = () => {
                 <div className="kw-glass">
                   <img src="/pictures/opt/sobolo.webp" alt="" />
                 </div>
-                <div className="kw-plate kw-plate-okro">
+                <div className="kw-plate kw-plate-okra">
                   <img src="/pictures/opt/okro_soup_sq.webp" alt="" />
                 </div>
                 <div className="kw-plate kw-plate-main">
@@ -304,8 +305,8 @@ const HomePage = () => {
                 <div className="kw-chip kw-chip-b">
                   <i className="fas fa-motorcycle" />
                   <div>
-                    Same-day delivery
-                    <small>Order by 3 PM</small>
+                    Delivered daily
+                    <small>Afternoon slots, Chicago</small>
                   </div>
                 </div>
                 <i className="fas fa-pepper-hot kw-spark" style={{ left: "50%", top: "-1%", fontSize: "1.2rem", animationDelay: "-2s" }} />
@@ -317,7 +318,7 @@ const HomePage = () => {
             <div className="kw-features kk-fade" style={{ "--d": "0.8s" }}>
               {[
                 { icon: "fas fa-seedling", t: "Authentic Recipes", d: "Traditional Ghanaian cooking" },
-                { icon: "fas fa-shipping-fast", t: "Same-Day Delivery", d: "Order by 3 PM, across Chicago" },
+                { icon: "fas fa-shipping-fast", t: "Daily Delivery", d: "Afternoon slots across Chicago" },
                 { icon: "fas fa-shield-alt", t: "Easy Payment", d: "Simple, secure checkout" },
                 { icon: "fas fa-fire-alt", t: "Cooked Fresh", d: "Prepared daily, packed hot" },
               ].map((f) => (
@@ -369,6 +370,13 @@ const HomePage = () => {
           </div>
         </section>
 
+        {/* ══ Weekly schedule ══ */}
+        <section className="kw-sec">
+          <div className="container">
+            <WeeklySchedule className="reveal" />
+          </div>
+        </section>
+
         {/* ══ Special offer ══ */}
         <section className="kw-sec">
           <div className="container">
@@ -387,7 +395,7 @@ const HomePage = () => {
                   <span>Free</span> Delivery
                 </h2>
                 <p className="kw-offer-sub">On Orders Over $50</p>
-                <p className="kw-offer-note">Across Chicago · order by 3 PM for same-day delivery</p>
+                <p className="kw-offer-note">Across Chicago · deliveries every afternoon</p>
                 <Link href="/food-menu" className="kw-offer-btn">
                   Order Now <i className="fas fa-arrow-right" />
                 </Link>

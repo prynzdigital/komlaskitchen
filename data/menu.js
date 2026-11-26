@@ -5,6 +5,7 @@ export const menuCategories = [
   { id: "grilled", label: "Grilled Specials" },
   { id: "sides", label: "Sides" },
   { id: "beverages", label: "Beverages" },
+  { id: "addons", label: "Add-Ons" },
 ];
 
 export const menuItems = [
@@ -13,7 +14,7 @@ export const menuItems = [
     id: 101,
     category: "trays",
     name: "Jollof or Fried Rice Tray",
-    description: "Choose Jollof or Fried Rice as your base, add a protein, and feed the whole family or party.",
+    description: "Choose Jollof or Fried Rice as your base, add chicken or goat, and feed the whole family or party.",
     image: "/pictures/jollof_main_dish.jpeg",
     alt: "Jollof or fried rice tray, perfect for parties and family gatherings",
     popular: true,
@@ -32,17 +33,13 @@ export const menuItems = [
   {
     id: 102,
     category: "trays",
-    name: "Okro Soup",
-    description: "Rich okro soup made family-size, comes with goat, tripe, and mackerel included — deselect any you'd rather not have, price stays the same.",
+    name: "Okra Soup",
+    description: "Rich okra soup made family-size with goat, tripe, crab and mackerel included — deselect any you'd rather not have, price stays the same. Best with banku.",
     image: "/pictures/okro_soup.webp",
-    alt: "Okro soup with goat, tripe, and mackerel",
+    alt: "Okra soup with goat, tripe, crab and mackerel",
     popular: true,
-    sizes: [
-      { label: "Small", price: 55 },
-      { label: "Medium", price: 90 },
-      { label: "Large", price: 140 },
-    ],
-    includedProteins: ["Goat", "Tripe", "Mackerel"],
+    sizes: [{ label: "Family size", price: 140 }],
+    includedProteins: ["Goat", "Tripe", "Crab", "Mackerel"],
   },
   {
     id: 103,
@@ -51,7 +48,7 @@ export const menuItems = [
     description: "Creamy stewed beans with fried sweet plantain, family-size.",
     image: "/pictures/beans_and_plantain.jpeg",
     alt: "Beans and plantain tray",
-    badge: "Available Mondays only",
+    badge: "Wednesday Special",
     sizes: [
       { label: "Small", price: 30 },
       { label: "Medium", price: 45 },
@@ -60,6 +57,20 @@ export const menuItems = [
   },
 
   // Rice Dishes
+  {
+    id: 108,
+    category: "rice",
+    name: "Jollof Rice with Chicken",
+    description: "Smoky Ghanaian jollof served with well-seasoned chicken drumsticks.",
+    image: "/pictures/jollof_main_dish.jpeg",
+    alt: "Jollof rice with chicken drumsticks",
+    popular: true,
+    sizes: [
+      { label: "Small (2 drumsticks)", price: 25 },
+      { label: "Medium (3 drumsticks)", price: 35 },
+      { label: "Large (4 drumsticks)", price: 45 },
+    ],
+  },
   // {
   //   id: 2,
   //   category: "rice",
@@ -154,13 +165,13 @@ export const menuItems = [
     id: 104,
     category: "sides",
     name: "Banku",
-    description: "Traditional fermented corn and cassava dough, the perfect pairing for any soup.",
+    description: "Traditional fermented corn and cassava dough, the perfect pairing for okra soup.",
     image: null,
     alt: "Banku",
     sizes: [
-      { label: "6 pieces", price: 7 },
-      { label: "8 pieces", price: 10 },
+      { label: "5 pieces", price: 7 },
       { label: "10 pieces", price: 12 },
+      { label: "15 pieces", price: 15 },
     ],
   },
   {
@@ -223,6 +234,35 @@ export const menuItems = [
       { label: "Medium", price: 20 },
       { label: "Large", price: 30 },
     ],
+  },
+
+  // Add-Ons
+  {
+    id: 201,
+    category: "addons",
+    name: "Avocado",
+    description: "Fresh, creamy avocado to go with any plate.",
+    price: "$3.99",
+    image: null,
+    alt: "Avocado",
+  },
+  {
+    id: 202,
+    category: "addons",
+    name: "Whole Ripe Plantain",
+    description: "One whole ripe plantain, fried golden and sweet.",
+    price: "$5.99",
+    image: null,
+    alt: "Fried ripe plantain",
+  },
+  {
+    id: 203,
+    category: "addons",
+    name: "Cucumber Salad",
+    description: "Crisp, refreshing cucumber salad.",
+    price: "$3.99",
+    image: null,
+    alt: "Cucumber salad",
   },
 ];
 

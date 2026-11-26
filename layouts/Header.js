@@ -14,9 +14,11 @@ const navLinks = [
 const TICKER_ITEMS = [
   "Authentic Ghanaian cuisine, made fresh daily",
   "Free delivery on orders over $50",
-  "Order by 3 PM for same-day delivery",
+  "Wed · Sat · Sun deliveries at 1 PM & 5 PM",
+  "Mon · Tue · Thu · Fri deliveries 12 – 5 PM",
+  "Wednesday Special: Beans & Plantain",
   "Try our legendary Party Jollof",
-  "Call us: 312-287-8155",
+  "Call us: +1 (773) 690-2745",
   "Open Mon–Sun, 11 AM – 9 PM · Chicago, IL",
 ];
 
@@ -64,7 +66,7 @@ const Header = () => {
           </nav>
 
           <div className="kh-actions">
-            <a href="tel:3122878155" className="kh-icon d-none d-md-grid" aria-label="Call 312-287-8155">
+            <a href="tel:+17736902745" className="kh-icon d-none d-md-grid" aria-label="Call +1 (773) 690-2745">
               <i className="fas fa-phone" />
             </a>
             <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kh-icon d-none d-md-grid" aria-label="Instagram">
@@ -136,7 +138,7 @@ const Header = () => {
                       <i className="far fa-phone" />
                     </div>
                     <div className="offcanvas__contact-text">
-                      <a href="tel:3122878155">312-287-8155</a>
+                      <a href="tel:+17736902745">+1 (773) 690-2745</a>
                     </div>
                   </li>
                 </ul>

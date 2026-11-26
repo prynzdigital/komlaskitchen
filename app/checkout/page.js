@@ -72,7 +72,7 @@ const CheckoutPage = () => {
       clearCart();
       setStage("done");
     } catch (err) {
-      setSubmitError(err.message || "Something went wrong. Please call us instead: 312-287-8155.");
+      setSubmitError(err.message || "Something went wrong. Please call us instead: +1 (773) 690-2745.");
     } finally {
       setSubmitting(false);
     }
@@ -251,7 +251,7 @@ const CheckoutPage = () => {
                     </div>
                     <p style={{ color: "var(--paper-faint)", fontSize: "0.85rem", margin: 0 }}>
                       In the meantime, please Zelle {formatCurrency(subtotal)} to Komla&apos;s Kitchen directly, or
-                      call 312-287-8155 for payment details, then click &ldquo;I&apos;ve Paid&rdquo; below.
+                      call +1 (773) 690-2745 for payment details, then click &ldquo;I&apos;ve Paid&rdquo; below.
                     </p>
                   </div>
 
@@ -298,7 +298,7 @@ const CheckoutPage = () => {
                     Order reference: <strong style={{ color: "var(--gold-400)" }}>{orderRef}</strong>
                   </p>
                   <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>
-                    We&apos;ll confirm your payment and get your order started. Call 312-287-8155 with any questions.
+                    We&apos;ll confirm your payment and get your order started. Call +1 (773) 690-2745 with any questions.
                   </p>
                   <Link
                     href="/"
