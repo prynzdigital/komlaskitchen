@@ -6,26 +6,19 @@ import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
   { href: "/food-menu", label: "Menu" },
+  { href: "/about", label: "Experience" },
   { href: "/contact", label: "Contact" },
 ];
 
 const TICKER_ITEMS = [
-  "🇬🇭 Authentic Ghanaian cuisine, made fresh daily",
-  "✦",
-  "🚚 Free delivery on orders over $50",
-  "✦",
-  "⏰ Order by 3 PM for same-day delivery",
-  "✦",
-  "🍛 Try our legendary Party Jollof Rice",
-  "✦",
-  "📞 Call us: 312-287-8155",
-  "✦",
-  "🌿 Kontomire · Okro Soup · Red Red · Sobolo",
-  "✦",
-  "⭐ Open Mon–Sun, 11 AM – 9 PM · Chicago, IL",
-  "✦",
+  "Authentic Ghanaian cuisine, made fresh daily",
+  "Free delivery on orders over $50",
+  "Order by 3 PM for same-day delivery",
+  "Try our legendary Party Jollof Rice",
+  "Call us: 312-287-8155",
+  "Kontomire · Okro Soup · Red Red · Sobolo · Kelewele",
+  "Open Mon–Sun, 11 AM – 9 PM · Chicago, IL",
 ];
 
 const Header = () => {
@@ -35,220 +28,89 @@ const Header = () => {
 
   return (
     <Fragment>
-      {/* ── Ticker + Header share one sticky wrapper so the header never
-           has to hardcode the ticker's pixel height ── */}
-      <div style={{ position: "sticky", top: 0, zIndex: 999 }}>
-        {/* Scrolling Ticker */}
-        <div style={{ background: "var(--ink-950)", overflow: "hidden", padding: "9px 0" }}>
+      {/* ── Ticker ── */}
+      <div style={{ background: "#1c1712", overflow: "hidden", padding: "8px 0", borderBottom: "1px solid rgba(201,162,77,0.25)" }}>
+        <div style={{ display: "flex", gap: 36, width: "max-content", animation: "ticker 34s linear infinite", whiteSpace: "nowrap" }}>
+          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+            <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 36, color: "rgba(255,255,255,0.85)", fontSize: "0.76rem", letterSpacing: 1.5, textTransform: "uppercase", fontFamily: "var(--font-body)" }}>
+              {item}
+              <span style={{ color: "#c9a24d" }}>✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Floating glass header ── */}
+      <header style={{ position: "sticky", top: 0, zIndex: 999, padding: "14px 0", pointerEvents: "none" }}>
+        <div className="container">
           <div
             style={{
+              pointerEvents: "auto",
               display: "flex",
-              gap: 32,
-              width: "max-content",
-              animation: "ticker 28s linear infinite",
-              whiteSpace: "nowrap",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 16,
+              padding: "10px 14px 10px 18px",
+              borderRadius: 16,
+              background: "rgba(28,23,18,0.78)",
+              backdropFilter: "blur(14px)",
+              WebkitBackdropFilter: "blur(14px)",
+              border: "1px solid rgba(255,255,255,0.14)",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
             }}
           >
-            {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-              <span
-                key={i}
-                style={{
-                  color: item === "✦" ? "var(--red-400)" : "var(--paper)",
-                  fontSize: item === "✦" ? "0.7rem" : "0.82rem",
-                  fontWeight: item === "✦" ? 900 : 500,
-                }}
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <header
-          style={{
-            background: "oklch(0.16 0.014 258 / 0.86)",
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-            borderBottom: "1px solid var(--ink-line)",
-          }}
-        >
-          <div className="container">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "14px 0",
-                gap: 16,
-              }}
-            >
-              {/* Logo + Name */}
-              <Link
-                href="/"
-                aria-label="Komla's Kitchen – Home"
-                style={{ flexShrink: 0, textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}
-              >
-                <img
-                  src="/pictures/logo.png"
-                  alt="Komla's Kitchen logo"
-                  style={{ height: 52, width: "auto", objectFit: "contain" }}
-                />
-                <div style={{ lineHeight: 1.15 }}>
-                  <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", color: "var(--paper)", letterSpacing: 0.2 }}>
-                    Komla&apos;s
-                  </div>
-                  <div style={{ fontWeight: 700, fontSize: "0.72rem", color: "var(--gold-400)", letterSpacing: 2.5, textTransform: "uppercase" }}>
-                    Kitchen
-                  </div>
-                </div>
-              </Link>
-
-              {/* Desktop Nav */}
-              <nav className="d-none d-lg-flex" style={{ gap: 32 }} aria-label="Main navigation">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    style={{
-                      color: pathname === link.href ? "var(--gold-400)" : "var(--paper-dim)",
-                      fontWeight: pathname === link.href ? 700 : 500,
-                      textDecoration: "none",
-                      fontSize: "0.97rem",
-                      transition: "color 0.2s",
-                      whiteSpace: "nowrap",
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-400)")}
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.color =
-                        pathname === link.href ? "var(--gold-400)" : "var(--paper-dim)")
-                    }
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-
-              {/* Right side */}
-              <div className="d-flex align-items-center gap-3">
-                {/* Social icons — desktop */}
-                <div className="d-none d-md-flex align-items-center gap-2">
-                  <a
-                    href="https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram"
-                    style={{ color: "var(--paper-dim)", fontSize: "1.1rem", transition: "color 0.2s" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-400)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--paper-dim)")}
-                  >
-                    <i className="fab fa-instagram" />
-                  </a>
-                  <a
-                    href="https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="TikTok"
-                    style={{ color: "var(--paper-dim)", fontSize: "1.1rem", transition: "color 0.2s" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold-400)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--paper-dim)")}
-                  >
-                    <i className="fab fa-tiktok" />
-                  </a>
-                </div>
-
-                {/* Cart */}
-                <Link
-                  href="/cart"
-                  aria-label={`Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`}
-                  style={{
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: 40,
-                    height: 40,
-                    color: "var(--paper)",
-                    fontSize: "1.15rem",
-                    textDecoration: "none",
-                  }}
-                >
-                  <i className="fas fa-shopping-cart" />
-                  {itemCount > 0 && (
-                    <span
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        right: 0,
-                        background: "var(--red-500)",
-                        color: "#fff",
-                        borderRadius: "50%",
-                        minWidth: 18,
-                        height: 18,
-                        fontSize: "0.65rem",
-                        fontWeight: 800,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: "0 3px",
-                      }}
-                    >
-                      {itemCount}
-                    </span>
-                  )}
-                </Link>
-
-                {/* Order Now CTA */}
-                <a
-                  href="tel:3122878155"
-                  className="d-none d-md-inline-flex"
-                  style={{
-                    alignItems: "center",
-                    gap: 8,
-                    background: "var(--red-500)",
-                    color: "var(--paper)",
-                    padding: "10px 22px",
-                    borderRadius: 50,
-                    fontWeight: 700,
-                    textDecoration: "none",
-                    fontSize: "0.88rem",
-                    whiteSpace: "nowrap",
-                    transition: "background 0.2s, transform 0.15s ease-out",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--red-600)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--red-500)")}
-                  onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.96)")}
-                  onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
-                >
-                  <i className="fas fa-phone" /> Order Now
-                </a>
-
-                {/* Hamburger — visible hit area 24px, extended to 44px via padding */}
-                <button
-                  className="d-lg-none"
-                  onClick={() => setToggle(true)}
-                  aria-label="Open menu"
-                  style={{
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    width: 44,
-                    height: 44,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 5,
-                  }}
-                >
-                  <span style={{ display: "block", width: 24, height: 2, background: "var(--paper)", borderRadius: 2 }} />
-                  <span style={{ display: "block", width: 24, height: 2, background: "var(--paper)", borderRadius: 2 }} />
-                  <span style={{ display: "block", width: 24, height: 2, background: "var(--paper)", borderRadius: 2 }} />
-                </button>
+            <Link href="/" aria-label="Komla's Kitchen – Home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
+              <img src="/pictures/logo.png" alt="Komla's Kitchen logo" style={{ height: 44, width: "auto", objectFit: "contain" }} />
+              <div style={{ lineHeight: 1.1 }}>
+                <div style={{ fontFamily: "var(--font-display)", color: "#fff", fontSize: "1.15rem", fontWeight: 600, letterSpacing: 2 }}>KOMLA&apos;S</div>
+                <div style={{ fontFamily: "var(--font-body)", color: "#c9a24d", fontSize: "0.62rem", letterSpacing: 4, textTransform: "uppercase" }}>Ghanaian Kitchen</div>
               </div>
+            </Link>
+
+            <nav className="d-none d-lg-flex" style={{ gap: 30 }} aria-label="Main navigation">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href} className={`lux-nav-link${pathname === link.href ? " active" : ""}`}>
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="d-flex align-items-center gap-3">
+              <a href="https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="d-none d-md-inline" style={{ color: "rgba(255,255,255,0.8)" }}>
+                <i className="fab fa-instagram" />
+              </a>
+              <a href="https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="d-none d-md-inline" style={{ color: "rgba(255,255,255,0.8)" }}>
+                <i className="fab fa-tiktok" />
+              </a>
+              <Link
+                href="/cart"
+                aria-label={`Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`}
+                style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, color: "#fff", fontSize: "1.05rem", textDecoration: "none" }}
+              >
+                <i className="fas fa-shopping-bag" />
+                {itemCount > 0 && (
+                  <span style={{ position: "absolute", top: 0, right: 0, minWidth: 18, height: 18, padding: "0 4px", borderRadius: 9, background: "#c9a24d", color: "#1c1712", fontSize: "0.65rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    {itemCount}
+                  </span>
+                )}
+              </Link>
+              <Link href="/food-menu" className="btn-gold d-none d-md-inline-flex" style={{ padding: "10px 22px", fontSize: "0.72rem" }}>
+                Order Now
+              </Link>
+              <button
+                className="d-lg-none"
+                onClick={() => setToggle(true)}
+                aria-label="Open menu"
+                style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", flexDirection: "column", gap: 5 }}
+              >
+                <span style={{ display: "block", width: 24, height: 2, background: "#fff", borderRadius: 2 }} />
+                <span style={{ display: "block", width: 24, height: 2, background: "#fff", borderRadius: 2 }} />
+                <span style={{ display: "block", width: 24, height: 2, background: "#fff", borderRadius: 2 }} />
+              </button>
             </div>
           </div>
-        </header>
-      </div>
+        </div>
+      </header>
 
       {/* Mobile Offcanvas */}
       <div className="fix-area">
@@ -258,11 +120,7 @@ const Header = () => {
               <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
                 <div className="offcanvas__logo">
                   <Link href="/" onClick={() => setToggle(false)}>
-                    <img
-                      src="/pictures/logo.png"
-                      alt="Komla's Kitchen logo"
-                      style={{ height: 48, width: "auto", objectFit: "contain" }}
-                    />
+                    <img src="/pictures/logo.png" alt="Komla's Kitchen logo" style={{ height: 48, width: "auto", objectFit: "contain" }} />
                   </Link>
                 </div>
                 <div className="offcanvas__close">
@@ -310,31 +168,16 @@ const Header = () => {
                     </div>
                   </li>
                 </ul>
-                <div className="header-button mt-4">
-                  <a
-                    href="tel:3122878155"
-                    className="theme-btn"
-                    onClick={() => setToggle(false)}
-                    style={{ display: "block", textAlign: "center" }}
-                  >
+                <div className="mt-4">
+                  <Link href="/food-menu" className="btn-gold" onClick={() => setToggle(false)} style={{ display: "flex", justifyContent: "center" }}>
                     Order Now
-                  </a>
+                  </Link>
                 </div>
                 <div className="social-icon d-flex align-items-center mt-3">
-                  <a
-                    href="https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram"
-                  >
+                  <a href="https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <i className="fab fa-instagram" />
                   </a>
-                  <a
-                    href="https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="TikTok"
-                  >
+                  <a href="https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
                     <i className="fab fa-tiktok" />
                   </a>
                 </div>
@@ -343,10 +186,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div
-        className={`offcanvas__overlay ${toggle ? "overlay-open" : ""}`}
-        onClick={() => setToggle(false)}
-      />
+      <div className={`offcanvas__overlay ${toggle ? "overlay-open" : ""}`} onClick={() => setToggle(false)} />
     </Fragment>
   );
 };

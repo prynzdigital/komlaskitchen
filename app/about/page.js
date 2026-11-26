@@ -94,16 +94,16 @@ const AboutPage = () => {
       <section
         className="main-cta-banner-2 section-padding bg-cover"
         style={{
-          background: "linear-gradient(135deg, var(--ink-950) 0%, var(--red-600) 100%)",
+          background: "linear-gradient(135deg, #1c1712 0%, #3a2c18 55%, #8a6a2c 100%)",
         }}
       >
         <div className="container">
           <div className="row align-items-center justify-content-between g-4">
             <div className="col-lg-7">
               <div className="section-title mb-0">
-                <span className="wow fadeInUp" style={{ color: "var(--gold-400)" }}>Our Mission</span>
+                <span className="wow fadeInUp" style={{ color: "var(--gold-300)" }}>Our Mission</span>
                 <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">
-                  Bringing People Together Through <span style={{ color: "var(--gold-400)" }}>Food.</span>
+                  Bringing People Together Through <span style={{ color: "var(--gold-300)" }}>Food.</span>
                 </h2>
                 <p className="text-white wow fadeInUp" data-wow-delay=".5s" style={{ opacity: 0.9, marginTop: "1rem", lineHeight: 1.8 }}>
                   To bring people together through flavorful meals that celebrate
@@ -238,7 +238,7 @@ const AboutPage = () => {
           <div className="row justify-content-center text-center">
             <div className="col-lg-8">
               <div className="section-title">
-                <span className="wow fadeInUp" style={{ color: "var(--gold-400)" }}>
+                <span className="wow fadeInUp" style={{ color: "var(--gold-300)" }}>
                   Ready to Taste Africa?
                 </span>
                 <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">

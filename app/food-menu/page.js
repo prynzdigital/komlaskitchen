@@ -24,7 +24,7 @@ const MenuPage = () => {
         <div className="container">
           <div className="section-title text-center">
             <span className="wow fadeInUp">Authentic African Cuisine</span>
-            <h2 className="wow fadeInUp" style={{ color: "white" }} data-wow-delay=".3s">
+            <h2 className="wow fadeInUp" data-wow-delay=".3s">
               Explore Our <span>Full Menu</span>
             </h2>
             <p
@@ -51,7 +51,7 @@ const MenuPage = () => {
               className={`theme-btn ${activeCategory === "all" ? "" : "bg-transparent"}`}
               style={{
                 border: "2px solid var(--red-500)",
-                color: activeCategory === "all" ? "#fff" : "var(--red-500)",
+                color: activeCategory === "all" ? "#1c1712" : "var(--gold-400)",
                 padding: "8px 20px",
                 fontSize: "0.9rem",
               }}
@@ -65,7 +65,7 @@ const MenuPage = () => {
                 className={`theme-btn ${activeCategory === cat.id ? "" : "bg-transparent"}`}
                 style={{
                   border: "2px solid var(--red-500)",
-                  color: activeCategory === cat.id ? "#fff" : "var(--red-500)",
+                  color: activeCategory === cat.id ? "#1c1712" : "var(--gold-400)",
                   padding: "8px 20px",
                   fontSize: "0.9rem",
                 }}
@@ -105,7 +105,7 @@ const MenuPage = () => {
             <div className="col-lg-7">
               <div className="booking-content">
                 <div className="section-title">
-                  <span className="wow fadeInUp" style={{ color: "var(--gold-400)" }}>
+                  <span className="wow fadeInUp" style={{ color: "var(--gold-300)" }}>
                     Ready to Order?
                   </span>
                   <h2 className="text-white wow fadeInUp" data-wow-delay=".3s">
@@ -124,7 +124,7 @@ const MenuPage = () => {
                     <i className="fas fa-phone" />
                   </div>
                   <div className="content">
-                    <h5 style={{ color: "var(--gold-400)" }}>Call to Order</h5>
+                    <h5 style={{ color: "var(--gold-300)" }}>Call to Order</h5>
                     <h3>
                       <a href="tel:3122878155" style={{ color: "#fff" }}>
                         312-287-8155
@@ -140,7 +140,7 @@ const MenuPage = () => {
                 <div style={{ color: "#fff", opacity: 0.9 }}>
                   <div className="d-flex justify-content-between mb-2">
                     <span>Monday – Sunday</span>
-                    <span style={{ color: "var(--gold-400)", fontWeight: 600 }}>Open</span>
+                    <span style={{ color: "var(--gold-300)", fontWeight: 600 }}>Open</span>
                   </div>
                   <div className="d-flex justify-content-between mb-3">
                     <span>Hours</span>
@@ -148,7 +148,7 @@ const MenuPage = () => {
                   </div>
                   <hr style={{ borderColor: "rgba(255,255,255,0.2)" }} />
                   <div className="d-flex align-items-start gap-2 mt-3" style={{ fontSize: "0.9rem" }}>
-                    <i className="fas fa-map-marker-alt mt-1" style={{ color: "var(--gold-400)" }} />
+                    <i className="fas fa-map-marker-alt mt-1" style={{ color: "var(--gold-300)" }} />
                     <span>3718 S Indiana Ave, Chicago, IL</span>
                   </div>
                 </div>

@@ -1,45 +1,172 @@
 /* ══════════════════════════════════════════════════════════════
-   Komla's Kitchen — Design Tokens
-   Midnight Black / Gold / Red + Green accent (Ghana flag palette,
-   elevated into a premium dark UI).
+   Komla's Kitchen — Design Tokens (luxury cream & gold)
+   Token names are kept from the original midnight theme so every
+   component re-skins from here: --ink-* are surfaces (light → page,
+   sections, cards) and --paper-* are text colors (dark on cream).
+   "Red" is the primary-CTA role and now resolves to gold.
    ══════════════════════════════════════════════════════════════ */
 :root {
-  /* Midnight — cool near-black neutral scale, H 258 */
-  --ink-950: oklch(0.17 0.014 258); /* page background */
-  --ink-900: oklch(0.21 0.016 258); /* header / ticker / sticky surfaces */
-  --ink-800: oklch(0.26 0.018 258); /* cards / panels */
-  --ink-700: oklch(0.32 0.02 258); /* raised / hover surfaces */
-  --ink-line: oklch(1 0 0 / 0.08); /* hairline border-as-shadow (dark) */
-  --ink-line-hover: oklch(1 0 0 / 0.13);
-  --paper: oklch(0.97 0.004 258); /* primary text on dark */
-  --paper-dim: oklch(0.97 0.004 258 / 0.72);
-  --paper-faint: oklch(0.97 0.004 258 / 0.5);
+  --ink-950: #faf5ec; /* page background */
+  --ink-900: #f3ead9; /* alternate sections / sticky surfaces */
+  --ink-800: #ffffff; /* cards / panels / inputs */
+  --ink-700: #f7efe0; /* raised / hover surfaces */
+  --ink-line: rgba(201, 162, 77, 0.28);
+  --ink-line-hover: rgba(201, 162, 77, 0.5);
+  --paper: #1c1712; /* primary text */
+  --paper-dim: #5a4e42;
+  --paper-faint: #8d8174;
 
-  /* Gold — H 82 */
-  --gold-300: oklch(0.86 0.1 82);
-  --gold-400: oklch(0.8 0.15 82);
-  --gold-500: oklch(0.74 0.16 80);
-  --gold-600: oklch(0.62 0.15 76);
+  --gold-300: #e6cc8a;
+  --gold-400: #9e7a32; /* gold used as text — darkened to stay legible on cream */
+  --gold-500: #c9a24d;
+  --gold-600: #8a6a2c;
 
-  /* Red — H 25 (primary CTA) */
-  --red-400: oklch(0.66 0.19 27);
-  --red-500: oklch(0.56 0.2 25);
-  --red-600: oklch(0.47 0.185 24);
-  --red-100: oklch(0.94 0.035 25);
+  --red-400: #9e7a32;
+  --red-500: #c9a24d;
+  --red-600: #a8833a;
+  --red-100: #f4e6c1;
 
-  /* Green — H 150, accent only (fresh / traditional / success) */
-  --green-400: oklch(0.72 0.15 150);
-  --green-500: oklch(0.6 0.14 150);
-  --green-600: oklch(0.48 0.13 150);
-  --green-100: oklch(0.93 0.045 150);
+  --green-400: #6f8f55;
+  --green-500: #5c7a45;
+  --green-600: #4a6436;
+  --green-100: #e4ecd9;
 
-  /* Shadows-as-borders (dark mode) */
-  --shadow-border: 0 0 0 1px var(--ink-line), 0 20px 60px oklch(0 0 0 / 0.5);
-  --shadow-border-hover: 0 0 0 1px var(--ink-line-hover), 0 24px 70px oklch(0 0 0 / 0.55);
+  --shadow-border: 0 0 0 1px var(--ink-line), 0 12px 32px rgba(60, 40, 10, 0.1);
+  --shadow-border-hover: 0 0 0 1px var(--ink-line-hover), 0 18px 44px rgba(60, 40, 10, 0.16);
 
-  /* Fonts */
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Cinzel", Georgia, serif;
+  --font-body: "Jost", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --gold: #c9a24d;
+  --charcoal: #1c1712;
+}
+
+.lux-eyebrow {
+  font-family: var(--font-body);
+  color: var(--gold-400);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.lux-title {
+  font-family: var(--font-display);
+  color: var(--paper);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase;
+  margin: 0;
+}
+.lux-card {
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid var(--ink-line);
+  box-shadow: 0 10px 30px rgba(60, 40, 10, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.lux-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 44px rgba(60, 40, 10, 0.18);
+}
+.btn-gold,
+.btn-light-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 30px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-gold {
+  background: linear-gradient(135deg, #e6cc8a, #c9a24d 55%, #a8833a);
+  color: #1c1712;
+  box-shadow: 0 6px 20px rgba(201, 162, 77, 0.35);
+}
+.btn-light-pill {
+  background: #fff;
+  color: #1c1712;
+}
+.btn-gold:hover,
+.btn-light-pill:hover {
+  transform: translateY(-2px);
+  color: #1c1712;
+}
+
+.cat-circle {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 1px rgba(201, 162, 77, 0.45), 0 8px 22px rgba(60, 40, 10, 0.15);
+}
+.cat-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  margin: -17px auto 10px;
+  position: relative;
+  background: linear-gradient(135deg, #e6cc8a, #c9a24d);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  border: 2px solid #fff;
+}
+
+.lux-nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.lux-nav-link:hover,
+.lux-nav-link.active {
+  color: #fff;
+  border-color: var(--gold);
+}
+
+.exp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.exp-grid img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(60, 40, 10, 0.15);
+}
+@media (max-width: 575px) {
+  .exp-grid img {
+    height: 140px;
+  }
+}
+
+.footer-section .social-icon a {
+  background: rgba(201, 162, 77, 0.14);
+  border: 1px solid rgba(201, 162, 77, 0.4);
+  color: #c9a24d;
+}
+.footer-section .social-icon a:hover {
+  background: #c9a24d;
+  color: #1c1712;
 }
 
 /* ── Cascade the palette into the legacy "FoodKing" template variables ──
@@ -114,19 +241,23 @@ html body p {
    needs dark text there instead. */
 .food-processing-wrapper .food-processing-items.active .food-processing-content h3,
 .food-processing-wrapper .food-processing-items:hover .food-processing-content h3 {
-  color: var(--ink-950);
+  color: var(--charcoal);
 }
 
 /* Contact page info cards: white by default, red on .active/:hover
    (main.css already whites the text for that state — see .contact-info-items
    rules — this only needs to restore dark text for the default white card). */
 .contact-info-items .content h3,
-.contact-info-items .content p {
-  color: var(--ink-950);
-}
-.contact-info-items:hover .content p,
-.contact-info-items.active .content p {
-  color: var(--paper);
+.contact-info-items .content p,
+html body .contact-info-items:hover .content h3,
+html body .contact-info-items:hover .content p,
+html body .contact-info-items:hover .content a,
+html body .contact-info-items.active .content h3,
+html body .contact-info-items.active .content p,
+html body .contact-info-items.active .content a,
+html body .contact-info-items:hover .icon i,
+html body .contact-info-items.active .icon i {
+  color: var(--charcoal);
 }
 
 /* Eyebrow labels + inline accent words (.section-title span, and the same
@@ -216,12 +347,9 @@ html body .section-title span {
   top: 18px;
 }
 
-/* ── Full-page background — static midnight gradient, no fixed-attachment
-     photo (background-attachment:fixed is a known source of iOS Safari
-     jank and is unreliable on mobile) ── */
-body {
-  background: radial-gradient(ellipse at top, var(--ink-900) 0%, var(--ink-950) 60%);
-  background-color: var(--ink-950);
+html body {
+  background: var(--ink-950);
+  color: var(--paper);
 }
 
 /* ── Flaticon — absolute paths so they survive Next.js bundling ── */
@@ -258,34 +386,6 @@ body {
 .flaticon-love::before            { content: "\e909"; }
 .flaticon-clock::before           { content: "\e90a"; }
 .flaticon-location::before        { content: "\e90b"; }
-
-/* ── Hero split layout — responsive ── */
-.hero-split {
-  display: flex;
-  gap: 16px;
-  height: 480px;
-}
-.hero-main-card {
-  flex: 0 0 68%;
-}
-.hero-week-card {
-  flex: 0 0 calc(32% - 16px);
-}
-
-@media (max-width: 767px) {
-  .hero-split {
-    flex-direction: column;
-    height: auto;
-  }
-  .hero-main-card {
-    flex: none;
-    height: 340px;
-  }
-  .hero-week-card {
-    flex: none;
-    height: 400px;
-  }
-}
 
 /* ── Ticker marquee animation ── */
 @keyframes ticker {
