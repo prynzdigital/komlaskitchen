@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const PageBanner = ({ pageName }) => {
   return (
-    <div style={{ position: "relative", overflow: "hidden", marginTop: -94, padding: "170px 0 70px" }}>
+    <div style={{ position: "relative", overflow: "hidden", marginTop: -84, padding: "160px 0 70px", background: "var(--wine-950)" }}>
       <img
         src="/pictures/dishes.jpeg"
         alt=""

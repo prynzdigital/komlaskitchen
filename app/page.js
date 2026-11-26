@@ -8,13 +8,6 @@ import { formatCurrency } from "@/lib/pricing";
 
 const IG_URL = "https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz";
 
-const HERO_SLIDES = [
-  { src: "/pictures/opt/okro_soup_tall.webp", alt: "Okro soup with seafood" },
-  { src: "/pictures/opt/kelewele.webp", alt: "Spiced kelewele" },
-  { src: "/pictures/opt/beans_and_plantain.webp", alt: "Red red with fried plantain and eggs" },
-  { src: "/pictures/opt/chicken_bg.webp", alt: "Grilled chicken with peppers" },
-];
-
 const byId = (id) => menuItems.find((m) => m.id === id);
 
 const priceLabel = (item) => {
@@ -76,13 +69,7 @@ const Orn = () => (
 );
 
 const HomePage = () => {
-  const [slide, setSlide] = useState(0);
   const [quote, setQuote] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setSlide((i) => (i + 1) % HERO_SLIDES.length), 5500);
-    return () => clearInterval(t);
-  }, []);
 
   useEffect(() => {
     const t = setInterval(() => setQuote((i) => (i + 1) % TESTIMONIALS.length), 7000);
@@ -109,89 +96,114 @@ const HomePage = () => {
     return () => io.disconnect();
   }, []);
 
-  const tray = byId(101);
-
   return (
     <FoodKingLayout>
       <div className="kk">
         {/* ══ Hero ══ */}
-        <section className="kk-hero">
+        <section className="kw-hero">
+          <span className="kw-blob kw-blob-1" />
+          <span className="kw-blob kw-blob-2" />
+          <span className="kw-blob kw-blob-3" />
+
           <div className="container">
-            <div className="kk-hero-grid">
+            <div className="kw-hero-grid">
               <div>
-                <p className="kk-eyebrow kk-light reveal in">Authentic Ghanaian Kitchen · Chicago</p>
-                <h1 className="reveal in" style={{ "--d": "0.1s" }}>
-                  Ghanaian heritage, <em>beautifully served.</em>
+                <span className="kw-pill kk-fade" style={{ "--d": "0.1s" }}>
+                  <b>
+                    <i className="fas fa-utensils" />
+                  </b>
+                  Authentic Ghanaian Kitchen · Chicago
+                </span>
+                <h1 className="kk-fade" style={{ "--d": "0.2s" }}>
+                  Taste of Ghana,
+                  <br />
+                  <span>Delivered</span> Fresh.
                 </h1>
-                <p className="kk-lead reveal in" style={{ "--d": "0.2s" }}>
-                  Smoky party jollof, rich okro soup and golden kelewele — family recipes, cooked fresh every day and
-                  delivered across Chicago with care.
+                <p className="kw-hero-lead kk-fade" style={{ "--d": "0.35s" }}>
+                  Party jollof, okro soup, kelewele and more — traditional recipes cooked fresh every day and delivered to
+                  your door across Chicago.
                 </p>
-                <div className="kk-hero-ctas reveal in" style={{ "--d": "0.3s" }}>
-                  <Link href="/food-menu" className="kk-btn kk-btn-gold">
-                    Explore the Menu <i className="fas fa-arrow-right" />
+                <div className="kw-ctas kk-fade" style={{ "--d": "0.5s" }}>
+                  <Link href="/food-menu" className="kw-btn kw-btn-fill">
+                    Order Now <i className="fas fa-arrow-right" />
                   </Link>
-                  <a href="tel:3122878155" className="kk-btn kk-btn-ghost">
-                    <i className="fas fa-phone" style={{ transform: "none" }} /> 312-287-8155
-                  </a>
+                  <Link href="/food-menu" className="kw-btn kw-btn-glass">
+                    Explore Menu
+                  </Link>
                 </div>
-                <div className="kk-hero-stats reveal in" style={{ "--d": "0.4s" }}>
-                  <div>
-                    <strong>Family</strong>
-                    <span>Heritage recipes</span>
+                <div className="kw-proof kk-fade" style={{ "--d": "0.65s" }}>
+                  <div className="kw-avatars" aria-hidden="true">
+                    {[
+                      ["AM", "#d93a67"],
+                      ["KB", "#9b1f45"],
+                      ["EA", "#c9873d"],
+                      ["+", "#4e1024"],
+                    ].map(([t, c]) => (
+                      <span key={t} style={{ background: c }}>
+                        {t}
+                      </span>
+                    ))}
                   </div>
                   <div>
-                    <strong>Daily</strong>
-                    <span>Cooked fresh</span>
-                  </div>
-                  <div>
-                    <strong>Chicago</strong>
-                    <span>Delivery & pickup</span>
+                    <div className="kw-proof-stars" aria-label="Five-star reviews">
+                      ★★★★★
+                    </div>
+                    <p>Loved by families across Chicago</p>
                   </div>
                 </div>
               </div>
 
-              <div className="kk-hero-art reveal in" style={{ "--d": "0.25s" }}>
-                <div className="kk-arch-frame" />
-                <div className="kk-arch">
-                  {HERO_SLIDES.map((s, i) => (
-                    <img key={s.src} src={s.src} alt={s.alt} className={i === slide ? "on" : ""} />
-                  ))}
+              <div className="kw-art kk-fade" style={{ "--d": "0.3s" }} aria-hidden="true">
+                <div className="kw-tile">
+                  <span>K</span>
                 </div>
-                <div className="kk-seal" aria-hidden="true">
-                  <svg viewBox="0 0 120 120">
-                    <defs>
-                      <path id="kk-seal-path" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0" />
-                    </defs>
-                    <text fontSize="10.5" letterSpacing="2.5" fontFamily="Cinzel, serif">
-                      <textPath href="#kk-seal-path" textLength="290">
-                        AUTHENTIC ✦ GHANAIAN ✦ KITCHEN ✦ CHICAGO ✦
-                      </textPath>
-                    </text>
-                  </svg>
-                  <img src="/pictures/logo.png" alt="" />
+                <div className="kw-glass">
+                  <img src="/pictures/opt/sobolo.webp" alt="" />
                 </div>
-                {tray && (
-                  <Link href="/food-menu" className="kk-float">
-                    <img src="/pictures/opt/jollof_main_dish.webp" alt="" />
-                    <div>
-                      <small>Most loved</small>
-                      <b>{tray.name}</b>
-                      <span>{priceLabel(tray)}</span>
-                    </div>
-                  </Link>
-                )}
-                <div className="kk-dots">
-                  {HERO_SLIDES.map((s, i) => (
-                    <button
-                      key={s.src}
-                      className={i === slide ? "on" : ""}
-                      onClick={() => setSlide(i)}
-                      aria-label={`Show ${s.alt}`}
-                    />
-                  ))}
+                <div className="kw-plate kw-plate-okro">
+                  <img src="/pictures/opt/okro_soup_sq.webp" alt="" />
                 </div>
+                <div className="kw-plate kw-plate-main">
+                  <img src="/pictures/opt/jollof_main_dish.webp" alt="" />
+                </div>
+                <div className="kw-plate kw-plate-kele">
+                  <img src="/pictures/opt/kelewele.webp" alt="" />
+                </div>
+                <div className="kw-chip kw-chip-a">
+                  <i className="fas fa-fire" />
+                  <div>
+                    Cooked fresh today
+                    <small>Traditional recipes</small>
+                  </div>
+                </div>
+                <div className="kw-chip kw-chip-b">
+                  <i className="fas fa-motorcycle" />
+                  <div>
+                    Same-day delivery
+                    <small>Order by 3 PM</small>
+                  </div>
+                </div>
+                <i className="fas fa-pepper-hot kw-spark" style={{ left: "50%", top: "-1%", fontSize: "1.2rem", animationDelay: "-2s" }} />
+                <i className="fas fa-leaf kw-spark" style={{ right: "34%", top: "8%", fontSize: "1rem" }} />
+                <i className="fas fa-star kw-spark" style={{ left: "4%", top: "46%", fontSize: "0.7rem", animationDelay: "-3s" }} />
               </div>
+            </div>
+
+            <div className="kw-features kk-fade" style={{ "--d": "0.8s" }}>
+              {[
+                { icon: "fas fa-seedling", t: "Authentic Recipes", d: "Traditional Ghanaian cooking" },
+                { icon: "fas fa-shipping-fast", t: "Same-Day Delivery", d: "Order by 3 PM, across Chicago" },
+                { icon: "fas fa-shield-alt", t: "Easy Payment", d: "Simple, secure checkout" },
+                { icon: "fas fa-fire-alt", t: "Cooked Fresh", d: "Prepared daily, packed hot" },
+              ].map((f) => (
+                <div key={f.t} className="kw-feature">
+                  <i className={f.icon} />
+                  <div>
+                    <h3>{f.t}</h3>
+                    <p>{f.d}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -206,7 +218,7 @@ const HomePage = () => {
         </div>
 
         {/* ══ Story ══ */}
-        <section className="kk-sec kk-cream">
+        <section id="kk-story" className="kk-sec kk-cream">
           <div className="container">
             <div className="kk-story">
               <div className="kk-collage reveal">
@@ -370,7 +382,7 @@ const HomePage = () => {
                   <span>Full celebrations</span>
                 </div>
               </div>
-              <div className="kk-hero-ctas reveal" style={{ "--d": "0.4s" }}>
+              <div className="kw-ctas reveal" style={{ "--d": "0.4s" }}>
                 <a href="tel:3122878155" className="kk-btn kk-btn-gold">
                   Plan your event <i className="fas fa-arrow-right" />
                 </a>

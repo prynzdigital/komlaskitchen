@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/food-menu", label: "Menu" },
-  { href: "/about", label: "Experience" },
+  { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -15,99 +15,71 @@ const TICKER_ITEMS = [
   "Authentic Ghanaian cuisine, made fresh daily",
   "Free delivery on orders over $50",
   "Order by 3 PM for same-day delivery",
-  "Try our legendary Party Jollof Rice",
+  "Try our legendary Party Jollof",
   "Call us: 312-287-8155",
-  "Kontomire · Okro Soup · Red Red · Sobolo · Kelewele",
   "Open Mon–Sun, 11 AM – 9 PM · Chicago, IL",
 ];
 
+const IG_URL = "https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz";
+const TIKTOK_URL = "https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe";
+
 const Header = () => {
   const [toggle, setToggle] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { itemCount } = useCart();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <Fragment>
-      {/* ── Ticker ── */}
-      <div style={{ background: "#1c1712", overflow: "hidden", padding: "8px 0", borderBottom: "1px solid rgba(201,162,77,0.25)" }}>
-        <div style={{ display: "flex", gap: 36, width: "max-content", animation: "ticker 34s linear infinite", whiteSpace: "nowrap" }}>
+      <div className="kh-ticker">
+        <div className="kh-ticker-track">
           {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-            <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 36, color: "rgba(255,255,255,0.85)", fontSize: "0.76rem", letterSpacing: 1.5, textTransform: "uppercase", fontFamily: "var(--font-body)" }}>
-              {item}
-              <span style={{ color: "#c9a24d" }}>✦</span>
-            </span>
+            <span key={i}>{item}</span>
           ))}
         </div>
       </div>
 
-      {/* ── Floating glass header ── */}
-      <header style={{ position: "sticky", top: 0, zIndex: 999, padding: "14px 0", pointerEvents: "none" }}>
-        <div className="container">
-          <div
-            style={{
-              pointerEvents: "auto",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 16,
-              padding: "10px 14px 10px 18px",
-              borderRadius: 16,
-              background: "rgba(28,23,18,0.78)",
-              backdropFilter: "blur(14px)",
-              WebkitBackdropFilter: "blur(14px)",
-              border: "1px solid rgba(255,255,255,0.14)",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-            }}
-          >
-            <Link href="/" aria-label="Komla's Kitchen – Home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
-              <img src="/pictures/logo.png" alt="Komla's Kitchen logo" style={{ height: 44, width: "auto", objectFit: "contain" }} />
-              <div style={{ lineHeight: 1.1 }}>
-                <div style={{ fontFamily: "var(--font-caps)", color: "#fff", fontSize: "1.15rem", fontWeight: 600, letterSpacing: 2 }}>KOMLA&apos;S</div>
-                <div style={{ fontFamily: "var(--font-body)", color: "#c9a24d", fontSize: "0.62rem", letterSpacing: 4, textTransform: "uppercase" }}>Ghanaian Kitchen</div>
-              </div>
+      <header className={`kh${scrolled ? " kh-scrolled" : ""}`}>
+        <div className="container kh-bar">
+          <Link href="/" className="kh-logo" aria-label="Komla's Kitchen – Home">
+            <img src="/pictures/logo.png" alt="Komla's Kitchen logo" />
+            <span>
+              KOMLA&apos;S <em>KITCHEN</em>
+            </span>
+          </Link>
+
+          <nav className="kh-nav d-none d-lg-flex" aria-label="Main navigation">
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href} className={pathname === link.href ? "on" : ""}>
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="kh-actions">
+            <a href="tel:3122878155" className="kh-icon d-none d-md-grid" aria-label="Call 312-287-8155">
+              <i className="fas fa-phone" />
+            </a>
+            <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kh-icon d-none d-md-grid" aria-label="Instagram">
+              <i className="fab fa-instagram" />
+            </a>
+            <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="kh-icon d-none d-md-grid" aria-label="TikTok">
+              <i className="fab fa-tiktok" />
+            </a>
+            <Link href="/cart" className="kh-icon" aria-label={`Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`}>
+              <i className="fas fa-shopping-cart" />
+              {itemCount > 0 && <b>{itemCount}</b>}
             </Link>
-
-            <nav className="d-none d-lg-flex" style={{ gap: 30 }} aria-label="Main navigation">
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} className={`lux-nav-link${pathname === link.href ? " active" : ""}`}>
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="d-flex align-items-center gap-3">
-              <a href="https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="d-none d-md-inline" style={{ color: "rgba(255,255,255,0.8)" }}>
-                <i className="fab fa-instagram" />
-              </a>
-              <a href="https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="d-none d-md-inline" style={{ color: "rgba(255,255,255,0.8)" }}>
-                <i className="fab fa-tiktok" />
-              </a>
-              <Link
-                href="/cart"
-                aria-label={`Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`}
-                style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, color: "#fff", fontSize: "1.05rem", textDecoration: "none" }}
-              >
-                <i className="fas fa-shopping-bag" />
-                {itemCount > 0 && (
-                  <span style={{ position: "absolute", top: 0, right: 0, minWidth: 18, height: 18, padding: "0 4px", borderRadius: 9, background: "#c9a24d", color: "#1c1712", fontSize: "0.65rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    {itemCount}
-                  </span>
-                )}
-              </Link>
-              <Link href="/food-menu" className="btn-gold d-none d-md-inline-flex" style={{ padding: "10px 22px", fontSize: "0.72rem" }}>
-                Order Now
-              </Link>
-              <button
-                className="d-lg-none"
-                onClick={() => setToggle(true)}
-                aria-label="Open menu"
-                style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", flexDirection: "column", gap: 5 }}
-              >
-                <span style={{ display: "block", width: 24, height: 2, background: "#fff", borderRadius: 2 }} />
-                <span style={{ display: "block", width: 24, height: 2, background: "#fff", borderRadius: 2 }} />
-                <span style={{ display: "block", width: 24, height: 2, background: "#fff", borderRadius: 2 }} />
-              </button>
-            </div>
+            <button className="kh-icon d-lg-none" onClick={() => setToggle(true)} aria-label="Open menu">
+              <i className="fas fa-bars" />
+            </button>
           </div>
         </div>
       </header>
@@ -169,15 +141,15 @@ const Header = () => {
                   </li>
                 </ul>
                 <div className="mt-4">
-                  <Link href="/food-menu" className="btn-gold" onClick={() => setToggle(false)} style={{ display: "flex", justifyContent: "center" }}>
+                  <Link href="/food-menu" className="kw-btn kw-btn-fill" onClick={() => setToggle(false)} style={{ width: "100%", justifyContent: "center" }}>
                     Order Now
                   </Link>
                 </div>
                 <div className="social-icon d-flex align-items-center mt-3">
-                  <a href="https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <a href={IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <i className="fab fa-instagram" />
                   </a>
-                  <a href="https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                  <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
                     <i className="fab fa-tiktok" />
                   </a>
                 </div>
