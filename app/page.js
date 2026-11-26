@@ -139,6 +139,67 @@ const DishCard = ({ dish, delay }) => {
   );
 };
 
+const SIDE_ICONS = { 104: "fas fa-mortar-pestle", 105: "fas fa-fish", 106: "fas fa-egg", 107: "fas fa-leaf" };
+const SIDE_THUMBS = { 13: "/pictures/opt/kelewele.webp" };
+const SIDES = menuItems.filter((m) => m.category === "sides");
+
+const SideRow = ({ item }) => {
+  const { addItem } = useCart();
+  const [size, setSize] = useState(item.sizes?.[0]?.label ?? null);
+  const [added, setAdded] = useState(false);
+  const unitPrice = computeUnitPrice(item, { size });
+  const multi = (item.sizes?.length ?? 0) > 1;
+
+  const add = () => {
+    addItem({
+      menuItemId: item.id,
+      name: item.name,
+      image: item.image,
+      unitPrice,
+      quantity: 1,
+      selectedSize: size,
+      selectedBase: null,
+      selectedProtein: null,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1800);
+  };
+
+  return (
+    <div className="kw-side">
+      <span className="kw-side-thumb">
+        {item.image ? <img src={SIDE_THUMBS[item.id] || item.image} alt={item.alt || item.name} loading="lazy" /> : <i className={SIDE_ICONS[item.id] || "fas fa-utensils"} aria-hidden="true" />}
+      </span>
+      <div className="kw-side-body">
+        <h3>{item.name}</h3>
+        <p>{item.description}</p>
+        {multi ? (
+          <div className="kw-side-sizes" role="group" aria-label={`${item.name} size`}>
+            {item.sizes.map((sz) => (
+              <button key={sz.label} type="button" className={sz.label === size ? "on" : ""} aria-pressed={sz.label === size} onClick={() => setSize(sz.label)}>
+                {sz.label}
+              </button>
+            ))}
+          </div>
+        ) : (
+          size && <span className="kw-side-one">{size}</span>
+        )}
+      </div>
+      <div className="kw-side-buy">
+        <strong>{formatCurrency(unitPrice)}</strong>
+        <button
+          type="button"
+          className={`kw-mo-add${added ? " done" : ""}`}
+          onClick={add}
+          aria-label={`Add ${size ? `${size} ` : ""}${item.name} to cart`}
+        >
+          <i className={added ? "fas fa-check" : "fas fa-plus"} />
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const HomePage = () => {
   useEffect(() => {
     const els = document.querySelectorAll(".kk .reveal");
@@ -330,6 +391,32 @@ const HomePage = () => {
                 <Link href="/food-menu" className="kw-offer-btn">
                   Order Now <i className="fas fa-arrow-right" />
                 </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ Sides ══ */}
+        <section className="kw-sec">
+          <div className="container">
+            <div className="kw-sides">
+              <div className="kw-sides-feature reveal">
+                <img src="/pictures/opt/kelewele.webp" alt="" aria-hidden="true" />
+                <div className="kw-sides-copy">
+                  <span className="kw-offer-kicker">Sides & Extras</span>
+                  <h2>
+                    Perfect pairings for <span>every plate.</span>
+                  </h2>
+                  <p>Golden kelewele, sweet plantain, banku made for soup and more — add a side to complete your meal.</p>
+                  <Link href="/food-menu" className="kw-offer-btn">
+                    See the Full Menu <i className="fas fa-arrow-right" />
+                  </Link>
+                </div>
+              </div>
+              <div className="kw-sides-list reveal" style={{ "--d": "0.1s" }}>
+                {SIDES.map((item) => (
+                  <SideRow key={item.id} item={item} />
+                ))}
               </div>
             </div>
           </div>
