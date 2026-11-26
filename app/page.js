@@ -2,23 +2,15 @@
 import "./home.css";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import InstallAppButton from "@/components/InstallAppButton";
+import { useCart } from "@/context/CartContext";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { menuItems } from "@/data/menu";
-import { formatCurrency } from "@/lib/pricing";
+import { menuCategories, menuItems } from "@/data/menu";
+import { computeUnitPrice, describeCartItemSelections, formatCurrency } from "@/lib/pricing";
 
 const TIKTOK_URL = "https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe";
 
 const byId = (id) => menuItems.find((m) => m.id === id);
-
-const minPrice = (item) => {
-  if (item.callOnly) return "Call to price";
-  if (item.sizes?.length) {
-    const min = Math.min(...item.sizes.map((s) => s.price));
-    return item.sizes.length > 1 ? `from ${formatCurrency(min)}` : formatCurrency(min);
-  }
-  return item.price;
-};
 
 const CRAVINGS = [
   { label: "Family Trays", image: "/pictures/opt/jollof2.webp" },
@@ -72,22 +64,81 @@ const CategoryStrip = () => {
   );
 };
 
-const FAVOURITES = [
+const MOST_ORDERED = [
   { id: 101, image: "/pictures/opt/jollof_main_dish.webp", badge: "Best Seller" },
   { id: 102, image: "/pictures/opt/okro_soup_sq.webp", badge: "Popular" },
   { id: 13, image: "/pictures/opt/kelewele.webp", badge: "Fan Favourite" },
-  { id: 103, image: "/pictures/opt/beans_and_plantain.webp", badge: "Mondays", dark: true },
   { id: 5, image: "/pictures/opt/kontomire_stew2.webp", badge: "Classic" },
-  { id: 11, image: "/pictures/opt/sobolo.webp", badge: "Refreshing", dark: true },
 ]
-  .map((f) => ({ ...byId(f.id), ...f }))
-  .filter((f) => f.name);
+  .map((d) => ({ ...byId(d.id), ...d }))
+  .filter((d) => d.name);
 
-const sizeNote = (item) => {
-  const n = item.sizes?.length || 0;
-  if (n > 1) return `${n} sizes available`;
-  if (n === 1) return item.sizes[0].label;
-  return item.callOnly ? "Custom order" : "Single serving";
+const categoryLabel = (id) => menuCategories.find((c) => c.id === id)?.label ?? "";
+
+// Same starting choices the menu card uses, so "+" adds exactly what the menu would.
+const defaultCartItem = (item) => {
+  const selectedSize = item.sizes?.[0]?.label ?? null;
+  const selectedProtein = item.proteinAddOns?.[0]?.name ?? item.proteinOptions?.[0] ?? null;
+  return {
+    menuItemId: item.id,
+    name: item.name,
+    image: item.image,
+    unitPrice: computeUnitPrice(item, { size: selectedSize, protein: selectedProtein }),
+    quantity: 1,
+    selectedSize,
+    selectedBase: item.baseOptions?.[0] ?? null,
+    selectedProtein,
+    selectedProteins: item.includedProteins ? [...item.includedProteins] : undefined,
+  };
+};
+
+const DishCard = ({ dish, delay }) => {
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
+  const cartItem = defaultCartItem(dish);
+  const sizes = dish.sizes?.length ?? 0;
+
+  const add = () => {
+    addItem(cartItem);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1800);
+  };
+
+  return (
+    <article className="kw-mo-card reveal" style={{ "--d": delay }}>
+      <div className="kw-mo-img">
+        <img src={dish.image} alt={dish.alt || dish.name} loading="lazy" />
+        <span className="kw-mo-badge">{dish.badge}</span>
+      </div>
+      <div className="kw-mo-body">
+        <h3>{dish.name}</h3>
+        <p className="kw-mo-meta">
+          {categoryLabel(dish.category)}
+          {sizes > 1 ? ` · ${sizes} sizes` : ""}
+        </p>
+        <p className="kw-mo-adds" aria-live="polite">
+          {added ? (
+            <>
+              <i className="fas fa-check" /> Added to cart
+            </>
+          ) : (
+            describeCartItemSelections(cartItem)
+          )}
+        </p>
+        <div className="kw-mo-foot">
+          <strong>{formatCurrency(cartItem.unitPrice)}</strong>
+          <button
+            type="button"
+            className={`kw-mo-add${added ? " done" : ""}`}
+            onClick={add}
+            aria-label={`Add ${dish.name} (${describeCartItemSelections(cartItem, ", ")}) to cart`}
+          >
+            <i className={added ? "fas fa-check" : "fas fa-plus"} />
+          </button>
+        </div>
+      </div>
+    </article>
+  );
 };
 
 const HomePage = () => {
@@ -239,6 +290,26 @@ const HomePage = () => {
           </div>
         </section>
 
+        {/* ══ Most ordered dishes ══ */}
+        <section className="kw-sec">
+          <div className="container">
+            <div className="kw-head reveal">
+              <div>
+                <span className="kw-kicker">Popular</span>
+                <h2>Most Ordered Dishes</h2>
+              </div>
+              <Link href="/food-menu" className="kw-more">
+                View All <i className="fas fa-arrow-right" />
+              </Link>
+            </div>
+            <div className="kw-mo">
+              {MOST_ORDERED.map((d, i) => (
+                <DishCard key={d.id} dish={d} delay={`${i * 0.08}s`} />
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ══ Kitchen promo band ══ */}
         <section className="kw-sec">
           <div className="container">
@@ -284,39 +355,6 @@ const HomePage = () => {
                   <i className="fab fa-tiktok" /> Watch us cook on TikTok
                 </small>
               </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ══ Customer favourites ══ */}
-        <section className="kw-sec">
-          <div className="container">
-            <div className="kw-head reveal">
-              <div>
-                <h2>Customer Favourites</h2>
-                <p>The dishes Chicago orders again and again.</p>
-              </div>
-              <Link href="/food-menu" className="kw-more">
-                View All Dishes <i className="fas fa-arrow-right" />
-              </Link>
-            </div>
-            <div className="kw-prods">
-              {FAVOURITES.map((p, i) => (
-                <div key={p.id} className="kw-prod reveal" style={{ "--d": `${i * 0.06}s` }}>
-                  <span className={`kw-badge${p.dark ? " alt" : ""}`}>{p.badge}</span>
-                  <div className="kw-prod-img">
-                    <img src={p.image} alt={p.alt || p.name} loading="lazy" />
-                  </div>
-                  <b>{p.name}</b>
-                  <small>{sizeNote(p)}</small>
-                  <div className="kw-prod-foot">
-                    <strong>{minPrice(p)}</strong>
-                    <Link href="/food-menu" aria-label={`Order ${p.name}`}>
-                      <i className="fas fa-shopping-cart" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </section>
