@@ -1,52 +1,67 @@
 import Link from "next/link";
 
-const PageBanner = ({ pageName }) => {
+const PageBanner = ({ pageName, title, subtitle, images, chip, children }) => {
+  const heading = title || pageName;
+  const crumb = (
+    <span className="lx-crumb">
+      <Link href="/">Home</Link>
+      <i className="fas fa-circle" />
+      <b>{pageName}</b>
+    </span>
+  );
+
+  if (!images) {
+    return (
+      <section className="lx-banner lx-banner-compact">
+        <div className="container">
+          {crumb}
+          <h1 className="lx-title">{heading}</h1>
+          {subtitle && <p className="lx-sub">{subtitle}</p>}
+        </div>
+      </section>
+    );
+  }
+
+  const [arch, circle, square] = images;
   return (
-    <div style={{ position: "relative", overflow: "hidden", marginTop: -84, padding: "160px 0 70px", background: "var(--wine-950)" }}>
-      <img
-        src="/pictures/dishes.jpeg"
-        alt=""
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-      />
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(20,15,10,0.82), rgba(20,15,10,0.7))" }} />
-      <div className="container" style={{ position: "relative", textAlign: "center" }}>
-        <ul
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            listStyle: "none",
-            padding: 0,
-            margin: "0 0 14px",
-            fontSize: "0.75rem",
-            fontWeight: 600,
-            letterSpacing: 3,
-            textTransform: "uppercase",
-          }}
-        >
-          <li>
-            <Link href="/" style={{ color: "rgba(255,255,255,0.75)", textDecoration: "none" }}>
-              Home
-            </Link>
-          </li>
-          <li style={{ color: "#e6cc8a" }}>✦</li>
-          <li style={{ color: "#e6cc8a" }}>{pageName}</li>
-        </ul>
-        <h1
-          style={{
-            color: "#fff",
-            fontSize: "clamp(2rem, 5vw, 3.25rem)",
-            fontWeight: 600,
-            letterSpacing: 2,
-            textTransform: "uppercase",
-            margin: 0,
-          }}
-        >
-          {pageName}
-        </h1>
-        <div style={{ width: 70, height: 2, margin: "18px auto 0", background: "linear-gradient(90deg, transparent, #c9a24d, transparent)" }} />
+    <section className="lx-banner">
+      <div className="container">
+        <div className="lx-banner-grid">
+          <div>
+            {crumb}
+            <h1 className="lx-title">{heading}</h1>
+            {subtitle && <p className="lx-sub">{subtitle}</p>}
+            {children && <div className="lx-actions">{children}</div>}
+          </div>
+          <div className="lx-collage" aria-hidden="true">
+            <div className="lx-col-frame" />
+            <div className="lx-col-arch">
+              <img src={arch} alt="" />
+            </div>
+            {square && (
+              <div className="lx-col-square">
+                <img src={square} alt="" />
+              </div>
+            )}
+            {circle && (
+              <div className="lx-col-circle">
+                <img src={circle} alt="" />
+              </div>
+            )}
+            {chip && (
+              <div className="lx-col-chip">
+                <i className={chip.icon} />
+                <div>
+                  {chip.title}
+                  <small>{chip.sub}</small>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
+
 export default PageBanner;

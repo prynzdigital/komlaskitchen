@@ -1,47 +1,48 @@
 /* ══════════════════════════════════════════════════════════════
-   Komla's Kitchen — Design Tokens (luxury cream & gold)
+   Komla's Kitchen — Design Tokens (frosted wine & gold)
    Token names are kept from the original midnight theme so every
-   component re-skins from here: --ink-* are surfaces (light → page,
-   sections, cards) and --paper-* are text colors (dark on cream).
-   "Red" is the primary-CTA role and now resolves to gold.
+   component re-skins from here: --ink-* are surfaces (wine page,
+   frosted-glass cards) and --paper-* are text colours (light on wine).
+   "Red" is the primary-CTA role and resolves to gold; --red-400 is the
+   error/remove colour.
    ══════════════════════════════════════════════════════════════ */
 :root {
-  --ink-950: #faf5ec; /* page background */
-  --ink-900: #f3ead9; /* alternate sections / sticky surfaces */
-  --ink-800: #ffffff; /* cards / panels / inputs */
-  --ink-700: #f7efe0; /* raised / hover surfaces */
-  --ink-line: rgba(201, 162, 77, 0.28);
-  --ink-line-hover: rgba(201, 162, 77, 0.5);
-  --paper: #1c1712; /* primary text */
-  --paper-dim: #5a4e42;
-  --paper-faint: #8d8174;
+  --ink-950: #16040a; /* page background */
+  --ink-900: #240711; /* sticky surfaces / placeholders */
+  --ink-800: rgba(255, 255, 255, 0.06); /* frosted cards, panels, inputs */
+  --ink-700: rgba(255, 255, 255, 0.1); /* raised / hover glass */
+  --ink-line: rgba(255, 255, 255, 0.13);
+  --ink-line-hover: rgba(224, 187, 94, 0.5);
+  --paper: #ffffff;
+  --paper-dim: rgba(255, 255, 255, 0.74);
+  --paper-faint: rgba(255, 255, 255, 0.5);
 
-  --gold-300: #e6cc8a;
-  --gold-400: #9e7a32; /* gold used as text — darkened to stay legible on cream */
-  --gold-500: #c9a24d;
-  --gold-600: #8a6a2c;
+  --gold-300: #f2dca2;
+  --gold-400: #e0bb5e;
+  --gold-500: #c99a3c;
+  --gold-600: #a67c2c;
 
-  --red-400: #9e7a32;
-  --red-500: #c9a24d;
-  --red-600: #a8833a;
-  --red-100: #f4e6c1;
+  --red-400: #ff9d8f;
+  --red-500: #e0bb5e;
+  --red-600: #c99a3c;
+  --red-100: rgba(224, 187, 94, 0.15);
 
-  --green-400: #6f8f55;
-  --green-500: #5c7a45;
-  --green-600: #4a6436;
-  --green-100: #e4ecd9;
+  --green-400: #7fd3a1;
+  --green-500: #3f9d6b;
+  --green-600: #2f7d54;
+  --green-100: rgba(63, 157, 107, 0.16);
 
-  --shadow-border: 0 0 0 1px var(--ink-line), 0 12px 32px rgba(60, 40, 10, 0.1);
-  --shadow-border-hover: 0 0 0 1px var(--ink-line-hover), 0 18px 44px rgba(60, 40, 10, 0.16);
+  --shadow-border: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px var(--ink-line), 0 24px 50px -26px rgba(0, 0, 0, 0.75);
+  --shadow-border-hover: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 0 1px var(--ink-line-hover), 0 30px 60px -28px rgba(0, 0, 0, 0.8);
 
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-caps: "Cinzel", Georgia, serif;
-  --font-body: "Jost", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-sans);
 
   --gold: #c9a24d;
   --charcoal: #1c1712;
 
-  /* Wine — frosted PWA palette */
   --wine-950: #16040a;
   --wine-900: #240711;
   --wine-800: #350b19;
@@ -55,7 +56,6 @@
   --frost: rgba(255, 255, 255, 0.07);
   --frost-strong: rgba(255, 255, 255, 0.12);
   --frost-line: rgba(255, 255, 255, 0.14);
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ── Cascade the palette into the legacy "FoodKing" template variables ──
@@ -92,6 +92,7 @@ html body h6 {
   font-family: var(--font-display);
   line-height: 1.1;
   letter-spacing: -0.015em;
+  text-transform: none;
   /* main.css's own `h1..h6 { color: var(--header) }` (near-black) was the
      single root cause behind every "invisible heading" bug across the site
      (testimonials, section titles, card titles) — nearly all page
@@ -105,34 +106,6 @@ html body p {
   line-height: 1.6;
 }
 
-/* ── Headings on light surfaces — exceptions to the sitewide light-heading
-   default above, for the few spots where a heading sits on its own light
-   card rather than the dark page background. ── */
-
-/* "Our Values" cards: transparent/dark by default (inherits light from the
-   sitewide rule, correct), but .active/:hover fill the card with gold —
-   needs dark text there instead. */
-.food-processing-wrapper .food-processing-items.active .food-processing-content h3,
-.food-processing-wrapper .food-processing-items:hover .food-processing-content h3 {
-  color: var(--charcoal);
-}
-
-/* Contact page info cards: white by default, red on .active/:hover
-   (main.css already whites the text for that state — see .contact-info-items
-   rules — this only needs to restore dark text for the default white card). */
-.contact-info-items .content h3,
-.contact-info-items .content p,
-html body .contact-info-items:hover .content h3,
-html body .contact-info-items:hover .content p,
-html body .contact-info-items:hover .content a,
-html body .contact-info-items.active .content h3,
-html body .contact-info-items.active .content p,
-html body .contact-info-items.active .content a,
-html body .contact-info-items:hover .icon i,
-html body .contact-info-items.active .icon i {
-  color: var(--charcoal);
-}
-
 /* Eyebrow labels + inline accent words (.section-title span, and the same
    pattern reused standalone) use --theme2, which is deliberately a dark
    "hover fill" red for buttons — too dark to read as text on our near-black
@@ -141,21 +114,6 @@ html body .contact-info-items.active .icon i {
    specificity and loads later, so it wins the tie without this. */
 html body .section-title span {
   color: var(--red-500);
-}
-
-/* "Our Story" icon items (About page): explicit dark text hardcoded for
-   what was originally a light section — wrong now that it's dark. */
-.about-wrapper .about-content .icon-area .icon-items .content p {
-  color: var(--paper-dim);
-}
-
-/* ── "Our Values" number badge overlapping the card text below it —
-   .food-processing-image has no image in this build (just the number
-   circle), so with no height of its own it collapses to 0px, and the
-   absolutely-positioned badge (top:25px) floats into the content that
-   follows instead of sitting above it. Give the wrapper real height. ── */
-.food-processing-wrapper .food-processing-items .food-processing-image {
-  height: 70px;
 }
 
 /* ── Mobile offcanvas menu — dark surface to match the new palette ── */
@@ -221,8 +179,12 @@ html body .section-title span {
 }
 
 html body {
-  background: var(--ink-950);
   color: var(--paper);
+  background:
+    radial-gradient(60% 45% at 90% 0%, rgba(155, 31, 69, 0.35), transparent 70%),
+    radial-gradient(45% 40% at 0% 55%, rgba(110, 22, 50, 0.3), transparent 70%),
+    var(--wine-950);
+  background-attachment: fixed;
 }
 
 /* ── Flaticon — absolute paths so they survive Next.js bundling ── */

@@ -13,8 +13,16 @@ const CartPage = () => {
 
   return (
     <FoodKingLayout>
-      <PageBanner pageName="Your Cart" />
-      <section style={{ background: "var(--ink-950)", padding: "64px 0" }}>
+      <PageBanner
+        pageName="Your Cart"
+        title={
+          <>
+            Your <em>Cart</em>
+          </>
+        }
+        subtitle="Review your selections, adjust quantities, then check out in a few taps."
+      />
+      <section className="lx-sec" style={{ paddingTop: 70 }}>
         <div className="container">
           {!hydrated ? null : items.length === 0 ? (
             <div style={{ textAlign: "center", padding: "64px 0" }}>
@@ -46,12 +54,11 @@ const CartPage = () => {
                 {items.map((item) => (
                   <div
                     key={item.cartItemId}
+                    className="lx-glass lx-cart-row"
                     style={{
                       display: "flex",
                       gap: 16,
-                      background: "var(--ink-800)",
-                      boxShadow: "var(--shadow-border)",
-                      borderRadius: 14,
+                      borderRadius: 20,
                       padding: 16,
                       marginBottom: 16,
                       alignItems: "center",
@@ -78,7 +85,7 @@ const CartPage = () => {
                     </div>
 
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ color: "var(--paper)", fontWeight: 700, marginBottom: 2 }}>{item.name}</div>
+                      <div style={{ color: "var(--paper)", fontFamily: "var(--font-display)", fontSize: "1.35rem", fontWeight: 600, lineHeight: 1.15, marginBottom: 4 }}>{item.name}</div>
                       {describeSelections(item) && (
                         <div style={{ color: "var(--paper-faint)", fontSize: "0.8rem" }}>
                           {describeSelections(item)}
@@ -148,16 +155,15 @@ const CartPage = () => {
 
               <div className="col-lg-4">
                 <div
+                  className="lx-glass"
                   style={{
-                    background: "var(--ink-800)",
-                    boxShadow: "var(--shadow-border)",
-                    borderRadius: 14,
-                    padding: 24,
+                    borderRadius: 22,
+                    padding: 28,
                     position: "sticky",
                     top: 120,
                   }}
                 >
-                  <h4 style={{ color: "var(--paper)", marginBottom: 16 }}>Order Summary</h4>
+                  <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 18 }}>Order Summary</h4>
                   <div style={{ display: "flex", justifyContent: "space-between", color: "var(--paper-dim)", marginBottom: 8 }}>
                     <span>Subtotal</span>
                     <span>{formatCurrency(subtotal)}</span>

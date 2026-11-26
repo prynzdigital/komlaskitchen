@@ -81,8 +81,16 @@ const CheckoutPage = () => {
   if (hydrated && items.length === 0 && stage !== "done") {
     return (
       <FoodKingLayout>
-        <PageBanner pageName="Checkout" />
-        <section style={{ background: "var(--ink-950)", padding: "80px 0", textAlign: "center" }}>
+        <PageBanner
+        pageName="Checkout"
+        title={
+          <>
+            Secure <em>Checkout</em>
+          </>
+        }
+        subtitle="Two quick steps: your details, then payment by Zelle."
+      />
+        <section className="lx-sec" style={{ paddingTop: 70, textAlign: "center" }}>
           <div className="container">
             <h3 style={{ color: "var(--paper)", marginBottom: 12 }}>Your cart is empty</h3>
             <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>Add something from the menu before checking out.</p>
@@ -100,14 +108,23 @@ const CheckoutPage = () => {
 
   return (
     <FoodKingLayout>
-      <PageBanner pageName="Checkout" />
-      <section style={{ background: "var(--ink-950)", padding: "64px 0" }}>
+      <PageBanner
+        pageName="Checkout"
+        title={
+          <>
+            Secure <em>Checkout</em>
+          </>
+        }
+        subtitle="Two quick steps: your details, then payment by Zelle."
+      />
+      <section className="lx-sec" style={{ paddingTop: 70 }}>
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-7">
+              <div className="lx-glass" style={{ padding: "clamp(24px, 4vw, 40px)" }}>
               {stage === "details" && (
                 <form onSubmit={handleContinue} noValidate>
-                  <h4 style={{ color: "var(--paper)", marginBottom: 20 }}>Contact &amp; Fulfillment</h4>
+                  <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 22 }}>Contact &amp; Fulfillment</h4>
 
                   <div style={{ marginBottom: 16 }}>
                     <label style={labelStyle} htmlFor="name">Full Name</label>
@@ -200,7 +217,7 @@ const CheckoutPage = () => {
 
               {stage === "pay" && (
                 <div>
-                  <h4 style={{ color: "var(--paper)", marginBottom: 20 }}>Order Summary</h4>
+                  <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 20 }}>Order Summary</h4>
                   <div style={{ background: "var(--ink-800)", borderRadius: 12, padding: 20, marginBottom: 24 }}>
                     {items.map((item) => (
                       <div key={item.cartItemId} style={{ display: "flex", justifyContent: "space-between", marginBottom: 8, color: "var(--paper-dim)", fontSize: "0.9rem" }}>
@@ -218,7 +235,7 @@ const CheckoutPage = () => {
                     </div>
                   </div>
 
-                  <h4 style={{ color: "var(--paper)", marginBottom: 12 }}>Pay with Zelle</h4>
+                  <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 14 }}>Pay with Zelle</h4>
                   <div
                     style={{
                       border: "2px dashed var(--ink-line-hover)",
@@ -291,6 +308,7 @@ const CheckoutPage = () => {
                   </Link>
                 </div>
               )}
+              </div>
             </div>
           </div>
         </div>

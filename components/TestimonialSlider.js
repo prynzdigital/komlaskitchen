@@ -3,7 +3,7 @@
 import { sliderProps } from "@/utility/sliderProps";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-const testimonials = [
+export const testimonials = [
   {
     name: "Abena M.",
     role: "Chicago, IL",

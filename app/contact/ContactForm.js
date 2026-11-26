@@ -34,12 +34,12 @@ const ContactForm = () => {
 
   if (submitted) {
     return (
-      <div style={{ background: "var(--green-100)", border: "1px solid var(--green-500)", borderRadius: 10, padding: "2rem", textAlign: "center" }}>
-        <i className="fas fa-check-circle" style={{ fontSize: "2.5rem", color: "var(--green-600)", marginBottom: "1rem" }} />
-        <h4 style={{ color: "var(--green-600)" }}>Message Sent!</h4>
-        <p style={{ color: "#3f3a35" }}>
+      <div className="lx-sent" role="status">
+        <i className="fas fa-check-circle" />
+        <h4>Message Sent!</h4>
+        <p>
           Thank you for reaching out. We&apos;ll get back to you shortly. Or call us at{" "}
-          <a href="tel:3122878155" style={{ color: "var(--red-500)" }}>312-287-8155</a>.
+          <a href="tel:3122878155">312-287-8155</a>.
         </p>
       </div>
     );
@@ -47,40 +47,37 @@ const ContactForm = () => {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="row g-4">
-        <div className="col-lg-12 wow fadeInUp" data-wow-delay=".3s">
+      <div className="row g-3">
+        <div className="col-lg-12">
           <div className="form-clt">
             <input type="text" name="name" id="name" placeholder="Your Name *" value={formData.name} onChange={handleChange} aria-label="Your name" aria-required="true" />
             <div className="icon"><i className="fal fa-user" /></div>
             {errors.name && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.name}</span>}
           </div>
         </div>
-        <div className="col-lg-12 wow fadeInUp" data-wow-delay=".4s">
+        <div className="col-lg-12">
           <div className="form-clt">
             <input type="email" name="email" id="email" placeholder="Email Address *" value={formData.email} onChange={handleChange} aria-label="Your email address" aria-required="true" />
             <div className="icon"><i className="fal fa-envelope" /></div>
             {errors.email && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.email}</span>}
           </div>
         </div>
-        <div className="col-lg-12 wow fadeInUp" data-wow-delay=".5s">
+        <div className="col-lg-12">
           <div className="form-clt">
             <input type="tel" name="phone" id="phone" placeholder="Phone Number (optional)" value={formData.phone} onChange={handleChange} aria-label="Your phone number" />
             <div className="icon"><i className="fal fa-phone" /></div>
           </div>
         </div>
-        <div className="col-lg-12 wow fadeInUp" data-wow-delay=".6s">
+        <div className="col-lg-12">
           <div className="form-clt-big form-clt">
             <textarea name="message" id="message" placeholder="Your Message *" value={formData.message} onChange={handleChange} aria-label="Your message" aria-required="true" />
             <div className="icon"><i className="fal fa-edit" /></div>
             {errors.message && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.message}</span>}
           </div>
         </div>
-        <div className="col-lg-12 wow fadeInUp" data-wow-delay=".7s">
-          <button type="submit" className="theme-btn" style={{ width: "100%" }}>
-            <span className="button-content-wrapper d-flex align-items-center justify-content-center">
-              <span className="button-icon"><i className="fal fa-paper-plane" /></span>
-              <span className="button-text">Send Message</span>
-            </span>
+        <div className="col-lg-12">
+          <button type="submit" className="kw-btn kw-btn-fill" style={{ width: "100%", justifyContent: "center", border: 0, cursor: "pointer" }}>
+            <i className="fas fa-paper-plane" /> Send Message
           </button>
         </div>
       </div>

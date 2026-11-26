@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./lux.css";
 import 'rc-slider/assets/index.css';
 
 import Preloader from "@/layouts/Preloader";
