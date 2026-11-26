@@ -1,17 +1,17 @@
 "use client";
 import "./home.css";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
+import InstallAppButton from "@/components/InstallAppButton";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { menuItems } from "@/data/menu";
+import { useEffect } from "react";
+import { menuCategories, menuItems } from "@/data/menu";
 import { formatCurrency } from "@/lib/pricing";
 
-const IG_URL = "https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz";
+const TIKTOK_URL = "https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe";
 
 const byId = (id) => menuItems.find((m) => m.id === id);
 
-const priceLabel = (item) => {
-  if (!item) return "";
+const minPrice = (item) => {
   if (item.callOnly) return "Call to price";
   if (item.sizes?.length) {
     const min = Math.min(...item.sizes.map((s) => s.price));
@@ -20,62 +20,37 @@ const priceLabel = (item) => {
   return item.price;
 };
 
-const firstSentence = (text = "") => text.split(/(?<=[.!?])\s/)[0];
+const CATEGORY_LOOK = {
+  trays: { icon: "fas fa-users", image: "/pictures/opt/jollof2.webp" },
+  soups: { icon: "fas fa-mortar-pestle", image: "/pictures/opt/okro_soup_sq.webp" },
+  grilled: { icon: "fas fa-fire", image: "/pictures/opt/chicken_bg.webp" },
+  sides: { icon: "fas fa-leaf", image: "/pictures/opt/kelewele.webp" },
+  beverages: { icon: "fas fa-glass-whiskey", image: "/pictures/opt/sobolo.webp" },
+};
 
-const SIGNATURES = [
-  { id: 101, image: "/pictures/opt/jollof_main_dish.webp" },
-  { id: 102, image: "/pictures/opt/okro_soup_sq.webp" },
-  { id: 13, image: "/pictures/opt/kelewele.webp" },
-  { id: 103, image: "/pictures/opt/beans_and_plantain.webp" },
+const CATEGORIES = menuCategories
+  .map((c) => ({ ...c, ...CATEGORY_LOOK[c.id], count: menuItems.filter((m) => m.category === c.id).length }))
+  .filter((c) => c.count > 0 && c.image);
+
+const FAVOURITES = [
+  { id: 101, image: "/pictures/opt/jollof_main_dish.webp", badge: "Best Seller" },
+  { id: 102, image: "/pictures/opt/okro_soup_sq.webp", badge: "Popular" },
+  { id: 13, image: "/pictures/opt/kelewele.webp", badge: "Fan Favourite" },
+  { id: 103, image: "/pictures/opt/beans_and_plantain.webp", badge: "Mondays", dark: true },
+  { id: 5, image: "/pictures/opt/kontomire_stew2.webp", badge: "Classic" },
+  { id: 11, image: "/pictures/opt/sobolo.webp", badge: "Refreshing", dark: true },
 ]
-  .map((s) => ({ ...byId(s.id), image: s.image }))
-  .filter((s) => s.id);
+  .map((f) => ({ ...byId(f.id), ...f }))
+  .filter((f) => f.name);
 
-const CATEGORIES = [
-  { label: "Family Trays", sub: "Party-size", image: "/pictures/opt/jollof2.webp" },
-  { label: "Rice", sub: "Jollof & fried", image: "/pictures/opt/jollof_main.webp" },
-  { label: "Soups & Stews", sub: "Okro · Kontomire", image: "/pictures/opt/okro_soup_sq.webp" },
-  { label: "Grilled", sub: "Chicken · Tilapia", image: "/pictures/opt/chicken_bg.webp" },
-  { label: "Sides", sub: "Kelewele · Banku", image: "/pictures/opt/kelewele.webp" },
-  { label: "Drinks", sub: "Sobolo", image: "/pictures/opt/sobolo.webp" },
-];
-
-const MENU_GROUPS = [
-  { title: "Trays & Mains", ids: [101, 102, 103, 5, 6, 105] },
-  { title: "Sides & Drinks", ids: [13, 10, 104, 107, 11, 12] },
-];
-
-const GALLERY = [
-  "/pictures/opt/chicken_bg.webp",
-  "/pictures/opt/okro_soup_sq.webp",
-  "/pictures/opt/kelewele.webp",
-  "/pictures/opt/jollof2.webp",
-  "/pictures/opt/sobolo.webp",
-  "/pictures/opt/beans_and_plantain.webp",
-];
-
-const TESTIMONIALS = [
-  { name: "Abena M.", location: "Chicago, IL", text: "The Party Jollof is smoky, perfectly seasoned and tastes exactly like home. The best Ghanaian food in Chicago." },
-  { name: "Kwame B.", location: "Oak Park, IL", text: "Kontomire stew that tastes just like my grandmother's. Delivery was quick and everything arrived piping hot." },
-  { name: "Esi A.", location: "Evanston, IL", text: "The Red Red, Kelewele and Sobolo are unmatched. Komla's Kitchen is a blessing to this city." },
-];
-
-const MARQUEE = ["Party Jollof", "Kontomire", "Okro Soup", "Kelewele", "Red Red", "Banku", "Grilled Tilapia", "Sobolo"];
-
-const Orn = () => (
-  <div className="kk-orn" aria-hidden="true">
-    <span />✦<span />
-  </div>
-);
+const sizeNote = (item) => {
+  const n = item.sizes?.length || 0;
+  if (n > 1) return `${n} sizes available`;
+  if (n === 1) return item.sizes[0].label;
+  return item.callOnly ? "Custom order" : "Single serving";
+};
 
 const HomePage = () => {
-  const [quote, setQuote] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setQuote((i) => (i + 1) % TESTIMONIALS.length), 7000);
-    return () => clearInterval(t);
-  }, [quote]);
-
   useEffect(() => {
     const els = document.querySelectorAll(".kk .reveal");
     if (!("IntersectionObserver" in window)) {
@@ -134,9 +109,9 @@ const HomePage = () => {
                 <div className="kw-proof kk-fade" style={{ "--d": "0.65s" }}>
                   <div className="kw-avatars" aria-hidden="true">
                     {[
-                      ["AM", "#d93a67"],
+                      ["AM", "#c99a3c"],
                       ["KB", "#9b1f45"],
-                      ["EA", "#c9873d"],
+                      ["EA", "#a67c2c"],
                       ["+", "#4e1024"],
                     ].map(([t, c]) => (
                       <span key={t} style={{ background: c }}>
@@ -208,243 +183,151 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* ══ Marquee ══ */}
-        <div className="kk-marquee" aria-hidden="true">
-          <div className="kk-marquee-track">
-            {[...MARQUEE, ...MARQUEE, ...MARQUEE, ...MARQUEE].map((w, i) => (
-              <span key={i}>{w}</span>
-            ))}
-          </div>
-        </div>
-
-        {/* ══ Story ══ */}
-        <section id="kk-story" className="kk-sec kk-cream">
+        {/* ══ Shop by category ══ */}
+        <section className="kw-sec">
           <div className="container">
-            <div className="kk-story">
-              <div className="kk-collage reveal">
-                <div className="kk-collage-frame" />
-                <div className="kk-collage-main">
-                  <img src="/pictures/opt/jollof2.webp" alt="Jollof rice with chicken" />
-                </div>
-                <div className="kk-collage-sub">
-                  <img src="/pictures/opt/sobolo.webp" alt="Chilled sobolo" />
-                </div>
-                <div className="kk-pill-tag">Made with love</div>
-              </div>
-
+            <div className="kw-head reveal">
               <div>
-                <p className="kk-eyebrow reveal">Our Story</p>
-                <h2 className="kk-h2 reveal" style={{ "--d": "0.1s" }}>
-                  Recipes from Ghana, <em>cooked with care</em> in Chicago.
-                </h2>
-                <p className="kk-lead reveal" style={{ "--d": "0.2s" }}>
-                  Komla&apos;s Kitchen began with a simple wish: to share the food we grew up on. Every pot is slow-cooked
-                  from traditional recipes, seasoned by hand, and packed to arrive the way it left our kitchen — hot,
-                  generous and full of flavour.
-                </p>
-                <div className="kk-pillars">
-                  {[
-                    { icon: "fas fa-seedling", t: "Fresh, honest ingredients", d: "Quality produce and spices, prepared from scratch daily." },
-                    { icon: "fas fa-fire-alt", t: "Slow-cooked tradition", d: "Time-honoured techniques for deep, authentic flavour." },
-                    { icon: "fas fa-hand-holding-heart", t: "Served personally", d: "Call us and we’ll tailor every order to your table." },
-                  ].map((p, i) => (
-                    <div key={p.t} className="kk-pillar reveal" style={{ "--d": `${0.25 + i * 0.1}s` }}>
-                      <i className={p.icon} />
-                      <div>
-                        <h4>{p.t}</h4>
-                        <p>{p.d}</p>
-                      </div>
-                    </div>
-                  ))}
+                <h2>Shop by Category</h2>
+                <p>Family trays, rich soups, sides and drinks — all made fresh.</p>
+              </div>
+              <Link href="/food-menu" className="kw-more">
+                View Full Menu <i className="fas fa-arrow-right" />
+              </Link>
+            </div>
+            <div className="kw-cats">
+              {CATEGORIES.map((c, i) => (
+                <Link key={c.id} href="/food-menu" className="kw-cat reveal" style={{ "--d": `${i * 0.06}s` }}>
+                  <span className="kw-cat-icon">
+                    <i className={c.icon} />
+                  </span>
+                  <div className="kw-cat-img">
+                    <img src={c.image} alt={c.label} loading="lazy" />
+                  </div>
+                  <b>{c.label}</b>
+                  <div className="kw-cat-foot">
+                    <span>
+                      {c.count} {c.count === 1 ? "item" : "items"}
+                    </span>
+                    <i className="fas fa-arrow-right" />
+                  </div>
+                </Link>
+              ))}
+              <a href="tel:3122878155" className="kw-cat reveal" style={{ "--d": `${CATEGORIES.length * 0.06}s` }}>
+                <span className="kw-cat-icon">
+                  <i className="fas fa-concierge-bell" />
+                </span>
+                <div className="kw-cat-img">
+                  <img src="/pictures/opt/jollof_main.webp" alt="Catering" loading="lazy" />
                 </div>
-                <Link href="/about" className="kk-link reveal">
-                  Read our story <i className="fas fa-arrow-right" />
+                <b>Catering</b>
+                <div className="kw-cat-foot">
+                  <span>Call to plan</span>
+                  <i className="fas fa-arrow-right" />
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ Kitchen promo band ══ */}
+        <section className="kw-sec">
+          <div className="container">
+            <div className="kw-band reveal">
+              <div>
+                <span className="kw-eyebrow">From Our Kitchen</span>
+                <h2>
+                  From Our Kitchen
+                  <br />
+                  To Your Table.
+                </h2>
+                <p>
+                  Every pot is slow-cooked from traditional Ghanaian recipes, seasoned by hand and packed hot — so it
+                  arrives the way it left our kitchen.
+                </p>
+                <Link href="/about" className="kw-btn kw-btn-fill">
+                  Learn More <i className="fas fa-arrow-right" />
                 </Link>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* ══ Signature dishes ══ */}
-        <section className="kk-sec kk-dark">
-          <div className="container">
-            <div className="kk-center">
-              <p className="kk-eyebrow kk-both reveal">Chef&apos;s Selection</p>
-              <h2 className="kk-h2 reveal" style={{ "--d": "0.1s" }}>
-                Signature <em>dishes</em>
-              </h2>
-              <p className="kk-lead reveal" style={{ "--d": "0.2s" }}>
-                The plates our guests return for, again and again.
-              </p>
-            </div>
-            <div className="kk-dishes">
-              {SIGNATURES.map((d, i) => (
-                <Link key={d.id} href="/food-menu" className="kk-dish reveal" style={{ "--d": `${i * 0.12}s` }}>
-                  <div className="kk-dish-img">
-                    <img src={d.image} alt={d.alt || d.name} loading="lazy" />
-                  </div>
-                  <span className="kk-dish-num">No. 0{i + 1}</span>
-                  <h3>{d.name}</h3>
-                  <p>{d.description}</p>
-                  <div className="kk-dish-foot">
-                    <b>{priceLabel(d)}</b>
-                    <span>
-                      Order <i className="fas fa-arrow-right" />
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ══ Categories + menu list ══ */}
-        <section className="kk-sec kk-cream-2">
-          <div className="container">
-            <div className="kk-center">
-              <p className="kk-eyebrow kk-both reveal">The Menu</p>
-              <h2 className="kk-h2 reveal" style={{ "--d": "0.1s" }}>
-                A taste of <em>home</em>
-              </h2>
-              <Orn />
-            </div>
-
-            <div className="kk-cats">
-              {CATEGORIES.map((c, i) => (
-                <Link key={c.label} href="/food-menu" className="kk-cat reveal" style={{ "--d": `${i * 0.07}s` }}>
-                  <div className="kk-cat-ring">
+              <div className="kw-stats">
+                {[
+                  { icon: "fas fa-home", b: "Family", s: "Heritage recipes" },
+                  { icon: "fas fa-fire-alt", b: "Daily", s: "Cooked fresh" },
+                  { icon: "fas fa-map-marker-alt", b: "Chicago", s: "Same-day delivery" },
+                ].map((st) => (
+                  <div key={st.b} className="kw-stat">
+                    <i className={st.icon} />
                     <div>
-                      <img src={c.image} alt={c.label} loading="lazy" />
+                      <b>{st.b}</b>
+                      <span>{st.s}</span>
                     </div>
-                  </div>
-                  <h5>{c.label}</h5>
-                  <small>{c.sub}</small>
-                </Link>
-              ))}
-            </div>
-
-            <div className="kk-menu-card reveal">
-              <div className="kk-menu-cols">
-                {MENU_GROUPS.map((g) => (
-                  <div key={g.title} className="kk-menu-group">
-                    <h4>{g.title}</h4>
-                    {g.ids
-                      .map(byId)
-                      .filter(Boolean)
-                      .map((item) => (
-                        <div key={item.id} className="kk-menu-item">
-                          <div className="kk-menu-row">
-                            <b>{item.name}</b>
-                            <i />
-                            <span>{priceLabel(item)}</span>
-                          </div>
-                          {item.description && <p>{firstSentence(item.description)}</p>}
-                        </div>
-                      ))}
                   </div>
                 ))}
               </div>
-              <div className="kk-center" style={{ marginTop: 34 }}>
-                <Link href="/food-menu" className="kk-btn kk-btn-ink">
-                  Order from the full menu <i className="fas fa-arrow-right" />
-                </Link>
-              </div>
+
+              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="kw-video" aria-label="Watch us cook on TikTok">
+                <img src="/pictures/opt/chicken_bg.webp" alt="" loading="lazy" />
+                <span className="kw-play">
+                  <i className="fas fa-play" />
+                </span>
+                <small>
+                  <i className="fab fa-tiktok" /> Watch us cook on TikTok
+                </small>
+              </a>
             </div>
           </div>
         </section>
 
-        {/* ══ Catering ══ */}
-        <section className="kk-events">
-          <div className="kk-events-bg">
-            <img src="/pictures/opt/chicken_bg.webp" alt="" loading="lazy" />
-          </div>
+        {/* ══ Customer favourites ══ */}
+        <section className="kw-sec">
           <div className="container">
-            <div style={{ maxWidth: 620 }}>
-              <p className="kk-eyebrow kk-light reveal">Catering & Private Events</p>
-              <h2 className="kk-h2 reveal" style={{ color: "#fff", "--d": "0.1s" }}>
-                Let us cater your <em style={{ color: "#e9d39b" }}>next celebration.</em>
-              </h2>
-              <p className="kk-lead reveal" style={{ color: "rgba(255,255,255,0.72)", "--d": "0.2s" }}>
-                From intimate family dinners to naming ceremonies, birthdays and office parties — generous trays and
-                custom platters, prepared fresh and ready to share.
-              </p>
-              <div className="kk-events-sizes reveal" style={{ "--d": "0.3s" }}>
-                <div>
-                  <b>Small</b>
-                  <span>Family table</span>
-                </div>
-                <div>
-                  <b>Medium</b>
-                  <span>Gatherings</span>
-                </div>
-                <div>
-                  <b>Large</b>
-                  <span>Full celebrations</span>
-                </div>
+            <div className="kw-head reveal">
+              <div>
+                <h2>Customer Favourites</h2>
+                <p>The dishes Chicago orders again and again.</p>
               </div>
-              <div className="kw-ctas reveal" style={{ "--d": "0.4s" }}>
-                <a href="tel:3122878155" className="kk-btn kk-btn-gold">
-                  Plan your event <i className="fas fa-arrow-right" />
-                </a>
-                <Link href="/food-menu" className="kk-btn kk-btn-ghost">
-                  View family trays
-                </Link>
-              </div>
+              <Link href="/food-menu" className="kw-more">
+                View All Dishes <i className="fas fa-arrow-right" />
+              </Link>
             </div>
-          </div>
-        </section>
-
-        {/* ══ Testimonials ══ */}
-        <section className="kk-sec kk-cream">
-          <div className="container kk-center">
-            <p className="kk-eyebrow kk-both reveal">Kind Words</p>
-            <div className="kk-quote reveal" style={{ "--d": "0.1s" }}>
-              <div className="kk-quote-mark">&ldquo;</div>
-              {TESTIMONIALS.map((t, i) => (
-                <figure key={t.name} className={i === quote ? "on" : ""} aria-hidden={i !== quote}>
-                  <div className="kk-stars">★★★★★</div>
-                  <blockquote>{t.text}</blockquote>
-                  <figcaption>
-                    <b>{t.name}</b> &nbsp;·&nbsp; {t.location}
-                  </figcaption>
-                </figure>
+            <div className="kw-prods">
+              {FAVOURITES.map((p, i) => (
+                <div key={p.id} className="kw-prod reveal" style={{ "--d": `${i * 0.06}s` }}>
+                  <span className={`kw-badge${p.dark ? " alt" : ""}`}>{p.badge}</span>
+                  <div className="kw-prod-img">
+                    <img src={p.image} alt={p.alt || p.name} loading="lazy" />
+                  </div>
+                  <b>{p.name}</b>
+                  <small>{sizeNote(p)}</small>
+                  <div className="kw-prod-foot">
+                    <strong>{minPrice(p)}</strong>
+                    <Link href="/food-menu" aria-label={`Order ${p.name}`}>
+                      <i className="fas fa-shopping-cart" />
+                    </Link>
+                  </div>
+                </div>
               ))}
             </div>
-            <div className="kk-quote-nav">
-              <button
-                aria-label="Previous review"
-                onClick={() => setQuote((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
-              >
-                <i className="fas fa-arrow-left" />
-              </button>
-              <button aria-label="Next review" onClick={() => setQuote((i) => (i + 1) % TESTIMONIALS.length)}>
-                <i className="fas fa-arrow-right" />
-              </button>
-            </div>
           </div>
         </section>
 
-        {/* ══ Instagram ══ */}
-        <section className="kk-cream" style={{ paddingTop: 20 }}>
+        {/* ══ Install the app ══ */}
+        <section className="kw-sec">
           <div className="container">
-            <div className="kk-gallery-head">
+            <div className="kw-app reveal">
+              <span className="kw-app-icon">
+                <i className="fas fa-mobile-alt" />
+              </span>
               <div>
-                <p className="kk-eyebrow reveal">Follow along</p>
-                <h2 className="kk-h2 reveal" style={{ margin: 0, "--d": "0.1s" }}>
-                  <em>@komlaskitchen</em>
-                </h2>
+                <h2>Get the Komla&apos;s Kitchen app</h2>
+                <p>Add us to your home screen for one-tap ordering — no app store needed.</p>
               </div>
-              <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kk-link reveal">
-                Follow on Instagram <i className="fab fa-instagram" />
-              </a>
+              <InstallAppButton />
+              <span className="kw-app-tile" aria-hidden="true">
+                K
+              </span>
             </div>
-          </div>
-          <div className="kk-gallery">
-            {GALLERY.map((src) => (
-              <a key={src} href={IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Komla's Kitchen on Instagram">
-                <img src={src} alt="" loading="lazy" />
-              </a>
-            ))}
           </div>
         </section>
       </div>

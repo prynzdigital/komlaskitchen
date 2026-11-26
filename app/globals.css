@@ -48,67 +48,14 @@
   --wine-700: #4e1024;
   --wine-600: #6e1632;
   --wine-500: #9b1f45;
-  --rose-500: #d93a67;
-  --rose-400: #f0628a;
-  --rose-300: #ff9bb6;
+  --gilt-600: #a67c2c;
+  --gilt-500: #c99a3c;
+  --gilt-400: #e0bb5e;
+  --gilt-300: #f2dca2;
   --frost: rgba(255, 255, 255, 0.07);
   --frost-strong: rgba(255, 255, 255, 0.12);
   --frost-line: rgba(255, 255, 255, 0.14);
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-}
-
-.btn-gold {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 30px;
-  border-radius: 50px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.btn-gold {
-  background: linear-gradient(135deg, #e6cc8a, #c9a24d 55%, #a8833a);
-  color: #1c1712;
-  box-shadow: 0 6px 20px rgba(201, 162, 77, 0.35);
-}
-.btn-gold:hover {
-  transform: translateY(-2px);
-  color: #1c1712;
-}
-
-
-.lux-nav-link {
-  color: rgba(255, 255, 255, 0.85);
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding-bottom: 4px;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
-}
-.lux-nav-link:hover,
-.lux-nav-link.active {
-  color: #fff;
-  border-color: var(--gold);
-}
-
-
-html body .footer-widgets-wrapper .single-footer-widget .footer-content .social-icon a {
-  background: rgba(201, 162, 77, 0.14);
-  border: 1px solid rgba(201, 162, 77, 0.4);
-  color: #c9a24d;
-}
-html body .footer-widgets-wrapper .single-footer-widget .footer-content .social-icon a:hover {
-  background: #c9a24d;
-  color: #1c1712;
 }
 
 /* ── Cascade the palette into the legacy "FoodKing" template variables ──
@@ -156,22 +103,6 @@ html body h6 {
 }
 html body p {
   line-height: 1.6;
-}
-
-/* ── Tricolor accent stripe — red / gold / green, a nod to the Ghana flag ── */
-.tricolor-stripe {
-  height: 3px;
-  width: 64px;
-  border-radius: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--red-500) 0%,
-    var(--red-500) 33%,
-    var(--gold-400) 33%,
-    var(--gold-400) 66%,
-    var(--green-500) 66%,
-    var(--green-500) 100%
-  );
 }
 
 /* ── Headings on light surfaces — exceptions to the sitewide light-heading
@@ -390,7 +321,7 @@ img.mfp-img {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--rose-400);
+  background: var(--gilt-400);
 }
 .kh {
   position: sticky;
@@ -435,7 +366,7 @@ img.mfp-img {
 }
 .kh-logo em {
   font-style: normal;
-  color: var(--rose-400);
+  color: var(--gilt-400);
 }
 .kh-nav {
   gap: 38px;
@@ -458,7 +389,7 @@ img.mfp-img {
   bottom: -4px;
   height: 2px;
   border-radius: 2px;
-  background: var(--rose-400);
+  background: var(--gilt-400);
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -467,7 +398,7 @@ img.mfp-img {
   color: #fff;
 }
 .kh-nav a.on {
-  color: var(--rose-300);
+  color: var(--gilt-300);
 }
 .kh-nav a:hover::after,
 .kh-nav a.on::after {
@@ -498,7 +429,7 @@ img.mfp-img {
 .kh-icon:hover {
   color: #fff;
   background: var(--frost-strong);
-  border-color: rgba(255, 155, 182, 0.5);
+  border-color: rgba(224, 187, 94, 0.55);
   transform: translateY(-2px);
 }
 .kh-icon b {
@@ -509,8 +440,8 @@ img.mfp-img {
   height: 19px;
   padding: 0 5px;
   border-radius: 10px;
-  background: var(--rose-500);
-  color: #fff;
+  background: var(--gilt-400);
+  color: var(--wine-950);
   font-size: 0.65rem;
   font-weight: 700;
   display: grid;
@@ -539,26 +470,26 @@ img.mfp-img {
   transform: translateX(4px);
 }
 .kw-btn-fill {
-  color: #fff;
-  background: linear-gradient(135deg, var(--rose-400), var(--rose-500) 45%, var(--wine-500));
-  box-shadow: 0 12px 30px -10px rgba(217, 58, 103, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  color: var(--wine-950);
+  background: linear-gradient(135deg, var(--gilt-300), var(--gilt-400) 40%, var(--gilt-500) 75%, var(--gilt-600));
+  box-shadow: 0 12px 30px -10px rgba(201, 154, 60, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 .kw-btn-fill:hover {
-  color: #fff;
+  color: var(--wine-950);
   transform: translateY(-2px);
-  box-shadow: 0 18px 40px -12px rgba(217, 58, 103, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 18px 40px -12px rgba(201, 154, 60, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 .kw-btn-glass {
   color: #fff;
   background: var(--frost);
-  border: 1px solid rgba(255, 155, 182, 0.45);
+  border: 1px solid rgba(224, 187, 94, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 .kw-btn-glass:hover {
   color: #fff;
   background: var(--frost-strong);
-  border-color: var(--rose-300);
+  border-color: var(--gilt-300);
   transform: translateY(-2px);
 }
 @media (max-width: 575px) {
@@ -568,5 +499,99 @@ img.mfp-img {
   .kh-logo img {
     width: 40px;
     height: 40px;
+  }
+}
+
+/* ══ Footer ══ */
+.kf {
+  position: relative;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(50% 80% at 90% 0%, rgba(155, 31, 69, 0.35), transparent 70%),
+    var(--wine-950);
+  border-top: 1px solid var(--frost-line);
+}
+.kf-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.4fr 1.2fr;
+  gap: 36px;
+  padding: 72px 0 56px;
+}
+.kf-brand p {
+  margin: 18px 0 0;
+  max-width: 260px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+html body .kf h4 {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #fff;
+  margin: 0 0 18px;
+}
+.kf ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.kf a {
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.kf a:hover {
+  color: var(--gilt-300);
+}
+.kf ul li {
+  font-size: 0.9rem;
+}
+.kf-contact li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.kf-contact i {
+  color: var(--gilt-400);
+  width: 14px;
+}
+.kf-social {
+  display: flex;
+  gap: 10px;
+}
+.kf .kf-install {
+  padding: 11px 18px;
+  font-size: 0.85rem;
+}
+.kf-bottom {
+  border-top: 1px solid var(--frost-line);
+}
+.kf-bottom .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-block: 20px;
+}
+.kf-bottom p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.kf-bottom a {
+  color: var(--gilt-400);
+  font-weight: 600;
+}
+@media (max-width: 991px) {
+  .kf-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .kf-brand {
+    grid-column: 1 / -1;
   }
 }

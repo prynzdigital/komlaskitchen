@@ -3,6 +3,11 @@ import 'rc-slider/assets/index.css';
 
 import Preloader from "@/layouts/Preloader";
 import { CartProvider } from "@/context/CartContext";
+import PwaSetup from "@/components/PwaSetup";
+
+export const viewport = {
+  themeColor: "#240711",
+};
 
 export const metadata = {
   metadataBase: new URL("https://komlas-kitchen.com"),
@@ -38,8 +43,13 @@ export const metadata = {
     icon: [
       { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
     ],
-    apple: "/icon.png",
+    apple: "/icons/apple-touch-icon.png",
     shortcut: "/favicon.ico",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Komla's",
+    statusBarStyle: "black-translucent",
   },
   alternates: {
     canonical: "https://komlas-kitchen.com",
@@ -115,6 +125,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Preloader />
+        <PwaSetup />
         <CartProvider>{children}</CartProvider>
       </body>
     </html>
