@@ -648,152 +648,6 @@ html body .kw-head h2 {
   right: 12px;
 }
 
-/* ══ Special offer banner ══ */
-.kw-offer {
-  position: relative;
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  border-radius: 26px;
-  overflow: hidden;
-  isolation: isolate;
-  background:
-    radial-gradient(45% 80% at 30% 50%, rgba(155, 31, 69, 0.45), transparent 70%),
-    linear-gradient(120deg, var(--wine-900), var(--wine-950) 60%);
-  box-shadow: 0 40px 70px -40px rgba(36, 7, 17, 0.75);
-}
-.kw-offer-photo {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 62%;
-  z-index: -1;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 38%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%);
-}
-.kw-offer-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 60% 50%;
-  transition: transform 1.2s ease;
-}
-.kw-offer:hover .kw-offer-photo img {
-  transform: scale(1.04);
-}
-.kw-offer-deco {
-  position: absolute;
-  z-index: -1;
-  color: var(--gilt-400);
-  opacity: 0.55;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
-}
-.kw-offer-copy {
-  position: relative;
-  padding: 40px 48px;
-  max-width: 520px;
-}
-.kw-offer-logo {
-  width: 46px;
-  height: 46px;
-  object-fit: contain;
-  display: block;
-  margin-bottom: 10px;
-}
-.kw-offer-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-caps);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.36em;
-  text-transform: uppercase;
-  color: var(--gilt-300);
-}
-.kw-offer-kicker::before,
-.kw-offer-kicker::after {
-  content: "";
-  width: 40px;
-  height: 1px;
-  background: rgba(242, 220, 162, 0.6);
-}
-html body .kw-offer h2 {
-  font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: clamp(2.6rem, 5.4vw, 4.4rem);
-  line-height: 1;
-  letter-spacing: -0.035em;
-  text-transform: none;
-  color: #fff;
-  margin: 14px 0 6px;
-}
-.kw-offer h2 span {
-  background: linear-gradient(100deg, var(--gilt-300), var(--gilt-400) 50%, var(--gilt-500));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.kw-offer-sub {
-  margin: 0 0 6px;
-  font-family: var(--font-sans);
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
-  font-weight: 500;
-  color: #fff;
-}
-.kw-offer-note {
-  margin: 0 0 24px;
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-.kw-offer-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 28px;
-  border-radius: 999px;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--wine-900);
-  background: #fff;
-  text-decoration: none;
-  box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.6);
-  transition: transform 0.25s, background 0.25s;
-}
-.kw-offer-btn i {
-  font-size: 0.8rem;
-  transition: transform 0.25s;
-}
-.kw-offer-btn:hover {
-  color: var(--wine-950);
-  background: var(--gilt-300);
-  transform: translateY(-2px);
-}
-.kw-offer-btn:hover i {
-  transform: translateX(4px);
-}
-@media (max-width: 767px) {
-  .kw-offer {
-    min-height: 360px;
-    align-items: flex-end;
-  }
-  .kw-offer-photo {
-    width: 100%;
-    mask-image: linear-gradient(180deg, #000 0%, transparent 62%);
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 62%);
-    opacity: 0.6;
-  }
-  .kw-offer-copy {
-    padding: 150px 24px 28px;
-  }
-  .kw-offer .kw-offer-deco {
-    display: none;
-  }
-}
-
 /* ══ Most ordered dishes ══ */
 .kw-kicker {
   display: block;
@@ -1333,5 +1187,10 @@ html body .kw-mo-body h3 {
   .kw-tile span {
     font-size: 160px;
     transform: translate(-8px, 14px);
+  }
+}
+@media (max-width: 575px) {
+  .kw-chip-a {
+    display: none;
   }
 }

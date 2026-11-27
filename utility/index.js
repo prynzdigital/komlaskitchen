@@ -1,27 +1,4 @@
 export const foodkingUtility = {
-  preloader: () => {
-    if (typeof window === "undefined") return;
-    window.addEventListener("load", () => {
-      const preloader = document.getElementById("preloader");
-      if (preloader) {
-        preloader.classList.add("loaded");
-        setTimeout(() => {
-          preloader.style.display = "none";
-        }, 600);
-      }
-    });
-    // Fallback in case 'load' already fired
-    setTimeout(() => {
-      const preloader = document.getElementById("preloader");
-      if (preloader) {
-        preloader.classList.add("loaded");
-        setTimeout(() => {
-          preloader.style.display = "none";
-        }, 600);
-      }
-    }, 3000);
-  },
-
   scrollAnimation: () => {
     if (typeof window !== "undefined") {
       import("wowjs").then(({ WOW }) => {

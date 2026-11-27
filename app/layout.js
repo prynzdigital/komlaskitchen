@@ -2,7 +2,6 @@ import "./globals.css";
 import "./lux.css";
 import 'rc-slider/assets/index.css';
 
-import Preloader from "@/layouts/Preloader";
 import { CartProvider } from "@/context/CartContext";
 import PwaSetup from "@/components/PwaSetup";
 
@@ -125,7 +124,6 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Preloader />
         <PwaSetup />
         <CartProvider>{children}</CartProvider>
       </body>

@@ -87,22 +87,24 @@ const CheckoutPage = () => {
           <>
             Secure <em>Checkout</em>
           </>
-        }
-        subtitle="Two quick steps: your details, then payment by Zelle."
-      />
-        <section className="lx-sec" style={{ paddingTop: 70, textAlign: "center" }}>
-          <div className="container">
-            <h3 style={{ color: "var(--paper)", marginBottom: 12 }}>Your cart is empty</h3>
-            <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>Add something from the menu before checking out.</p>
-            <Link
-              href="/food-menu"
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red-500)", color: "#1c1712", padding: "13px 30px", borderRadius: 12, fontWeight: 700, textDecoration: "none" }}
-            >
-              <i className="fas fa-utensils" /> Browse Menu
-            </Link>
-          </div>
-        </section>
-      </FoodKingLayout>
+          }
+          subtitle="Two quick steps: your details, then payment by Zelle."
+        />
+      <div className="lx-light">
+          <section className="lx-sec" style={{ paddingTop: 70, textAlign: "center" }}>
+            <div className="container">
+              <h3 style={{ color: "var(--paper)", marginBottom: 12 }}>Your cart is empty</h3>
+              <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>Add something from the menu before checking out.</p>
+              <Link
+                href="/food-menu"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red-500)", color: "#1c1712", padding: "13px 30px", borderRadius: 12, fontWeight: 700, textDecoration: "none" }}
+              >
+                <i className="fas fa-utensils" /> Browse Menu
+              </Link>
+            </div>
+          </section>
+      </div>
+    </FoodKingLayout>
     );
   }
 
@@ -114,165 +116,92 @@ const CheckoutPage = () => {
           <>
             Secure <em>Checkout</em>
           </>
-        }
-        subtitle="Two quick steps: your details, then payment by Zelle."
-      />
-      <section className="lx-sec" style={{ paddingTop: 70 }}>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-7">
-              <div className="lx-glass" style={{ padding: "clamp(24px, 4vw, 40px)" }}>
-              {stage === "details" && (
-                <form onSubmit={handleContinue} noValidate>
-                  <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 22 }}>Contact &amp; Fulfillment</h4>
-
-                  <div style={{ marginBottom: 16 }}>
-                    <label style={labelStyle} htmlFor="name">Full Name</label>
-                    <input id="name" name="name" style={inputStyle} value={form.name} onChange={handleChange} />
-                    {errors.name && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.name}</span>}
-                  </div>
-
-                  <div className="row g-3" style={{ marginBottom: 16 }}>
-                    <div className="col-md-6">
-                      <label style={labelStyle} htmlFor="phone">Phone Number</label>
-                      <input id="phone" name="phone" type="tel" style={inputStyle} value={form.phone} onChange={handleChange} />
-                      {errors.phone && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.phone}</span>}
-                    </div>
-                    <div className="col-md-6">
-                      <label style={labelStyle} htmlFor="email">Email</label>
-                      <input id="email" name="email" type="email" style={inputStyle} value={form.email} onChange={handleChange} />
-                      {errors.email && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.email}</span>}
-                    </div>
-                  </div>
-
-                  <div style={{ marginBottom: 16 }}>
-                    <div style={labelStyle}>Pickup or Delivery?</div>
-                    <div style={{ display: "flex", gap: 12 }}>
-                      {["pickup", "delivery"].map((option) => (
-                        <label
-                          key={option}
-                          style={{
-                            flex: 1,
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 8,
-                            border: `1.5px solid ${form.fulfillment === option ? "var(--red-500)" : "var(--ink-line)"}`,
-                            background: form.fulfillment === option ? "rgba(201, 162, 77, 0.14)" : "var(--ink-800)",
-                            color: "var(--paper)",
-                            borderRadius: 10,
-                            padding: "12px 16px",
-                            cursor: "pointer",
-                            textTransform: "capitalize",
-                            fontWeight: 600,
-                          }}
-                        >
-                          <input
-                            type="radio"
-                            name="fulfillment"
-                            value={option}
-                            checked={form.fulfillment === option}
-                            onChange={handleChange}
-                            style={{ accentColor: "var(--red-500)" }}
-                          />
-                          {option}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {form.fulfillment === "delivery" && (
+          }
+          subtitle="Two quick steps: your details, then payment by Zelle."
+        />
+      <div className="lx-light">
+        <section className="lx-sec" style={{ paddingTop: 70 }}>
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-lg-7">
+                <div className="lx-glass" style={{ padding: "clamp(24px, 4vw, 40px)" }}>
+                {stage === "details" && (
+                  <form onSubmit={handleContinue} noValidate>
+                    <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 22 }}>Contact &amp; Fulfillment</h4>
+  
                     <div style={{ marginBottom: 16 }}>
-                      <label style={labelStyle} htmlFor="address">Delivery Address</label>
-                      <textarea
-                        id="address"
-                        name="address"
-                        rows={3}
-                        style={{ ...inputStyle, resize: "vertical" }}
-                        value={form.address}
-                        onChange={handleChange}
-                      />
-                      {errors.address && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.address}</span>}
+                      <label style={labelStyle} htmlFor="name">Full Name</label>
+                      <input id="name" name="name" style={inputStyle} value={form.name} onChange={handleChange} />
+                      {errors.name && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.name}</span>}
                     </div>
-                  )}
-
-                  <button
-                    type="submit"
-                    style={{
-                      width: "100%",
-                      background: "var(--red-500)",
-                      color: "#1c1712",
-                      border: "none",
-                      borderRadius: 10,
-                      padding: "14px",
-                      fontWeight: 700,
-                      fontSize: "1rem",
-                      cursor: "pointer",
-                      marginTop: 8,
-                    }}
-                  >
-                    Continue to Payment
-                  </button>
-                </form>
-              )}
-
-              {stage === "pay" && (
-                <div>
-                  <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 20 }}>Order Summary</h4>
-                  <div style={{ background: "var(--ink-800)", borderRadius: 12, padding: 20, marginBottom: 24 }}>
-                    {items.map((item) => (
-                      <div key={item.cartItemId} style={{ display: "flex", justifyContent: "space-between", marginBottom: 8, color: "var(--paper-dim)", fontSize: "0.9rem" }}>
-                        <span>
-                          {item.quantity}× {item.name}
-                          {describeCartItemSelections(item, ", ") ? ` (${describeCartItemSelections(item, ", ")})` : ""}
-                        </span>
-                        <span style={{ color: "var(--paper)", fontWeight: 600 }}>{formatCurrency(item.unitPrice * item.quantity)}</span>
+  
+                    <div className="row g-3" style={{ marginBottom: 16 }}>
+                      <div className="col-md-6">
+                        <label style={labelStyle} htmlFor="phone">Phone Number</label>
+                        <input id="phone" name="phone" type="tel" style={inputStyle} value={form.phone} onChange={handleChange} />
+                        {errors.phone && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.phone}</span>}
                       </div>
-                    ))}
-                    <hr style={{ borderColor: "var(--ink-line)", margin: "12px 0" }} />
-                    <div style={{ display: "flex", justifyContent: "space-between", color: "var(--paper)", fontWeight: 800 }}>
-                      <span>Total</span>
-                      <span>{formatCurrency(subtotal)}</span>
+                      <div className="col-md-6">
+                        <label style={labelStyle} htmlFor="email">Email</label>
+                        <input id="email" name="email" type="email" style={inputStyle} value={form.email} onChange={handleChange} />
+                        {errors.email && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.email}</span>}
+                      </div>
                     </div>
-                  </div>
-
-                  <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 14 }}>Pay with Zelle</h4>
-                  <div
-                    style={{
-                      border: "2px dashed var(--ink-line-hover)",
-                      borderRadius: 12,
-                      padding: 28,
-                      textAlign: "center",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <i className="fas fa-qrcode" style={{ fontSize: "3rem", color: "var(--gold-400)", marginBottom: 12 }} />
-                    <div style={{ color: "var(--paper)", fontWeight: 700, marginBottom: 4 }}>
-                      Zelle QR code coming soon
+  
+                    <div style={{ marginBottom: 16 }}>
+                      <div style={labelStyle}>Pickup or Delivery?</div>
+                      <div style={{ display: "flex", gap: 12 }}>
+                        {["pickup", "delivery"].map((option) => (
+                          <label
+                            key={option}
+                            style={{
+                              flex: 1,
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
+                              border: `1.5px solid ${form.fulfillment === option ? "var(--red-500)" : "var(--ink-line)"}`,
+                              background: form.fulfillment === option ? "rgba(201, 162, 77, 0.14)" : "var(--ink-800)",
+                              color: "var(--paper)",
+                              borderRadius: 10,
+                              padding: "12px 16px",
+                              cursor: "pointer",
+                              textTransform: "capitalize",
+                              fontWeight: 600,
+                            }}
+                          >
+                            <input
+                              type="radio"
+                              name="fulfillment"
+                              value={option}
+                              checked={form.fulfillment === option}
+                              onChange={handleChange}
+                              style={{ accentColor: "var(--red-500)" }}
+                            />
+                            {option}
+                          </label>
+                        ))}
+                      </div>
                     </div>
-                    <p style={{ color: "var(--paper-faint)", fontSize: "0.85rem", margin: 0 }}>
-                      In the meantime, please Zelle {formatCurrency(subtotal)} to Komla&apos;s Kitchen directly, or
-                      call +1 (773) 690-2745 for payment details, then click &ldquo;I&apos;ve Paid&rdquo; below.
-                    </p>
-                  </div>
-
-                  {submitError && (
-                    <p style={{ color: "var(--red-400)", marginBottom: 12 }}>{submitError}</p>
-                  )}
-
-                  <div style={{ display: "flex", gap: 12 }}>
+  
+                    {form.fulfillment === "delivery" && (
+                      <div style={{ marginBottom: 16 }}>
+                        <label style={labelStyle} htmlFor="address">Delivery Address</label>
+                        <textarea
+                          id="address"
+                          name="address"
+                          rows={3}
+                          style={{ ...inputStyle, resize: "vertical" }}
+                          value={form.address}
+                          onChange={handleChange}
+                        />
+                        {errors.address && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.address}</span>}
+                      </div>
+                    )}
+  
                     <button
-                      type="button"
-                      onClick={() => setStage("details")}
-                      style={{ flex: 1, background: "var(--ink-800)", color: "var(--paper)", border: "1px solid var(--ink-line)", borderRadius: 10, padding: "14px", fontWeight: 600, cursor: "pointer" }}
-                    >
-                      Back
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleConfirmPayment}
-                      disabled={submitting}
+                      type="submit"
                       style={{
-                        flex: 2,
+                        width: "100%",
                         background: "var(--red-500)",
                         color: "#1c1712",
                         border: "none",
@@ -280,39 +209,114 @@ const CheckoutPage = () => {
                         padding: "14px",
                         fontWeight: 700,
                         fontSize: "1rem",
-                        cursor: submitting ? "default" : "pointer",
-                        opacity: submitting ? 0.7 : 1,
+                        cursor: "pointer",
+                        marginTop: 8,
                       }}
                     >
-                      {submitting ? "Sending…" : "I've Paid"}
+                      Continue to Payment
                     </button>
+                  </form>
+                )}
+  
+                {stage === "pay" && (
+                  <div>
+                    <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 20 }}>Order Summary</h4>
+                    <div style={{ background: "var(--ink-800)", borderRadius: 12, padding: 20, marginBottom: 24 }}>
+                      {items.map((item) => (
+                        <div key={item.cartItemId} style={{ display: "flex", justifyContent: "space-between", marginBottom: 8, color: "var(--paper-dim)", fontSize: "0.9rem" }}>
+                          <span>
+                            {item.quantity}× {item.name}
+                            {describeCartItemSelections(item, ", ") ? ` (${describeCartItemSelections(item, ", ")})` : ""}
+                          </span>
+                          <span style={{ color: "var(--paper)", fontWeight: 600 }}>{formatCurrency(item.unitPrice * item.quantity)}</span>
+                        </div>
+                      ))}
+                      <hr style={{ borderColor: "var(--ink-line)", margin: "12px 0" }} />
+                      <div style={{ display: "flex", justifyContent: "space-between", color: "var(--paper)", fontWeight: 800 }}>
+                        <span>Total</span>
+                        <span>{formatCurrency(subtotal)}</span>
+                      </div>
+                    </div>
+  
+                    <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 14 }}>Pay with Zelle</h4>
+                    <div
+                      style={{
+                        border: "2px dashed var(--ink-line-hover)",
+                        borderRadius: 12,
+                        padding: 28,
+                        textAlign: "center",
+                        marginBottom: 20,
+                      }}
+                    >
+                      <i className="fas fa-qrcode" style={{ fontSize: "3rem", color: "var(--gold-400)", marginBottom: 12 }} />
+                      <div style={{ color: "var(--paper)", fontWeight: 700, marginBottom: 4 }}>
+                        Zelle QR code coming soon
+                      </div>
+                      <p style={{ color: "var(--paper-faint)", fontSize: "0.85rem", margin: 0 }}>
+                        In the meantime, please Zelle {formatCurrency(subtotal)} to Komla&apos;s Kitchen directly, or
+                        call +1 (773) 690-2745 for payment details, then click &ldquo;I&apos;ve Paid&rdquo; below.
+                      </p>
+                    </div>
+  
+                    {submitError && (
+                      <p style={{ color: "var(--red-400)", marginBottom: 12 }}>{submitError}</p>
+                    )}
+  
+                    <div style={{ display: "flex", gap: 12 }}>
+                      <button
+                        type="button"
+                        onClick={() => setStage("details")}
+                        style={{ flex: 1, background: "var(--ink-800)", color: "var(--paper)", border: "1px solid var(--ink-line)", borderRadius: 10, padding: "14px", fontWeight: 600, cursor: "pointer" }}
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleConfirmPayment}
+                        disabled={submitting}
+                        style={{
+                          flex: 2,
+                          background: "var(--red-500)",
+                          color: "#1c1712",
+                          border: "none",
+                          borderRadius: 10,
+                          padding: "14px",
+                          fontWeight: 700,
+                          fontSize: "1rem",
+                          cursor: submitting ? "default" : "pointer",
+                          opacity: submitting ? 0.7 : 1,
+                        }}
+                      >
+                        {submitting ? "Sending…" : "I've Paid"}
+                      </button>
+                    </div>
                   </div>
+                )}
+  
+                {stage === "done" && (
+                  <div style={{ textAlign: "center", padding: "40px 0" }}>
+                    <i className="fas fa-check-circle" style={{ fontSize: "3rem", color: "var(--green-500)", marginBottom: 16 }} />
+                    <h3 style={{ color: "var(--paper)", marginBottom: 8 }}>Thanks — we&apos;ve got your order!</h3>
+                    <p style={{ color: "var(--paper-dim)", marginBottom: 4 }}>
+                      Order reference: <strong style={{ color: "var(--gold-400)" }}>{orderRef}</strong>
+                    </p>
+                    <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>
+                      We&apos;ll confirm your payment and get your order started. Call +1 (773) 690-2745 with any questions.
+                    </p>
+                    <Link
+                      href="/"
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red-500)", color: "#1c1712", padding: "13px 30px", borderRadius: 12, fontWeight: 700, textDecoration: "none" }}
+                    >
+                      Back to Home
+                    </Link>
+                  </div>
+                )}
                 </div>
-              )}
-
-              {stage === "done" && (
-                <div style={{ textAlign: "center", padding: "40px 0" }}>
-                  <i className="fas fa-check-circle" style={{ fontSize: "3rem", color: "var(--green-500)", marginBottom: 16 }} />
-                  <h3 style={{ color: "var(--paper)", marginBottom: 8 }}>Thanks — we&apos;ve got your order!</h3>
-                  <p style={{ color: "var(--paper-dim)", marginBottom: 4 }}>
-                    Order reference: <strong style={{ color: "var(--gold-400)" }}>{orderRef}</strong>
-                  </p>
-                  <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>
-                    We&apos;ll confirm your payment and get your order started. Call +1 (773) 690-2745 with any questions.
-                  </p>
-                  <Link
-                    href="/"
-                    style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red-500)", color: "#1c1712", padding: "13px 30px", borderRadius: 12, fontWeight: 700, textDecoration: "none" }}
-                  >
-                    Back to Home
-                  </Link>
-                </div>
-              )}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </FoodKingLayout>
   );
 };

@@ -99,7 +99,7 @@ const ContactForm = () => {
         {sendError && (
           <div className="col-lg-12">
             <p role="alert" style={{ color: "var(--red-400)", fontSize: "0.88rem", margin: 0 }}>
-              {sendError} Please call us at <a href="tel:+17736902745" style={{ color: "var(--gilt-300)" }}>+1 (773) 690-2745</a>.
+              {sendError} Please call us at <a href="tel:+17736902745" style={{ color: "var(--gilt-600)", fontWeight: 600 }}>+1 (773) 690-2745</a>.
             </p>
           </div>
         )}
