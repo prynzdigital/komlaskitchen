@@ -3,9 +3,11 @@
 import { useState } from "react";
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "", website: "" });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
   const validate = () => {
     const e = {};
@@ -24,12 +26,27 @@ const ContactForm = () => {
     if (errors[ev.target.name]) setErrors({ ...errors, [ev.target.name]: "" });
   };
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    setSubmitted(true);
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    setSending(true);
+    setSendError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || "We couldn't send your message.");
+      setSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", message: "", website: "" });
+    } catch (err) {
+      setSendError(err.message || "We couldn't send your message.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (submitted) {
@@ -75,9 +92,25 @@ const ContactForm = () => {
             {errors.message && <span style={{ color: "var(--red-400)", fontSize: "0.8rem" }}>{errors.message}</span>}
           </div>
         </div>
+        <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+          <label htmlFor="website">Leave this field empty</label>
+          <input type="text" name="website" id="website" tabIndex={-1} autoComplete="off" value={formData.website} onChange={handleChange} />
+        </div>
+        {sendError && (
+          <div className="col-lg-12">
+            <p role="alert" style={{ color: "var(--red-400)", fontSize: "0.88rem", margin: 0 }}>
+              {sendError} Please call us at <a href="tel:+17736902745" style={{ color: "var(--gilt-300)" }}>+1 (773) 690-2745</a>.
+            </p>
+          </div>
+        )}
         <div className="col-lg-12">
-          <button type="submit" className="kw-btn kw-btn-fill" style={{ width: "100%", justifyContent: "center", border: 0, cursor: "pointer" }}>
-            <i className="fas fa-paper-plane" /> Send Message
+          <button
+            type="submit"
+            disabled={sending}
+            className="kw-btn kw-btn-fill"
+            style={{ width: "100%", justifyContent: "center", border: 0, cursor: sending ? "default" : "pointer", opacity: sending ? 0.7 : 1 }}
+          >
+            <i className={sending ? "fas fa-spinner fa-spin" : "fas fa-paper-plane"} /> {sending ? "Sending…" : "Send Message"}
           </button>
         </div>
       </div>
