@@ -1,33 +1,37 @@
-import Cta from "@/components/Cta";
+import Link from "next/link";
 import PageBanner from "@/components/PageBanner";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
-import Link from "next/link";
-const notFound = () => {
-  return (
-    <FoodKingLayout>
-      <PageBanner pageName={"error page"} />
-      <section className="error-section section-bg section-padding fix">
-        <div className="container">
-          <div className="error-content text-center">
-            <h2 className="wow fadeInUp" data-wow-delay=".3s">
-              404
-            </h2>
-            <h3 className="wow fadeInUp" data-wow-delay=".5s">
-              we’re sorry page not found
-            </h3>
-            <Link
-              href="/"
-              className="theme-btn style-line-height mt-5 wow fadeInUp"
-              data-wow-delay=".7s"
-            >
-              <span className="button-text">Back To Home</span>
+
+export const metadata = {
+  title: "Page not found | Komla's Kitchen",
+};
+
+const NotFound = () => (
+  <FoodKingLayout>
+    <PageBanner
+      pageName="404"
+      title={
+        <>
+          Page not <em>found.</em>
+        </>
+      }
+      subtitle="The page you're looking for has moved or no longer exists."
+    />
+    <div className="lx-light">
+      <section className="lx-sec">
+        <div className="container lx-center">
+          <div className="lx-actions" style={{ justifyContent: "center" }}>
+            <Link href="/" className="kw-btn kw-btn-fill">
+              Back to Home <i className="fas fa-arrow-right" />
+            </Link>
+            <Link href="/food-menu" className="kw-btn kw-btn-glass" style={{ color: "var(--wine-800)", borderColor: "var(--gilt-500)" }}>
+              View the Menu
             </Link>
           </div>
         </div>
       </section>
+    </div>
+  </FoodKingLayout>
+);
 
-      <Cta />
-    </FoodKingLayout>
-  );
-};
-export default notFound;
+export default NotFound;

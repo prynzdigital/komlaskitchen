@@ -1,6 +1,5 @@
 import "./globals.css";
 import "./lux.css";
-import 'rc-slider/assets/index.css';
 
 import { CartProvider } from "@/context/CartContext";
 import PwaSetup from "@/components/PwaSetup";
@@ -74,11 +73,6 @@ export default function RootLayout({ children }) {
         {/* Served as static files so relative ../fonts/ paths resolve correctly */}
         <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/assets/css/font-awesome.css" />
-        <link rel="stylesheet" href="/assets/css/animate.css" />
-        <link rel="stylesheet" href="/assets/css/magnific-popup.css" />
-        <link rel="stylesheet" href="/assets/css/meanmenu.css" />
-        <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css" />
-        <link rel="stylesheet" href="/assets/css/nice-select.css" />
         <link rel="stylesheet" href="/assets/css/main.css" />
         <script
           type="application/ld+json"

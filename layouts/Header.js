@@ -112,7 +112,7 @@ const Header = () => {
         aria-modal="true"
         aria-label="Menu"
         aria-hidden={!toggle}
-        inert={toggle ? undefined : ""}
+        inert={!toggle}
       >
         <div className="kh-drawer-top">
           <Link href="/" className="kh-logo" aria-label="Komla's Kitchen – Home">

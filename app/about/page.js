@@ -1,6 +1,6 @@
 "use client";
 import PageBanner from "@/components/PageBanner";
-import { testimonials } from "@/components/TestimonialSlider";
+import { testimonials } from "@/data/testimonials";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import Link from "next/link";
 

@@ -1,45 +1,35 @@
 import { Resend } from "resend";
+import { EMAIL_RE, cleanLine, cleanText, crossSite, escapeHtml, rateLimited, readJson } from "@/lib/requestGuard";
 
 const FROM_ADDRESS = "Komla's Kitchen <jacob@komlaskitchen.com>";
-const LIMITS = { name: 120, email: 200, phone: 40, message: 4000 };
 
-const escapeHtml = (str) =>
-  String(str).replace(/[&<>"']/g, (c) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;",
-  }[c]));
-
-const clean = (value, max) => String(value ?? "").trim().slice(0, max);
+const fail = (error, status = 400) => Response.json({ error }, { status });
 
 export async function POST(request) {
   try {
-    const body = (await request.json()) || {};
+    if (crossSite(request)) return fail("Forbidden.", 403);
+    if (rateLimited(request, "contact", { limit: 5, windowMs: 10 * 60 * 1000 })) {
+      return fail("Too many messages from this device — please wait a few minutes or call us.", 429);
+    }
+
+    const parsed = await readJson(request);
+    if (parsed.error) return fail(parsed.error, parsed.status);
+    const body = parsed.body;
 
     // Hidden field real visitors never fill — bots that do get a silent "ok".
-    if (clean(body.website, 200)) {
-      return Response.json({ ok: true });
-    }
+    if (cleanLine(body.website, 200)) return Response.json({ ok: true });
 
-    const name = clean(body.name, LIMITS.name);
-    const email = clean(body.email, LIMITS.email);
-    const phone = clean(body.phone, LIMITS.phone);
-    const message = clean(body.message, LIMITS.message);
+    const name = cleanLine(body.name, 120);
+    const email = cleanLine(body.email, 200);
+    const phone = cleanLine(body.phone, 40);
+    const message = cleanText(body.message, 4000);
 
-    if (!name || !email || !message) {
-      return Response.json({ error: "Please fill in your name, email and message." }, { status: 400 });
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return Response.json({ error: "Please enter a valid email address." }, { status: 400 });
-    }
+    if (!name || !email || !message) return fail("Please fill in your name, email and message.");
+    if (!EMAIL_RE.test(email)) return fail("Please enter a valid email address.");
 
     const apiKey = process.env.RESEND_API_KEY;
     const notifyEmail = process.env.CONTACT_NOTIFICATION_EMAIL || process.env.ORDER_NOTIFICATION_EMAIL;
-    if (!apiKey || !notifyEmail) {
-      return Response.json({ error: "Messages are not configured yet." }, { status: 500 });
-    }
+    if (!apiKey || !notifyEmail) return fail("Messages are not configured yet.", 500);
 
     const html = `
       <h2>New website message</h2>
@@ -53,19 +43,19 @@ export async function POST(request) {
       from: FROM_ADDRESS,
       to: notifyEmail,
       replyTo: email,
-      subject: `Website message from ${name}`,
+      subject: `Website message from ${name.slice(0, 80)}`,
       html,
     });
 
     // The Resend SDK returns { data, error } rather than throwing.
     if (result.error) {
       console.error("Contact email error:", result.error);
-      return Response.json({ error: "We couldn't send your message." }, { status: 500 });
+      return fail("We couldn't send your message.", 500);
     }
 
     return Response.json({ ok: true });
   } catch (err) {
     console.error("Contact email error:", err);
-    return Response.json({ error: "We couldn't send your message." }, { status: 500 });
+    return fail("We couldn't send your message.", 500);
   }
 }
