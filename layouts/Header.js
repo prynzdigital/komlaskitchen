@@ -52,8 +52,9 @@ const Header = () => {
         <div className="container kh-bar">
           <Link href="/" className="kh-logo" aria-label="Komla's Kitchen – Home">
             <img src="/pictures/logo.png" alt="Komla's Kitchen logo" />
-            <span>
-              KOMLA&apos;S <em>KITCHEN</em>
+            <span className="kh-word">
+              <b>Komla&apos;s</b>
+              <small>Kitchen</small>
             </span>
           </Link>
 

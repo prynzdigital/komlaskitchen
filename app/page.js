@@ -286,8 +286,8 @@ const HomePage = () => {
                 <div className="kw-glass">
                   <img src="/pictures/opt/sobolo.webp" alt="" />
                 </div>
-                <div className="kw-plate kw-plate-okra">
-                  <img src="/pictures/opt/okro_soup_sq.webp" alt="" />
+                <div className="kw-plate kw-plate-top">
+                  <img src="/pictures/opt/waakye_platter.webp" alt="" />
                 </div>
                 <div className="kw-plate kw-plate-main">
                   <img src="/pictures/opt/jollof_main_dish.webp" alt="" />
@@ -339,6 +339,7 @@ const HomePage = () => {
           <div className="container">
             <div className="kw-head reveal">
               <div>
+                <span className="kw-kicker">Explore</span>
                 <h2>What are you craving?</h2>
                 <p>Tap a dish to start your order.</p>
               </div>

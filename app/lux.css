@@ -1363,3 +1363,79 @@ html body .ws-card h3 {
     padding: 22px 18px;
   }
 }
+
+/* ══ Luxury typography (Playfair Display + gold script accents) ══ */
+html body .lx-title {
+  font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+  font-weight: 600;
+  line-height: 1.02;
+}
+html body .lx-h2 {
+  font-size: clamp(2rem, 3.7vw, 3.1rem);
+  font-weight: 600;
+  line-height: 1.08;
+}
+html body .lx-h2 em,
+html body .lx-title em {
+  font-family: var(--font-script);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.32em;
+  line-height: 0.7;
+  letter-spacing: 0;
+  display: inline-block;
+  padding: 0 0.14em 0.1em 0;
+  vertical-align: -0.05em;
+  background: linear-gradient(100deg, #fff3d1 0%, var(--gilt-300) 25%, var(--gilt-400) 55%, var(--gilt-500) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+html body .mc-body h4 {
+  font-size: 1.38rem;
+  font-weight: 700;
+}
+.mc-total {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+html body .ws-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+html body .lx-value h3,
+html body .lx-info-card h3,
+.lx-hours h4 {
+  font-size: 1.35rem !important;
+  font-weight: 700;
+}
+html body .lx-point h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+html body .lx-form h3 {
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+.lx-quote-card p {
+  font-size: 1.12rem;
+}
+.lx-mission blockquote {
+  font-size: clamp(1.3rem, 2.3vw, 1.9rem);
+  line-height: 1.4;
+}
+.lx-review p {
+  font-size: 1.04rem;
+  line-height: 1.6;
+}
+.lx-num {
+  font-family: var(--font-script);
+  font-style: normal;
+  font-size: 3.2rem;
+}
+html body .ws-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}

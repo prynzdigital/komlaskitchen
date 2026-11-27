@@ -267,7 +267,7 @@ html body .kw-hero h1 {
   left: -2%;
   bottom: 2%;
 }
-.kw-plate-okro {
+.kw-plate-top {
   width: 190px;
   height: 190px;
   right: -1%;
@@ -458,7 +458,7 @@ html body .kw-feature h3 {
     width: 180px;
     height: 180px;
   }
-  .kw-plate-okro {
+  .kw-plate-top {
     width: 130px;
     height: 130px;
   }
@@ -1241,5 +1241,97 @@ html body .kw-app h2 {
     grid-template-columns: 1fr;
     text-align: left;
     padding: 28px 22px;
+  }
+}
+
+/* ══ Luxury typography ══ */
+html body .kw-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.7rem, 5.6vw, 4.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+}
+.kw-hero h1 span,
+.kw-offer h2 span,
+.kw-sides-copy h2 span {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 1.38em;
+  line-height: 0.7;
+  letter-spacing: 0;
+  display: inline-block;
+  padding: 0 0.12em 0.08em 0;
+  vertical-align: -0.04em;
+  background: linear-gradient(100deg, #fff3d1 0%, var(--gilt-300) 25%, var(--gilt-400) 55%, var(--gilt-500) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 16px rgba(201, 154, 60, 0.35));
+}
+html body .kw-head h2,
+html body .kw-offer h2,
+html body .kw-sides-copy h2,
+html body .kw-app h2,
+html body .ws-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+html body .kw-head h2 {
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+}
+.kw-head h2::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 2px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, var(--gilt-500), var(--gilt-300), transparent);
+}
+.kw-kicker {
+  font-family: var(--font-script);
+  font-size: 1.9rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1;
+  margin-bottom: 0;
+  color: var(--gilt-500);
+}
+html body .kw-mo-body h3,
+html body .kw-side-body h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+html body .kw-mo-body h3 {
+  font-size: 1.18rem;
+}
+.kw-kicker {
+  font-size: 2.3rem;
+  margin-bottom: -2px;
+}
+/* Script monogram on the hero glass tile and the app band */
+.kw-tile span {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 250px;
+  line-height: 1;
+  transform: translate(-14px, 22px);
+  background: linear-gradient(160deg, #fff6dc 0%, var(--gilt-300) 30%, var(--gilt-400) 60%, var(--gilt-600) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.kw-app-tile {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 140px;
+}
+@media (max-width: 575px) {
+  .kw-tile span {
+    font-size: 160px;
+    transform: translate(-8px, 14px);
   }
 }

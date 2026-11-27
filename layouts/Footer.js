@@ -33,8 +33,9 @@ const Footer = () => {
           <div className="kf-brand">
             <Link href="/" className="kh-logo">
               <img src="/pictures/logo.png" alt="Komla's Kitchen logo" />
-              <span>
-                KOMLA&apos;S <em>KITCHEN</em>
+              <span className="kh-word">
+                <b>Komla&apos;s</b>
+                <small>Kitchen</small>
               </span>
             </Link>
             <p>Authentic Ghanaian flavours, cooked fresh daily and delivered across Chicago.</p>
