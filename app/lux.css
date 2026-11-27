@@ -1729,3 +1729,309 @@ html body .kw-offer h2 {
     font-size: clamp(2.6rem, 5vw, 4.1rem);
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Script swashes: background-clip:text only paints inside the
+   element's box, and Great Vibes capitals overhang it (left loops,
+   tall ascenders). Pad the paint area and cancel it with negative
+   margins so layout is unchanged but whole letters show.
+   ══════════════════════════════════════════════════════════════ */
+html body .kw-hero h1 span,
+html body .kw-offer h2 span,
+html body .kw-sides-copy h2 span,
+html body .lx-h2 em,
+html body .lx-title em,
+html body .lx-num {
+  padding: 0.24em 0.18em 0.2em 0.34em;
+  margin: -0.24em -0.04em -0.2em -0.34em;
+}
+html body .kh-word b {
+  padding: 0.24em 0.2em 0.16em 0.3em;
+  margin: -0.24em -0.2em -0.16em -0.3em;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Compact sizing — calmer section scale across the site
+   ══════════════════════════════════════════════════════════════ */
+
+/* Homepage rhythm & headings */
+html body .kw-sec {
+  padding-top: 72px;
+}
+html body .kw-sec:last-child {
+  padding-bottom: 72px;
+}
+html body .kw-head h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+}
+html body .kw-kicker {
+  font-size: 1.85rem;
+}
+html body .kw-head {
+  margin-bottom: 22px;
+}
+html body .kw-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+}
+html body .kw-features {
+  margin-top: 48px;
+}
+html body .kw-feature {
+  padding: 18px 22px;
+}
+
+/* Weekly schedule */
+html body .ws {
+  padding: 22px 18px;
+  border-radius: 22px;
+}
+html body .ws-head {
+  margin-bottom: 18px;
+  gap: 14px;
+}
+html body .ws-head h2 {
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  margin-bottom: 4px;
+}
+html body .ws-head p {
+  font-size: 0.88rem;
+}
+html body .ws .kw-btn {
+  padding: 11px 20px;
+  font-size: 0.88rem;
+}
+html body .ws-grid {
+  gap: 14px;
+}
+html body .ws-card {
+  padding: 18px;
+  border-radius: 18px;
+}
+html body .ws-card-top {
+  margin-bottom: 8px;
+}
+html body .ws-card h3 {
+  font-size: 1.25rem;
+}
+html body .ws-days {
+  margin-bottom: 12px;
+}
+html body .ws-days span {
+  padding: 3px 10px;
+  font-size: 0.72rem;
+}
+html body .ws-dishes {
+  gap: 6px;
+  margin-bottom: 14px;
+}
+html body .ws-dishes li {
+  font-size: 0.88rem;
+}
+html body .ws-delivery {
+  padding-top: 12px;
+}
+html body .ws-delivery > i {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+}
+html body .ws-delivery p {
+  font-size: 0.8rem;
+}
+html body .ws-note {
+  margin-top: 14px;
+  font-size: 0.78rem;
+}
+
+/* Offer banner */
+html body .kw-offer {
+  min-height: 300px;
+  border-radius: 22px;
+}
+html body .kw-offer-copy {
+  padding: 116px 22px 24px;
+}
+html body .kw-offer h2 {
+  font-size: clamp(1.9rem, 7.4vw, 2.3rem);
+  margin: 8px 0 4px;
+}
+html body .kw-offer-logo {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 6px;
+}
+html body .kw-offer-sub {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+html body .kw-offer-note {
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+}
+html body .kw-offer-btn {
+  padding: 10px 22px;
+  font-size: 0.88rem;
+}
+
+/* Sides */
+html body .kw-sides-feature {
+  min-height: 360px;
+}
+html body .kw-sides-copy {
+  padding: 26px 22px;
+}
+html body .kw-sides-copy h2 {
+  font-size: clamp(1.55rem, 2.4vw, 2.1rem);
+}
+html body .kw-side {
+  padding: 12px 0;
+}
+
+/* App band + footer */
+html body .kw-app {
+  padding: 22px 20px;
+  gap: 16px;
+}
+html body .kw-app h2 {
+  font-size: 1.15rem;
+}
+html body .kw-app-icon {
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+}
+html body .kf-grid {
+  padding: 52px 0 36px;
+  gap: 28px;
+}
+
+/* Inner pages */
+html body .lx-sec {
+  padding: 48px 0;
+}
+html body .lx-head {
+  margin-bottom: 28px;
+}
+html body .lx-h2 {
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+}
+html body .lx-title {
+  font-size: clamp(2rem, 4.4vw, 3.1rem);
+}
+html body .lx-cta,
+html body .lx-mission {
+  padding: 28px 20px;
+}
+html body .lx-mission blockquote {
+  font-size: clamp(1.12rem, 2vw, 1.55rem);
+}
+html body .lx-story {
+  gap: 40px;
+}
+html body .lx-story-art {
+  height: 400px;
+}
+html body .lx-value {
+  padding: 24px 22px;
+}
+html body .lx-num {
+  font-size: 2.6rem;
+  margin-bottom: 12px;
+}
+html body .lx-mosaic {
+  grid-auto-rows: 150px;
+}
+html body .lx-review {
+  padding: 24px 22px;
+}
+html body .lx-finale {
+  padding: 84px 0;
+}
+html body .mc-body {
+  padding: 18px 20px 20px;
+}
+html body .mc-body h4 {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 576px) {
+  html body .ws {
+    padding: 30px;
+    border-radius: 24px;
+  }
+  html body .kw-offer {
+    min-height: 240px;
+  }
+  html body .kw-offer-copy {
+    padding: 30px 40px;
+  }
+  html body .kw-offer h2 {
+    font-size: clamp(2.1rem, 3.6vw, 3rem);
+  }
+  html body .kw-sides-copy {
+    padding: 34px 32px;
+  }
+  html body .kw-app {
+    padding: 24px 30px;
+  }
+  html body .lx-cta,
+  html body .lx-mission {
+    padding: 40px 36px;
+  }
+}
+@media (min-width: 768px) {
+  html body .lx-sec {
+    padding: 64px 0;
+  }
+  html body .lx-sec + .lx-sec {
+    padding-top: 0;
+  }
+  html body .lx-story-art {
+    height: 460px;
+  }
+  html body .lx-mosaic {
+    grid-auto-rows: 180px;
+  }
+  html body .lx-finale {
+    padding: 110px 0;
+  }
+}
+@media (min-width: 992px) {
+  html body .lx-sec {
+    padding: 84px 0;
+  }
+  html body .lx-sec + .lx-sec {
+    padding-top: 0;
+  }
+  html body .kw-sides-feature {
+    min-height: 440px;
+  }
+  html body .lx-story {
+    gap: 60px;
+  }
+}
+@media (max-width: 767px) {
+  html body .kw-sec {
+    padding-top: 52px;
+  }
+  html body .kw-sec:last-child {
+    padding-bottom: 52px;
+  }
+  html body .kw-kicker {
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 575px) {
+  html body .lx-sec + .lx-sec {
+    padding-top: 0;
+  }
+  html body .kw-features {
+    margin-top: 36px;
+  }
+  html body .kw-feature {
+    padding: 16px 14px;
+  }
+}
+html body .ws-delivery b {
+  white-space: nowrap;
+}
