@@ -1,14 +1,14 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/food-menu", label: "Menu" },
-  { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "Home", icon: "fas fa-home" },
+  { href: "/food-menu", label: "Menu", icon: "fas fa-utensils" },
+  { href: "/about", label: "About Us", icon: "fas fa-heart" },
+  { href: "/contact", label: "Contact", icon: "fas fa-envelope" },
 ];
 
 const TICKER_ITEMS = [
@@ -30,6 +30,22 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { itemCount } = useCart();
+  const closeRef = useRef(null);
+
+  useEffect(() => setToggle(false), [pathname]);
+
+  useEffect(() => {
+    if (!toggle) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    const onKey = (e) => e.key === "Escape" && setToggle(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [toggle]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -80,88 +96,85 @@ const Header = () => {
               <i className="fas fa-shopping-cart" />
               {itemCount > 0 && <b>{itemCount}</b>}
             </Link>
-            <button className="kh-icon d-lg-none" onClick={() => setToggle(true)} aria-label="Open menu">
+            <button className="kh-icon d-lg-none" onClick={() => setToggle(true)} aria-label="Open menu" aria-expanded={toggle} aria-controls="kh-drawer">
               <i className="fas fa-bars" />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Offcanvas */}
-      <div className="fix-area">
-        <div className={`offcanvas__info ${toggle ? "info-open" : ""}`}>
-          <div className="offcanvas__wrapper">
-            <div className="offcanvas__content">
-              <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
-                <div className="offcanvas__logo">
-                  <Link href="/" onClick={() => setToggle(false)}>
-                    <img src="/pictures/logo.png" alt="Komla's Kitchen logo" style={{ height: 48, width: "auto", objectFit: "contain" }} />
-                  </Link>
-                </div>
-                <div className="offcanvas__close">
-                  <button onClick={() => setToggle(false)} aria-label="Close menu">
-                    <i className="fas fa-times" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="mobile-menu fix mb-3 mean-container d-block d-lg-none">
-                <nav className="mean-nav" aria-label="Mobile navigation">
-                  <ul>
-                    {navLinks.map((link) => (
-                      <li key={link.href} className="mean-last">
-                        <Link href={link.href} onClick={() => setToggle(false)}>
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
-
-              <div className="offcanvas__contact">
-                <h4>Contact Info</h4>
-                <ul>
-                  <li className="d-flex align-items-center">
-                    <div className="offcanvas__contact-icon">
-                      <i className="fal fa-map-marker-alt" />
-                    </div>
-                    <div className="offcanvas__contact-text">3718 S Indiana Ave, Chicago, IL</div>
-                  </li>
-                  <li className="d-flex align-items-center">
-                    <div className="offcanvas__contact-icon mr-15">
-                      <i className="fal fa-clock" />
-                    </div>
-                    <div className="offcanvas__contact-text">Mon–Sun: 11:00 AM – 9:00 PM</div>
-                  </li>
-                  <li className="d-flex align-items-center">
-                    <div className="offcanvas__contact-icon mr-15">
-                      <i className="far fa-phone" />
-                    </div>
-                    <div className="offcanvas__contact-text">
-                      <a href="tel:+17736902745">+1 (773) 690-2745</a>
-                    </div>
-                  </li>
-                </ul>
-                <div className="mt-4">
-                  <Link href="/food-menu" className="kw-btn kw-btn-fill" onClick={() => setToggle(false)} style={{ width: "100%", justifyContent: "center" }}>
-                    Order Now
-                  </Link>
-                </div>
-                <div className="social-icon d-flex align-items-center mt-3">
-                  <a href={IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <i className="fab fa-instagram" />
-                  </a>
-                  <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                    <i className="fab fa-tiktok" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Mobile menu */}
+      <div className={`kh-scrim${toggle ? " on" : ""}`} onClick={() => setToggle(false)} aria-hidden="true" />
+      <aside
+        id="kh-drawer"
+        className={`kh-drawer${toggle ? " on" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        aria-hidden={!toggle}
+        inert={toggle ? undefined : ""}
+      >
+        <div className="kh-drawer-top">
+          <Link href="/" className="kh-logo" aria-label="Komla's Kitchen – Home">
+            <img src="/pictures/logo.png" alt="" />
+            <span className="kh-word">
+              <b>Komla&apos;s</b>
+              <small>Kitchen</small>
+            </span>
+          </Link>
+          <button ref={closeRef} type="button" className="kh-icon" onClick={() => setToggle(false)} aria-label="Close menu">
+            <i className="fas fa-times" />
+          </button>
         </div>
-      </div>
-      <div className={`offcanvas__overlay ${toggle ? "overlay-open" : ""}`} onClick={() => setToggle(false)} />
+
+        <nav className="kh-drawer-nav" aria-label="Mobile navigation">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className={pathname === link.href ? "on" : ""} onClick={() => setToggle(false)}>
+              <i className={link.icon} aria-hidden="true" />
+              <span>{link.label}</span>
+              <i className="fas fa-chevron-right kh-chev" aria-hidden="true" />
+            </Link>
+          ))}
+          <Link href="/cart" className={pathname === "/cart" ? "on" : ""} onClick={() => setToggle(false)}>
+            <i className="fas fa-shopping-cart" aria-hidden="true" />
+            <span>Your Cart</span>
+            {itemCount > 0 ? <b className="kh-count">{itemCount}</b> : <i className="fas fa-chevron-right kh-chev" aria-hidden="true" />}
+          </Link>
+        </nav>
+
+        <div className="kh-drawer-ctas">
+          <Link href="/food-menu" className="kw-btn kw-btn-fill" onClick={() => setToggle(false)}>
+            Order Now <i className="fas fa-arrow-right" />
+          </Link>
+          <a href="tel:+17736902745" className="kw-btn kw-btn-glass">
+            <i className="fas fa-phone" /> Call
+          </a>
+        </div>
+
+        <ul className="kh-drawer-info">
+          <li>
+            <i className="fas fa-map-marker-alt" aria-hidden="true" />
+            <span>3718 S Indiana Ave, Chicago, IL</span>
+          </li>
+          <li>
+            <i className="fas fa-clock" aria-hidden="true" />
+            <span>Open daily, 11:00 AM – 9:00 PM</span>
+          </li>
+          <li>
+            <i className="fas fa-phone" aria-hidden="true" />
+            <a href="tel:+17736902745">+1 (773) 690-2745</a>
+          </li>
+        </ul>
+
+        <div className="kh-drawer-social">
+          <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kh-icon" aria-label="Instagram">
+            <i className="fab fa-instagram" />
+          </a>
+          <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="kh-icon" aria-label="TikTok">
+            <i className="fab fa-tiktok" />
+          </a>
+        </div>
+      </aside>
     </Fragment>
   );
 };

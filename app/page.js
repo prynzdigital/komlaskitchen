@@ -1,7 +1,7 @@
 "use client";
 import "./home.css";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
-import InstallAppButton from "@/components/InstallAppButton";
+import InstallPrompt from "@/components/InstallPrompt";
 import { useCart } from "@/context/CartContext";
 import WeeklySchedule from "@/components/WeeklySchedule";
 import OfferBanner from "@/components/OfferBanner";
@@ -411,26 +411,8 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-
-        {/* ══ Install the app ══ */}
-        <section className="kw-sec">
-          <div className="container">
-            <div className="kw-app reveal">
-              <span className="kw-app-icon">
-                <i className="fas fa-mobile-alt" />
-              </span>
-              <div>
-                <h2>Get the Komla&apos;s Kitchen app</h2>
-                <p>Add us to your home screen for one-tap ordering — no app store needed.</p>
-              </div>
-              <InstallAppButton />
-              <span className="kw-app-tile" aria-hidden="true">
-                K
-              </span>
-            </div>
-          </div>
-        </section>
       </div>
+      <InstallPrompt />
     </FoodKingLayout>
   );
 };
