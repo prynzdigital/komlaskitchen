@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { can, logActivity, requireActionUser } from "@/lib/auth";
-import { deleteDoc, getDoc, listDocs, putDoc, storeReady } from "@/lib/store";
+import { blobToken, deleteDoc, getDoc, listDocs, putDoc, storeReady } from "@/lib/store";
 import { ensurePostsSeeded, loadContent, loadMenu } from "@/lib/adminData";
 import { bool, image, line, link, list, lines, num, slugify, str } from "@/lib/sanitize";
 
@@ -323,9 +323,10 @@ export const uploadImageAction = async (formData) =>
     const filename = `${base}-${Date.now().toString(36)}.${ext}`;
 
     let url;
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    const token = blobToken();
+    if (token) {
       const { put } = await import("@vercel/blob");
-      const blob = await put(`cms/${filename}`, file, { access: "public", contentType: file.type });
+      const blob = await put(`cms/${filename}`, file, { access: "public", contentType: file.type, token });
       url = blob.url;
     } else if (process.env.NODE_ENV !== "production") {
       const fs = await import("node:fs/promises");
