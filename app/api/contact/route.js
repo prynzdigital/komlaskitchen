@@ -1,4 +1,6 @@
 import { Resend } from "resend";
+import { recordMessage } from "@/lib/crm";
+import { getSettings } from "@/lib/siteData";
 import { EMAIL_RE, cleanLine, cleanText, crossSite, escapeHtml, rateLimited, readJson, recipientList } from "@/lib/requestGuard";
 
 const FROM_ADDRESS = "Komla's Kitchen <jacob@komlaskitchen.com>";
@@ -27,9 +29,24 @@ export async function POST(request) {
     if (!name || !email || !message) return fail("Please fill in your name, email and message.");
     if (!EMAIL_RE.test(email)) return fail("Please enter a valid email address.");
 
+    // Save to Admin → Messages first, then email the kitchen.
+    let saved = null;
+    try {
+      saved = await recordMessage({ name, email, phone, message });
+    } catch (err) {
+      console.error("Message save error:", err);
+    }
+
+    const settings = await getSettings();
     const apiKey = process.env.RESEND_API_KEY;
-    const notifyEmails = recipientList(process.env.CONTACT_NOTIFICATION_EMAIL || process.env.ORDER_NOTIFICATION_EMAIL);
-    if (!apiKey || notifyEmails.length === 0) return fail("Messages are not configured yet.", 500);
+    const notifyEmails = recipientList(
+      settings.notifyEmails,
+      process.env.CONTACT_NOTIFICATION_EMAIL || process.env.ORDER_NOTIFICATION_EMAIL
+    );
+    if (!apiKey || notifyEmails.length === 0) {
+      if (saved) return Response.json({ ok: true });
+      return fail("Messages are not configured yet.", 500);
+    }
 
     const html = `
       <h2>New website message</h2>
@@ -50,7 +67,7 @@ export async function POST(request) {
     // The Resend SDK returns { data, error } rather than throwing.
     if (result.error) {
       console.error("Contact email error:", result.error);
-      return fail("We couldn't send your message.", 500);
+      if (!saved) return fail("We couldn't send your message.", 500);
     }
 
     return Response.json({ ok: true });

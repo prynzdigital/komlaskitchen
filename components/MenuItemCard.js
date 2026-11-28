@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { computeUnitPrice, formatCurrency } from "@/lib/pricing";
+import { useSite } from "@/components/SiteDataProvider";
+import { telHref } from "@/lib/siteDefaults";
 
 const Chip = ({ on, onClick, children }) => (
   <button type="button" className={`mc-chip${on ? " on" : ""}`} aria-pressed={on} onClick={onClick}>
@@ -27,13 +29,15 @@ const Photo = ({ item, priceLabel }) => (
         <span>Photo coming soon</span>
       </div>
     )}
-    {item.popular && <span className="mc-tag">Popular</span>}
+    {item.available === false ? <span className="mc-tag mc-soldout">Sold out today</span> : item.popular && <span className="mc-tag">Popular</span>}
     <span className="mc-price">{priceLabel}</span>
   </div>
 );
 
 const MenuItemCard = ({ item }) => {
   const { addItem } = useCart();
+  const tel = telHref(useSite().settings.phonePrimary);
+  const soldOut = item.available === false;
   const isTiered = Array.isArray(item.sizes) && item.sizes.length > 0;
   const hasSizeChoice = isTiered && item.sizes.length > 1;
 
@@ -83,7 +87,7 @@ const MenuItemCard = ({ item }) => {
             {item.description}
           </p>
           <div className="mc-foot">
-            <a href="tel:+13125545481" className="kw-btn kw-btn-fill mc-add">
+            <a href={tel} className="kw-btn kw-btn-fill mc-add">
               <i className="fas fa-phone" /> Call to Order
             </a>
           </div>
@@ -178,8 +182,17 @@ const MenuItemCard = ({ item }) => {
             <div className="mc-total">{formatCurrency(unitPrice * quantity)}</div>
           </div>
           <div className="mc-actions">
-            <button type="button" onClick={handleAddToCart} className={`kw-btn kw-btn-fill mc-add${added ? " added" : ""}`}>
-              {added ? (
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              disabled={soldOut}
+              className={`kw-btn kw-btn-fill mc-add${added ? " added" : ""}${soldOut ? " mc-add-off" : ""}`}
+            >
+              {soldOut ? (
+                <>
+                  <i className="fas fa-ban" /> Sold Out Today
+                </>
+              ) : added ? (
                 <>
                   <i className="fas fa-check" /> Added
                 </>
@@ -189,7 +202,7 @@ const MenuItemCard = ({ item }) => {
                 </>
               )}
             </button>
-            <a href="tel:+13125545481" aria-label="Call to order" className="mc-call">
+            <a href={tel} aria-label="Call to order" className="mc-call">
               <i className="fas fa-phone" />
             </a>
           </div>

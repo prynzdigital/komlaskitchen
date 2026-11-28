@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { GOOGLE_REVIEW_URL } from "@/data/schedule";
-import { extraReviews, googleReviewsSnapshot } from "@/data/googleReviews";
+import { useSite } from "@/components/SiteDataProvider";
 
 const AUTOPLAY_MS = 5000;
 
@@ -31,11 +30,22 @@ const Stars = ({ rating }) => (
 );
 
 // Carousel of Google reviews: 4 cards per view on desktop, fewer on smaller screens.
-// `google` is the live result of getGoogleReviews() (fetched by the page on the server);
-// when it's null, the saved snapshot of real Google reviews is shown instead.
+// Reviews come from the CMS (Admin → Reviews). When the live Google feed is configured
+// (`google`, fetched by the page on the server), its reviews replace the saved Google ones.
 const ReviewsSection = ({ google }) => {
-  const data = google?.reviews?.length ? google : googleReviewsSnapshot;
-  const reviews = [...data.reviews, ...extraReviews];
+  const cms = useSite().reviews;
+  const data = google?.reviews?.length
+    ? {
+        ...cms,
+        ...google,
+        reviews: [
+          ...google.reviews.map((r) => ({ source: "google", ...r })),
+          ...cms.reviews.filter((r) => r.source && r.source !== "google"),
+        ],
+      }
+    : cms;
+  const GOOGLE_REVIEW_URL = cms.reviewUrl;
+  const reviews = data.reviews.filter((r) => !r.hidden && r.text);
   // With fewer than 4 real reviews, top the row up with honest cards (never invented reviews).
   const fillers = ["rating", "write"].slice(0, Math.max(0, MIN_CARDS - reviews.length));
   const showWriteCard = fillers.includes("write");

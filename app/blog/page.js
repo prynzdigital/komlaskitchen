@@ -1,7 +1,8 @@
 import Link from "next/link";
 import PageBanner from "@/components/PageBanner";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
-import { formatPostDate, posts } from "@/data/blog";
+import { getPublishedPosts } from "@/lib/siteData";
+import { formatPostDate } from "@/lib/siteDefaults";
 
 export const metadata = {
   title: "Blog | Komla's Kitchen - Chicago African Food",
@@ -16,7 +17,8 @@ const PostMeta = ({ post }) => (
   </div>
 );
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getPublishedPosts();
   const [featured, ...rest] = posts;
 
   return (

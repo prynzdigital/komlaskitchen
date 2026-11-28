@@ -3,6 +3,8 @@ import PageBanner from "@/components/PageBanner";
 import ReviewsSection from "@/components/ReviewsSection";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import Link from "next/link";
+import { useSite } from "@/components/SiteDataProvider";
+import { telHref } from "@/lib/siteDefaults";
 
 const VALUES = [
   {
@@ -39,6 +41,7 @@ const MOSAIC = [
 ];
 
 const AboutPage = ({ google = null }) => {
+  const { about, settings } = useSite();
   return (
     <FoodKingLayout>
       <PageBanner
@@ -66,8 +69,8 @@ const AboutPage = ({ google = null }) => {
                   <img src="/pictures/opt/okro_soup_sq.webp" alt="Okra soup" loading="lazy" />
                 </div>
                 <div className="lx-quote-card lx-glass">
-                  <p>&ldquo;Every pot tells a story of home.&rdquo;</p>
-                  <span>— Komla&apos;s Kitchen</span>
+                  <p>&ldquo;{about.quote}&rdquo;</p>
+                  <span>— {settings.name}</span>
                 </div>
               </div>
   
@@ -76,16 +79,11 @@ const AboutPage = ({ google = null }) => {
                 <h2 className="lx-h2">
                   From our kitchen <em>to your table.</em>
                 </h2>
-                <p className="lx-lead">
-                  Komla&apos;s Kitchen was founded from a passion for sharing authentic Ghanaian cuisine with families
-                  throughout Chicago. Every meal is prepared with care using traditional recipes passed down through
-                  generations.
-                </p>
-                <p className="lx-lead">
-                  What started as a labour of love in our home kitchen grew into a full-service delivery kitchen because
-                  people kept asking for more. We believe great food has the power to bring people together — and
-                  that&apos;s exactly what we set out to do every single day.
-                </p>
+                {(about.story || []).map((para, i) => (
+                  <p key={i} className="lx-lead">
+                    {para}
+                  </p>
+                ))}
                 <div className="lx-points">
                   <div className="lx-point lx-glass">
                     <span className="lx-icon">
@@ -123,10 +121,7 @@ const AboutPage = ({ google = null }) => {
                 <div className="lx-mark" aria-hidden="true">
                   &ldquo;
                 </div>
-                <blockquote>
-                  To bring people together through flavourful meals that celebrate Ghanaian culture, hospitality and
-                  community — because every plate is a chance to share a piece of our heritage.
-                </blockquote>
+                <blockquote>{about.mission}</blockquote>
                 <Link href="/contact" className="kw-btn kw-btn-glass">
                   Say hello <i className="fas fa-arrow-right" />
                 </Link>
@@ -199,7 +194,7 @@ const AboutPage = ({ google = null }) => {
               <Link href="/food-menu" className="kw-btn kw-btn-fill">
                 <i className="fas fa-motorcycle" /> Order Now
               </Link>
-              <a href="tel:+13125545481" className="kw-btn kw-btn-glass">
+              <a href={telHref(settings.phonePrimary)} className="kw-btn kw-btn-glass">
                 <i className="fas fa-phone" /> Call Us
               </a>
             </div>

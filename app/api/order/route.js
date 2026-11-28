@@ -1,6 +1,8 @@
 import { Resend } from "resend";
 import { describeCartItemSelections } from "@/lib/pricing";
 import { priceOrder } from "@/lib/orderPricing";
+import { recordOrder } from "@/lib/crm";
+import { getMenu, getSettings } from "@/lib/siteData";
 import { EMAIL_RE, cleanLine, cleanText, crossSite, escapeHtml, rateLimited, readJson, recipientList } from "@/lib/requestGuard";
 
 const FROM_ADDRESS = "Komla's Kitchen <jacob@komlaskitchen.com>";
@@ -37,6 +39,9 @@ export async function POST(request) {
     if (parsed.error) return fail(parsed.error, parsed.status);
     const { customer: rawCustomer = {}, items, subtotal: clientSubtotal } = parsed.body;
 
+    const [settings, menu] = await Promise.all([getSettings(), getMenu()]);
+    if (settings.orderingOpen === false) return fail(settings.closedMessage || "Online ordering is paused right now.", 409);
+
     const customer = {
       name: cleanLine(rawCustomer.name, 120),
       phone: cleanLine(rawCustomer.phone, 40),
@@ -49,24 +54,35 @@ export async function POST(request) {
     if (!/^[0-9+()\-.\s]{7,40}$/.test(customer.phone)) return fail("Please enter a valid phone number.");
     if (customer.fulfillment === "delivery" && !customer.address) return fail("Delivery address is required.");
 
-    const priced = priceOrder(items);
+    const priced = priceOrder(items, menu.items);
     if (priced.error) return fail(priced.error);
     const { lines, subtotal } = priced;
 
-    const apiKey = process.env.RESEND_API_KEY;
-    // ORDER_NOTIFICATION_EMAIL may list several addresses, separated by commas.
-    const notifyEmails = recipientList(process.env.ORDER_NOTIFICATION_EMAIL);
-    if (!apiKey || notifyEmails.length === 0) return fail("Email notifications are not configured.", 500);
-
     const shownTotal = Number(clientSubtotal);
     const totalMismatch = !Number.isFinite(shownTotal) || Math.abs(shownTotal - subtotal) > 0.009;
+    const orderRef = `KK-${Date.now().toString(36).toUpperCase()}${Math.floor(Math.random() * 36 * 36).toString(36).toUpperCase().padStart(2, "0")}`;
+
+    // 1) Save to the CRM (Admin → Orders). A failure here must not lose the order email.
+    let saved = null;
+    try {
+      saved = await recordOrder({ ref: orderRef, customer, lines, subtotal, clientSubtotal: shownTotal, totalMismatch });
+    } catch (err) {
+      console.error("Order save error:", err);
+    }
+
+    // 2) Email the kitchen. Recipients: Admin → Settings, else ORDER_NOTIFICATION_EMAIL (comma-separated).
+    const apiKey = process.env.RESEND_API_KEY;
+    const notifyEmails = recipientList(settings.notifyEmails, process.env.ORDER_NOTIFICATION_EMAIL);
+    if (!apiKey || notifyEmails.length === 0) {
+      if (saved) return Response.json({ ok: true, orderRef, total: subtotal });
+      return fail("Email notifications are not configured.", 500);
+    }
 
     const resend = new Resend(apiKey);
-    const orderRef = `KK-${Date.now().toString(36).toUpperCase()}`;
     const fulfillmentLine =
       customer.fulfillment === "delivery"
         ? `Delivery to: ${escapeHtml(customer.address)}`
-        : "Pickup at 3718 S Indiana Ave, Chicago, IL";
+        : `Pickup at ${escapeHtml(settings.address)}`;
 
     const customerName = escapeHtml(customer.name);
     const mismatchHtml = totalMismatch
@@ -122,7 +138,7 @@ export async function POST(request) {
     // The Resend SDK returns { data, error } rather than throwing.
     if (orderResult.error || paymentResult.error) {
       console.error("Order email error:", { order: orderResult.error, payment: paymentResult.error });
-      return fail("Failed to send order notification.", 500);
+      if (!saved) return fail("Failed to send order notification.", 500);
     }
 
     return Response.json({ ok: true, orderRef, total: subtotal });

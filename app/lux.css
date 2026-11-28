@@ -2711,3 +2711,17 @@ html body .rv-card-write h3 {
   padding: 11px 18px;
   font-size: 0.88rem;
 }
+
+/* Sold-out state (toggled from the CMS) */
+html body .mc-tag.mc-soldout {
+  color: #fff;
+  background: #55574f;
+}
+html body .mc-add.mc-add-off,
+html body .mc-add.mc-add-off:hover {
+  cursor: not-allowed;
+  color: #fff;
+  background: #9a9c93;
+  box-shadow: none;
+  transform: none;
+}

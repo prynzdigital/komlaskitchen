@@ -38,3 +38,6 @@ desktop.ini
 .agents/
 .claude/
 .cursor/
+# CMS local data (development only) and local image uploads
+.cms-data/
+public/uploads/

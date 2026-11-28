@@ -1,28 +1,36 @@
 import PageBanner from "@/components/PageBanner";
 import OfferBanner from "@/components/OfferBanner";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
-import { PHONE2_DISPLAY, PHONE2_TEL, PHONE_DISPLAY, PHONE_TEL, weeklySchedule } from "@/data/schedule";
+import { getSchedule, getSettings } from "@/lib/siteData";
+import { telHref } from "@/lib/siteDefaults";
 import ContactForm from "./ContactForm";
 
-export const metadata = {
-  title: "Contact Us | Komla's Kitchen - Chicago African Food",
-  description:
-    "Contact Komla's Kitchen for authentic Ghanaian food delivery in Chicago. Call +1 (312) 554-5481 or +1 (708) 808-0303, or visit us at 3718 S Indiana Ave, Chicago, IL.",
-};
-
-const ADDRESS = "3718 S Indiana Ave, Chicago, IL 60653";
-const MAP_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&output=embed`;
-const DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`;
-const IG_URL = "https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz";
-const TIKTOK_URL = "https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe";
+export async function generateMetadata() {
+  const settings = await getSettings();
+  const phones = [settings.phonePrimary, settings.phoneSecondary].filter(Boolean).join(" or ");
+  return {
+    title: "Contact Us | Komla's Kitchen - Chicago African Food",
+    description: `Contact ${settings.name} for authentic Ghanaian food delivery in Chicago. Call ${phones}, or visit us at ${settings.address}.`,
+  };
+}
 
 const SHORT = { Monday: "Mon", Tuesday: "Tue", Wednesday: "Wed", Thursday: "Thu", Friday: "Fri", Saturday: "Sat", Sunday: "Sun" };
-const deliveryLines = weeklySchedule.map((b) => ({
-  days: b.days.map((d) => SHORT[d]).join(" · "),
-  times: b.delivery.map((d) => d.time).join(" & "),
-}));
 
-const ContactPage = () => {
+const ContactPage = async () => {
+  const [settings, schedule] = await Promise.all([getSettings(), getSchedule()]);
+  const ADDRESS = [settings.address, settings.postalCode].filter(Boolean).join(" ");
+  const MAP_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&output=embed`;
+  const DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`;
+  const phones = [settings.phonePrimary, settings.phoneSecondary].filter(Boolean);
+  const socials = [
+    { href: settings.instagram, icon: "fab fa-instagram", label: "Instagram" },
+    { href: settings.tiktok, icon: "fab fa-tiktok", label: "TikTok" },
+    { href: settings.facebook, icon: "fab fa-facebook-f", label: "Facebook" },
+  ].filter((x) => x.href);
+  const deliveryLines = (schedule.blocks || []).map((b) => ({
+    days: b.days.map((d) => SHORT[d] || d).join(" · "),
+    times: b.delivery.map((d) => d.time).join(" & "),
+  }));
   return (
     <FoodKingLayout>
       <PageBanner
@@ -55,12 +63,11 @@ const ContactPage = () => {
                     <div>
                       <h3>Call to Order</h3>
                       <p>
-                        <a className="cx-phone" href={PHONE_TEL}>
-                          {PHONE_DISPLAY}
-                        </a>
-                        <a className="cx-phone" href={PHONE2_TEL}>
-                          {PHONE2_DISPLAY}
-                        </a>
+                        {phones.map((p) => (
+                          <a key={p} className="cx-phone" href={telHref(p)}>
+                            {p}
+                          </a>
+                        ))}
                         The quickest way to order or ask a question.
                       </p>
                     </div>
@@ -72,7 +79,7 @@ const ContactPage = () => {
                     </span>
                     <div>
                       <h3>Visit Us</h3>
-                      <p>3718 S Indiana Ave, Chicago, IL</p>
+                      <p>{settings.address}</p>
                       <span className="cx-link">
                         Get directions <i className="fas fa-arrow-right" />
                       </span>
@@ -86,9 +93,9 @@ const ContactPage = () => {
                     <div>
                       <h3>Opening Hours</h3>
                       <p>
-                        Monday – Sunday
+                        Every day
                         <br />
-                        <b>11:00 AM – 9:00 PM</b>
+                        <b>{settings.hours}</b>
                       </p>
                     </div>
                   </div>
@@ -112,12 +119,11 @@ const ContactPage = () => {
 
                 <div className="cx-social">
                   <span>Follow us</span>
-                  <a href={IG_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <i className="fab fa-instagram" />
-                  </a>
-                  <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                    <i className="fab fa-tiktok" />
-                  </a>
+                  {socials.map((x) => (
+                    <a key={x.label} href={x.href} target="_blank" rel="noopener noreferrer" aria-label={x.label}>
+                      <i className={x.icon} />
+                    </a>
+                  ))}
                 </div>
               </div>
 
@@ -135,7 +141,7 @@ const ContactPage = () => {
           <div className="container">
             <div className="cx-map lx-glass">
               <iframe
-                title="Map of Komla's Kitchen at 3718 S Indiana Ave, Chicago"
+                title={`Map of ${settings.name} at ${settings.address}`}
                 src={MAP_EMBED}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

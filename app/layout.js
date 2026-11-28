@@ -3,13 +3,21 @@ import "./lux.css";
 
 import { CartProvider } from "@/context/CartContext";
 import PwaSetup from "@/components/PwaSetup";
+import { SiteDataProvider } from "@/components/SiteDataProvider";
+import { getPublicSiteData } from "@/lib/siteData";
+import { telHref } from "@/lib/siteDefaults";
+
+const SITE_URL = "https://www.komlaskitchen.com";
+
+// Pages are rebuilt instantly when the CMS saves; this is only a safety net.
+export const revalidate = 3600;
 
 export const viewport = {
   themeColor: "#123f27",
 };
 
 export const metadata = {
-  metadataBase: new URL("https://komlas-kitchen.com"),
+  metadataBase: new URL(SITE_URL),
   title: "Komla's Kitchen | Authentic African Food Delivery in Chicago",
   description:
     "Enjoy authentic African cuisine delivered fresh in Chicago. Discover flavorful dishes made with love at Komla's Kitchen. Order online or call +1 (312) 554-5481.",
@@ -51,7 +59,7 @@ export const metadata = {
     statusBarStyle: "black-translucent",
   },
   alternates: {
-    canonical: "https://komlas-kitchen.com",
+    canonical: SITE_URL,
   },
   robots: {
     index: true,
@@ -59,7 +67,10 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const site = await getPublicSiteData();
+  const { settings } = site;
+  const phones = [settings.phonePrimary, settings.phoneSecondary].filter(Boolean).map((p) => telHref(p).replace("tel:", ""));
   return (
     <html lang="en">
       <head>
@@ -80,17 +91,17 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Restaurant",
-              name: "Komla's Kitchen",
+              name: settings.name,
               description:
                 "Authentic African cuisine delivered fresh in Chicago. Traditional recipes made with quality ingredients and love.",
-              url: "https://komlas-kitchen.com",
-              telephone: ["+13125545481", "+17088080303"],
+              url: SITE_URL,
+              telephone: phones,
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "3718 S Indiana Ave",
+                streetAddress: settings.address.split(",")[0],
                 addressLocality: "Chicago",
                 addressRegion: "IL",
-                postalCode: "60653",
+                postalCode: settings.postalCode,
                 addressCountry: "US",
               },
               servesCuisine: ["African", "West African", "Ghanaian"],
@@ -112,14 +123,16 @@ export default function RootLayout({ children }) {
                 },
               ],
               image: "/pictures/jollof_main_dish.jpeg",
-              hasMenu: "https://komlas-kitchen.com/food-menu",
+              hasMenu: `${SITE_URL}/food-menu`,
             }),
           }}
         />
       </head>
       <body>
         <PwaSetup />
-        <CartProvider>{children}</CartProvider>
+        <SiteDataProvider value={site}>
+          <CartProvider>{children}</CartProvider>
+        </SiteDataProvider>
       </body>
     </html>
   );

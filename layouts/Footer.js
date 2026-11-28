@@ -1,8 +1,8 @@
+"use client";
 import Link from "next/link";
 import InstallAppButton from "@/components/InstallAppButton";
-
-const IG_URL = "https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz";
-const TIKTOK_URL = "https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe";
+import { useSite } from "@/components/SiteDataProvider";
+import { telHref } from "@/lib/siteDefaults";
 
 const COLUMNS = [
   {
@@ -21,12 +21,19 @@ const COLUMNS = [
       { href: "/food-menu", label: "Family Trays" },
       { href: "/cart", label: "Your Cart" },
       { href: "/checkout", label: "Checkout" },
-      { href: "tel:+13125545481", label: "Catering" },
+      { href: "/contact", label: "Catering" },
     ],
   },
 ];
 
 const Footer = () => {
+  const { settings } = useSite();
+  const phones = [settings.phonePrimary, settings.phoneSecondary].filter(Boolean);
+  const socials = [
+    { href: settings.instagram, icon: "fab fa-instagram", label: "Instagram" },
+    { href: settings.tiktok, icon: "fab fa-tiktok", label: "TikTok" },
+    { href: settings.facebook, icon: "fab fa-facebook-f", label: "Facebook" },
+  ].filter((s) => s.href);
   return (
     <footer className="kf">
       <div className="container">
@@ -39,7 +46,7 @@ const Footer = () => {
                 <small>Kitchen</small>
               </span>
             </Link>
-            <p>Authentic Ghanaian flavours, cooked fresh daily and delivered across Chicago.</p>
+            <p>{settings.tagline}</p>
           </div>
 
           {COLUMNS.map((col) => (
@@ -59,16 +66,20 @@ const Footer = () => {
             <h4>Visit Us</h4>
             <ul className="kf-contact">
               <li>
-                <i className="fas fa-map-marker-alt" /> 3718 S Indiana Ave, Chicago, IL
+                <i className="fas fa-map-marker-alt" /> {settings.address}
               </li>
+              {phones.map((p) => (
+                <li key={p}>
+                  <i className="fas fa-phone" /> <a href={telHref(p)}>{p}</a>
+                </li>
+              ))}
+              {settings.email && (
+                <li>
+                  <i className="fas fa-envelope" /> <a href={`mailto:${settings.email}`}>{settings.email}</a>
+                </li>
+              )}
               <li>
-                <i className="fas fa-phone" /> <a href="tel:+13125545481">+1 (312) 554-5481</a>
-              </li>
-              <li>
-                <i className="fas fa-phone" /> <a href="tel:+17088080303">+1 (708) 808-0303</a>
-              </li>
-              <li>
-                <i className="fas fa-clock" /> Mon–Sun, 11 AM – 9 PM
+                <i className="fas fa-clock" /> {settings.hours}
               </li>
             </ul>
           </div>
@@ -76,12 +87,11 @@ const Footer = () => {
           <div>
             <h4>Follow Us</h4>
             <div className="kf-social">
-              <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kh-icon" aria-label="Instagram">
-                <i className="fab fa-instagram" />
-              </a>
-              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="kh-icon" aria-label="TikTok">
-                <i className="fab fa-tiktok" />
-              </a>
+              {socials.map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="kh-icon" aria-label={s.label}>
+                  <i className={s.icon} />
+                </a>
+              ))}
             </div>
             <h4 style={{ marginTop: 26 }}>Get the App</h4>
             <InstallAppButton className="kw-btn kw-btn-glass kf-install" label="Install App" />
@@ -91,7 +101,7 @@ const Footer = () => {
 
       <div className="kf-bottom">
         <div className="container">
-          <p>© 2026 Komla&apos;s Kitchen. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {settings.name}. All rights reserved.</p>
           <p>
             Digital Excellence, Powered by{" "}
             <a href="https://www.gostatenext.com" target="_blank" rel="noopener noreferrer">

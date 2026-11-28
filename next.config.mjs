@@ -8,7 +8,7 @@ const csp = [
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: blob: https://*.googleusercontent.com",
+  "img-src 'self' data: blob: https://*.googleusercontent.com https://*.public.blob.vercel-storage.com",
   "connect-src 'self'",
   "frame-src https://www.google.com https://maps.google.com",
   "worker-src 'self'",
@@ -35,6 +35,8 @@ const nextConfig = {
   poweredByHeader: false,
   // The site uses plain <img> tags; turning the optimizer off removes its endpoint as an attack surface.
   images: { unoptimized: true },
+  // Admin photo uploads are shrunk in the browser first; this is just the ceiling.
+  experimental: { serverActions: { bodySizeLimit: "5mb" } },
   // Old template blog URLs now point at the real blog.
   async redirects() {
     return [
@@ -45,6 +47,8 @@ const nextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
+      { source: "/admin/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }, { key: "Cache-Control", value: "no-store" }] },
+      { source: "/admin", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }, { key: "Cache-Control", value: "no-store" }] },
       {
         source: "/sw.js",
         headers: [

@@ -6,6 +6,8 @@ import PageBanner from "@/components/PageBanner";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import { useCart } from "@/context/CartContext";
 import { formatCurrency, describeCartItemSelections } from "@/lib/pricing";
+import { useSite } from "@/components/SiteDataProvider";
+import { telHref } from "@/lib/siteDefaults";
 
 const inputStyle = {
   width: "100%",
@@ -22,6 +24,9 @@ const labelStyle = { display: "block", color: "var(--paper-dim)", fontSize: "0.8
 
 const CheckoutPage = () => {
   const { items, subtotal, clearCart, hydrated } = useCart();
+  const { settings } = useSite();
+  const phone = settings.phonePrimary;
+  const tel = telHref(phone);
   const [stage, setStage] = useState("details"); // details -> pay -> done
   const [form, setForm] = useState({ name: "", phone: "", email: "", fulfillment: "pickup", address: "" });
   const [errors, setErrors] = useState({});
@@ -72,7 +77,7 @@ const CheckoutPage = () => {
       clearCart();
       setStage("done");
     } catch (err) {
-      setSubmitError(err.message || "Something went wrong. Please call us instead: +1 (312) 554-5481.");
+      setSubmitError(err.message || `Something went wrong. Please call us instead: ${phone}.`);
     } finally {
       setSubmitting(false);
     }
@@ -105,6 +110,25 @@ const CheckoutPage = () => {
           </section>
       </div>
     </FoodKingLayout>
+    );
+  }
+
+  if (settings.orderingOpen === false && stage !== "done") {
+    return (
+      <FoodKingLayout>
+        <PageBanner pageName="Checkout" title={<>Ordering <em>paused</em></>} subtitle={settings.closedMessage} />
+        <div className="lx-light">
+          <section className="lx-sec" style={{ paddingTop: 70, textAlign: "center" }}>
+            <div className="container">
+              <h3 style={{ color: "var(--paper)", marginBottom: 12 }}>We&apos;re not taking online orders right now</h3>
+              <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>{settings.closedMessage}</p>
+              <a href={tel} className="kw-btn kw-btn-fill">
+                <i className="fas fa-phone" /> Call {phone}
+              </a>
+            </div>
+          </section>
+        </div>
+      </FoodKingLayout>
     );
   }
 
@@ -242,8 +266,8 @@ const CheckoutPage = () => {
                     <div className="zl-pay">
                       <img
                         className="zl-qr"
-                        src="/pictures/zelle-qr.png"
-                        alt="Zelle QR code — pay Jacob Mortty of Komla's Kitchen"
+                        src={settings.zelleQr}
+                        alt={`Zelle QR code — pay ${settings.zelleName} of ${settings.name}`}
                         width={400}
                         height={584}
                       />
@@ -257,7 +281,7 @@ const CheckoutPage = () => {
                             Open your banking app and choose <b>Zelle</b>.
                           </li>
                           <li>
-                            Scan the QR code — it pays <b>Jacob Mortty</b> (Komla&apos;s Kitchen).
+                            Scan the QR code — it pays <b>{settings.zelleName}</b> ({settings.name}).
                           </li>
                           <li>
                             Send exactly <b>{formatCurrency(subtotal)}</b>, then tap &ldquo;I&apos;ve Paid&rdquo; below.
@@ -266,12 +290,12 @@ const CheckoutPage = () => {
                         <p className="zl-note">
                           Ordering on your phone? Save the code, then use &ldquo;scan from photos&rdquo; in your bank&apos;s
                           Zelle screen.{" "}
-                          <a href="/pictures/zelle-qr.png" download="komlas-kitchen-zelle-qr.png">
+                          <a href={settings.zelleQr} download="komlas-kitchen-zelle-qr.png">
                             <i className="fas fa-download" /> Save QR code
                           </a>
                         </p>
                         <p className="zl-note">
-                          Trouble paying? Call <a href="tel:+13125545481">+1 (312) 554-5481</a>.
+                          Trouble paying? Call <a href={tel}>{phone}</a>.
                         </p>
                       </div>
                     </div>
@@ -319,7 +343,7 @@ const CheckoutPage = () => {
                       Order reference: <strong style={{ color: "var(--gold-400)" }}>{orderRef}</strong>
                     </p>
                     <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>
-                      We&apos;ll confirm your payment and get your order started. Call +1 (312) 554-5481 with any questions.
+                      We&apos;ll confirm your payment and get your order started. Call {phone} with any questions.
                     </p>
                     <Link
                       href="/"

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { useSite } from "@/components/SiteDataProvider";
+import { telHref } from "@/lib/siteDefaults";
 
 const navLinks = [
   { href: "/", label: "Home", icon: "fas fa-home" },
@@ -15,25 +17,19 @@ const navLinks = [
 // "/blog/some-post" keeps "Blog" highlighted.
 const isActive = (pathname, href) => pathname === href || (href !== "/" && pathname?.startsWith(`${href}/`));
 
-const TICKER_ITEMS = [
-  "Authentic Ghanaian cuisine, made fresh daily",
-  "Free delivery on orders over $50",
-  "Wed · Sat · Sun deliveries at 1 PM & 5 PM",
-  "Mon · Tue · Thu · Fri deliveries 12 – 5 PM",
-  "Wednesday Special: Beans & Plantain",
-  "Try our legendary Party Jollof",
-  "Call us: +1 (312) 554-5481 or +1 (708) 808-0303",
-  "Open Mon–Sun, 11 AM – 9 PM · Chicago, IL",
-];
-
-const IG_URL = "https://www.instagram.com/komlaskitchen?utm_source=qr&igsh=MXg0ZGU5OWpwcWNz";
-const TIKTOK_URL = "https://www.tiktok.com/@chalekomlacooks0?_r=1&_t=ZS-97Faf2TUkMe";
-
 const Header = () => {
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { itemCount } = useCart();
+  const { settings } = useSite();
+  const TICKER_ITEMS = settings.ticker?.length ? settings.ticker : [settings.tagline];
+  const phones = [settings.phonePrimary, settings.phoneSecondary].filter(Boolean);
+  const socials = [
+    { href: settings.instagram, icon: "fab fa-instagram", label: "Instagram" },
+    { href: settings.tiktok, icon: "fab fa-tiktok", label: "TikTok" },
+    { href: settings.facebook, icon: "fab fa-facebook-f", label: "Facebook" },
+  ].filter((s) => s.href);
   const closeRef = useRef(null);
 
   useEffect(() => setToggle(false), [pathname]);
@@ -87,15 +83,14 @@ const Header = () => {
           </nav>
 
           <div className="kh-actions">
-            <a href="tel:+13125545481" className="kh-icon d-none d-md-grid" aria-label="Call +1 (312) 554-5481">
+            <a href={telHref(settings.phonePrimary)} className="kh-icon d-none d-md-grid" aria-label={`Call ${settings.phonePrimary}`}>
               <i className="fas fa-phone" />
             </a>
-            <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kh-icon d-none d-md-grid" aria-label="Instagram">
-              <i className="fab fa-instagram" />
-            </a>
-            <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="kh-icon d-none d-md-grid" aria-label="TikTok">
-              <i className="fab fa-tiktok" />
-            </a>
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="kh-icon d-none d-md-grid" aria-label={s.label}>
+                <i className={s.icon} />
+              </a>
+            ))}
             <Link href="/cart" className="kh-icon" aria-label={`Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`}>
               <i className="fas fa-shopping-cart" />
               {itemCount > 0 && <b>{itemCount}</b>}
@@ -150,7 +145,7 @@ const Header = () => {
           <Link href="/food-menu" className="kw-btn kw-btn-fill" onClick={() => setToggle(false)}>
             Order Now <i className="fas fa-arrow-right" />
           </Link>
-          <a href="tel:+13125545481" className="kw-btn kw-btn-glass">
+          <a href={telHref(settings.phonePrimary)} className="kw-btn kw-btn-glass">
             <i className="fas fa-phone" /> Call
           </a>
         </div>
@@ -158,29 +153,26 @@ const Header = () => {
         <ul className="kh-drawer-info">
           <li>
             <i className="fas fa-map-marker-alt" aria-hidden="true" />
-            <span>3718 S Indiana Ave, Chicago, IL</span>
+            <span>{settings.address}</span>
           </li>
           <li>
             <i className="fas fa-clock" aria-hidden="true" />
-            <span>Open daily, 11:00 AM – 9:00 PM</span>
+            <span>{settings.hours}</span>
           </li>
-          <li>
-            <i className="fas fa-phone" aria-hidden="true" />
-            <a href="tel:+13125545481">+1 (312) 554-5481</a>
-          </li>
-          <li>
-            <i className="fas fa-phone" aria-hidden="true" />
-            <a href="tel:+17088080303">+1 (708) 808-0303</a>
-          </li>
+          {phones.map((p) => (
+            <li key={p}>
+              <i className="fas fa-phone" aria-hidden="true" />
+              <a href={telHref(p)}>{p}</a>
+            </li>
+          ))}
         </ul>
 
         <div className="kh-drawer-social">
-          <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kh-icon" aria-label="Instagram">
-            <i className="fab fa-instagram" />
-          </a>
-          <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" className="kh-icon" aria-label="TikTok">
-            <i className="fab fa-tiktok" />
-          </a>
+          {socials.map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="kh-icon" aria-label={s.label}>
+              <i className={s.icon} />
+            </a>
+          ))}
         </div>
       </aside>
     </Fragment>

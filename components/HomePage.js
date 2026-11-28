@@ -9,24 +9,12 @@ import WeeklySchedule from "@/components/WeeklySchedule";
 import OfferBanner from "@/components/OfferBanner";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { menuCategories, menuItems } from "@/data/menu";
+import { useSite } from "@/components/SiteDataProvider";
 import { computeUnitPrice, describeCartItemSelections, formatCurrency } from "@/lib/pricing";
 
-const byId = (id) => menuItems.find((m) => m.id === id);
-
-const CRAVINGS = [
-  { label: "Family Trays", image: "/pictures/opt/jollof2.webp" },
-  { label: "Jollof Rice", image: "/pictures/opt/jollof_main_dish.webp" },
-  { label: "Okra Soup", image: "/pictures/opt/okro_soup_sq.webp" },
-  { label: "Kontomire", image: "/pictures/opt/kontomire_stew2.webp" },
-  { label: "Red Red", image: "/pictures/opt/beans_and_plantain.webp" },
-  { label: "Kelewele", image: "/pictures/opt/kelewele.webp" },
-  { label: "Grilled", image: "/pictures/opt/chicken_bg.webp" },
-  { label: "Plantain", image: "/pictures/beans_and_plantain2.jpeg" },
-  { label: "Sobolo", image: "/pictures/opt/sobolo.webp" },
-];
 
 const CategoryStrip = () => {
+  const CRAVINGS = useSite().home.cravings || [];
   const track = useRef(null);
   const [edge, setEdge] = useState({ start: true, end: false });
 
@@ -66,17 +54,6 @@ const CategoryStrip = () => {
   );
 };
 
-const MOST_ORDERED = [
-  { id: 101, image: "/pictures/opt/jollof_main_dish.webp", badge: "Best Seller" },
-  { id: 102, image: "/pictures/opt/okro_soup_sq.webp", badge: "Popular" },
-  { id: 13, image: "/pictures/opt/kelewele.webp", badge: "Fan Favourite" },
-  { id: 5, image: "/pictures/opt/kontomire_stew2.webp", badge: "Classic" },
-]
-  .map((d) => ({ ...byId(d.id), ...d }))
-  .filter((d) => d.name);
-
-const categoryLabel = (id) => menuCategories.find((c) => c.id === id)?.label ?? "";
-
 // Same starting choices the menu card uses, so "+" adds exactly what the menu would.
 const defaultCartItem = (item) => {
   const selectedSize = item.sizes?.[0]?.label ?? null;
@@ -95,6 +72,8 @@ const defaultCartItem = (item) => {
 };
 
 const DishCard = ({ dish, delay }) => {
+  const { menu } = useSite();
+  const categoryLabel = (id) => menu.categories.find((c) => c.id === id)?.label ?? "";
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
   const cartItem = defaultCartItem(dish);
@@ -145,7 +124,6 @@ const DishCard = ({ dish, delay }) => {
 
 const SIDE_ICONS = { 104: "fas fa-mortar-pestle", 105: "fas fa-fish", 106: "fas fa-egg", 107: "fas fa-leaf" };
 const SIDE_THUMBS = { 13: "/pictures/opt/kelewele.webp" };
-const SIDES = menuItems.filter((m) => m.category === "sides");
 
 const SideRow = ({ item }) => {
   const { addItem } = useCart();
@@ -205,6 +183,16 @@ const SideRow = ({ item }) => {
 };
 
 const HomePage = ({ google = null }) => {
+  const { menu, home } = useSite();
+  const { hero } = home;
+  const isOn = (m) => m && !m.hidden && m.available !== false && !m.callOnly;
+  const MOST_ORDERED = (home.mostOrdered || [])
+    .map((d) => {
+      const item = menu.items.find((m) => String(m.id) === String(d.id));
+      return isOn(item) ? { ...item, badge: d.badge, image: d.image || item.image } : null;
+    })
+    .filter(Boolean);
+  const SIDES = menu.items.filter((m) => m.category === "sides" && isOn(m));
   useEffect(() => {
     const els = document.querySelectorAll(".kk .reveal");
     if (!("IntersectionObserver" in window)) {
@@ -254,16 +242,15 @@ const HomePage = ({ google = null }) => {
               <b>
                 <i className="fas fa-utensils" />
               </b>
-              Authentic Ghanaian Kitchen · Chicago
+              {hero.pill}
             </span>
             <h1 className="kk-fade" style={{ "--d": "0.2s" }}>
-              Taste of Ghana,
+              {hero.line1}
               <br />
-              <span>Delivered</span> Fresh.
+              {hero.highlight && <span>{hero.highlight}</span>} {hero.line2}
             </h1>
             <p className="kw-hero-lead kk-fade" style={{ "--d": "0.35s" }}>
-              Party jollof, okra soup, kelewele and more — traditional recipes cooked fresh every day and delivered to
-              your door across Chicago.
+              {hero.lead}
             </p>
             <div className="kw-ctas kk-fade" style={{ "--d": "0.5s" }}>
               <Link href="/food-menu" className="kw-btn kw-btn-fill">

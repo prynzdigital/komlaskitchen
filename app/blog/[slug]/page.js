@@ -2,18 +2,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
-import { formatPostDate, getPost, posts } from "@/data/blog";
-import { PHONE_DISPLAY, PHONE_TEL } from "@/data/schedule";
+import { getPostBySlug, getPublishedPosts, getSettings } from "@/lib/siteData";
+import { formatPostDate, telHref } from "@/lib/siteDefaults";
 
-export const dynamicParams = false;
+// New posts published from the CMS are rendered on first visit, then cached.
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  return (await getPublishedPosts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPostBySlug(slug);
   if (!post) return {};
   return {
     title: `${post.title} | Komla's Kitchen Blog`,
@@ -38,9 +39,12 @@ const Block = ({ block }) => {
 
 export default async function BlogPost({ params }) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
+  const [posts, settings] = await Promise.all([getPublishedPosts(), getSettings()]);
   const more = posts.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const PHONE_DISPLAY = settings.phonePrimary;
+  const PHONE_TEL = telHref(settings.phonePrimary);
 
   return (
     <FoodKingLayout>
@@ -73,8 +77,8 @@ export default async function BlogPost({ params }) {
                   <p>Order online for pickup or delivery across Chicago, or give us a call.</p>
                 </div>
                 <div className="bl-cta-actions">
-                  <Link href={post.cta?.href || "/food-menu"} className="kw-btn kw-btn-fill">
-                    {post.cta?.label || "Order Now"} <i className="fas fa-arrow-right" />
+                  <Link href={post.ctaHref || "/food-menu"} className="kw-btn kw-btn-fill">
+                    {post.ctaLabel || "Order Now"} <i className="fas fa-arrow-right" />
                   </Link>
                   <a href={PHONE_TEL} className="bl-call">
                     <i className="fas fa-phone" /> {PHONE_DISPLAY}

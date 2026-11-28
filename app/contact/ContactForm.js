@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useSite } from "@/components/SiteDataProvider";
+import { telHref } from "@/lib/siteDefaults";
 
 const ContactForm = () => {
+  const phone = useSite().settings.phonePrimary;
+  const tel = telHref(phone);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "", website: "" });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -56,7 +60,7 @@ const ContactForm = () => {
         <h4>Message Sent!</h4>
         <p>
           Thank you for reaching out. We&apos;ll get back to you shortly. Or call us at{" "}
-          <a href="tel:+13125545481">+1 (312) 554-5481</a>.
+          <a href={tel}>{phone}</a>.
         </p>
       </div>
     );
@@ -99,7 +103,7 @@ const ContactForm = () => {
         {sendError && (
           <div className="col-lg-12">
             <p role="alert" style={{ color: "var(--red-400)", fontSize: "0.88rem", margin: 0 }}>
-              {sendError} Please call us at <a href="tel:+13125545481" style={{ color: "var(--gilt-600)", fontWeight: 600 }}>+1 (312) 554-5481</a>.
+              {sendError} Please call us at <a href={tel} style={{ color: "var(--gilt-600)", fontWeight: 600 }}>{phone}</a>.
             </p>
           </div>
         )}

@@ -1,10 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { PHONE_DISPLAY, PHONE_TEL, weeklySchedule } from "@/data/schedule";
+import { useSite } from "@/components/SiteDataProvider";
+import { telHref } from "@/lib/siteDefaults";
 
 const DAY_SHORT = { Monday: "Mon", Tuesday: "Tue", Wednesday: "Wed", Thursday: "Thu", Friday: "Fri", Saturday: "Sat", Sunday: "Sun" };
 
 const WeeklySchedule = ({ className = "" }) => {
+  const { settings, schedule } = useSite();
+  const PHONE_DISPLAY = settings.phonePrimary;
+  const PHONE_TEL = telHref(settings.phonePrimary);
+  const weeklySchedule = schedule.blocks || [];
   // Resolved after mount so the server render never disagrees with the visitor's clock.
   const [today, setToday] = useState(null);
   useEffect(() => {

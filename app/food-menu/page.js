@@ -6,11 +6,14 @@ import WeeklySchedule from "@/components/WeeklySchedule";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import Link from "next/link";
 import { useState } from "react";
-import { menuCategories, menuItems } from "@/data/menu";
-
-const CATEGORIES = menuCategories.filter((c) => menuItems.some((m) => m.category === c.id));
+import { useSite } from "@/components/SiteDataProvider";
+import { telHref } from "@/lib/siteDefaults";
 
 const MenuPage = () => {
+  const { menu, settings, schedule } = useSite();
+  const menuItems = menu.items.filter((m) => !m.hidden);
+  const CATEGORIES = menu.categories.filter((c) => menuItems.some((m) => m.category === c.id));
+  const tel = telHref(settings.phonePrimary);
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filteredItems =
@@ -45,8 +48,8 @@ const MenuPage = () => {
               </h2>
               <p className="lx-lead">
                 Pick a size, choose your protein and add to cart — or call{" "}
-                <a href="tel:+13125545481" style={{ color: "var(--gilt-600)", fontWeight: 700, whiteSpace: "nowrap" }}>
-                  +1 (312) 554-5481
+                <a href={tel} style={{ color: "var(--gilt-600)", fontWeight: 700, whiteSpace: "nowrap" }}>
+                  {settings.phonePrimary}
                 </a>{" "}
                 and we&apos;ll take care of everything.
               </p>
@@ -94,7 +97,7 @@ const MenuPage = () => {
                   be shared. Tell us your guest count and we&apos;ll plan the perfect spread.
                 </p>
                 <div className="lx-actions">
-                  <a href="tel:+13125545481" className="kw-btn kw-btn-fill">
+                  <a href={tel} className="kw-btn kw-btn-fill">
                     <i className="fas fa-phone" /> Plan Your Order
                   </a>
                   <Link href="/contact" className="kw-btn kw-btn-glass">
@@ -110,20 +113,18 @@ const MenuPage = () => {
                 </div>
                 <div className="lx-hours-row">
                   <span>Kitchen hours</span>
-                  <b>11:00 AM – 9:00 PM</b>
+                  <b>{settings.hours}</b>
                 </div>
-                <div className="lx-hours-row">
-                  <span>Wed · Sat · Sun delivery</span>
-                  <b>1 PM &amp; 5 PM</b>
-                </div>
-                <div className="lx-hours-row">
-                  <span>Mon · Tue · Thu · Fri delivery</span>
-                  <b>12 – 5 PM</b>
-                </div>
+                {(schedule.blocks || []).map((block) => (
+                  <div key={block.id || block.title} className="lx-hours-row">
+                    <span>{block.days.map((d) => d.slice(0, 3)).join(" · ")} delivery</span>
+                    <b>{block.delivery.map((d) => d.time).join(" & ")}</b>
+                  </div>
+                ))}
                 <div className="lx-hours-row" style={{ borderBottom: 0 }}>
                   <span>
                     <i className="fas fa-map-marker-alt" style={{ color: "var(--gilt-400)", marginRight: 8 }} />
-                    3718 S Indiana Ave, Chicago
+                    {settings.address}
                   </span>
                 </div>
               </div>
