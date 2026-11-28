@@ -40,10 +40,10 @@
   --shadow-border: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px var(--ink-line), 0 24px 50px -26px rgba(0, 0, 0, 0.75);
   --shadow-border-hover: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 0 1px var(--ink-line-hover), 0 30px 60px -28px rgba(0, 0, 0, 0.8);
 
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-script: "Great Vibes", "Brush Script MT", cursive;
-  --font-caps: "Cinzel", Georgia, serif;
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-sans); /* no script face — the brand is all sans-serif */
+  --font-caps: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-sans);
 
   --gold: #c99a32;
@@ -98,8 +98,9 @@ html body h4,
 html body h5,
 html body h6 {
   font-family: var(--font-display);
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   text-transform: none;
   /* main.css's own `h1..h6 { color: var(--header) }` (near-black) was the
      single root cause behind every "invisible heading" bug across the site
@@ -244,7 +245,7 @@ img.mfp-img {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Header — transparent over heroes, frosted green glass on scroll
+   Header — sticky, solid dark green
    ══════════════════════════════════════════════════════════════ */
 .kh-ticker {
   background: var(--forest-950);
@@ -281,15 +282,12 @@ img.mfp-img {
   top: 0;
   z-index: 999;
   height: 84px;
-  transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-  border-bottom: 1px solid transparent;
+  background: var(--forest-950);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.4s ease;
 }
 .kh-scrolled {
-  background: rgba(18, 63, 39, 0.72);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border-bottom-color: var(--frost-line);
-  box-shadow: 0 12px 30px -18px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.7);
 }
 .kh-bar {
   height: 100%;
@@ -356,12 +354,12 @@ img.mfp-img {
 }
 .kh-nav a {
   position: relative;
-  font-family: var(--font-caps);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.86);
   text-decoration: none;
   padding: 8px 0;
   transition: color 0.25s;

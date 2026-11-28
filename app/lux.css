@@ -1098,15 +1098,15 @@ html body .ws-card h3 {
   }
 }
 
-/* ══ Luxury typography (Playfair Display + gold script accents) ══ */
+/* ══ Typography (Nunito sans-serif, gold accent words) ══ */
 html body .lx-title {
   font-size: clamp(2.2rem, 5.4vw, 3.7rem);
-  font-weight: 600;
-  line-height: 1.02;
+  font-weight: 800;
+  line-height: 1.05;
 }
 html body .lx-h2 {
   font-size: clamp(2rem, 3.7vw, 3.1rem);
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1.08;
 }
 html body .lx-h2 em,
@@ -1719,7 +1719,7 @@ html body .kw-offer h2 {
   }
 }
 
-/* Keep "Free Delivery" on one line now that headlines use Playfair */
+/* Keep "Free Delivery" on one line */
 .kw-offer-copy {
   max-width: 640px;
 }
@@ -1731,23 +1731,71 @@ html body .kw-offer h2 {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Script swashes: background-clip:text only paints inside the
-   element's box, and Great Vibes capitals overhang it (left loops,
-   tall ascenders). Pad the paint area and cancel it with negative
-   margins so layout is unchanged but whole letters show.
+   Accent words — same sans-serif as the rest of the site, picked out
+   in gold. (These used to be a handwritten script.) `html body`
+   specificity overrides the older per-section script rules.
    ══════════════════════════════════════════════════════════════ */
 html body .kw-hero h1 span,
 html body .kw-offer h2 span,
 html body .kw-sides-copy h2 span,
 html body .lx-h2 em,
-html body .lx-title em,
-html body .lx-num {
-  padding: 0.24em 0.18em 0.2em 0.34em;
-  margin: -0.24em -0.04em -0.2em -0.34em;
+html body .lx-title em {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 900;
+  font-size: 1em;
+  line-height: inherit;
+  letter-spacing: inherit;
+  display: inline;
+  padding: 0;
+  margin: 0;
+  vertical-align: baseline;
+  filter: none;
 }
+html body .lx-num {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 900;
+  font-size: 2.4rem;
+  padding: 0;
+  margin: 0;
+}
+html body .kw-kicker {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+html body .kw-tile span {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 220px;
+  transform: none;
+}
+@media (max-width: 575px) {
+  html body .kw-tile span {
+    font-size: 140px;
+  }
+}
+
+/* Wordmark: "Komla's" over "KITCHEN", both sans-serif */
 html body .kh-word b {
-  padding: 0.24em 0.2em 0.16em 0.3em;
-  margin: -0.24em -0.2em -0.16em -0.3em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.45rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  padding: 0;
+  margin: 0;
+}
+html body .kh-word small {
+  margin-top: 3px;
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.42em;
 }
 
 /* ══════════════════════════════════════════════════════════════

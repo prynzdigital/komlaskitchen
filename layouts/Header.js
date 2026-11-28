@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { href: "/", label: "Home", icon: "fas fa-home" },
-  { href: "/food-menu", label: "Menu", icon: "fas fa-utensils" },
+  { href: "/food-menu", label: "Our Menu", icon: "fas fa-utensils" },
   { href: "/about", label: "About Us", icon: "fas fa-heart" },
   { href: "/blog", label: "Blog", icon: "fas fa-book-open" },
   { href: "/contact", label: "Contact", icon: "fas fa-envelope" },

@@ -127,7 +127,7 @@ const CheckoutPage = () => {
                 <div className="lx-glass" style={{ padding: "clamp(24px, 4vw, 40px)" }}>
                 {stage === "details" && (
                   <form onSubmit={handleContinue} noValidate>
-                    <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 22 }}>Contact &amp; Fulfillment</h4>
+                    <h4 style={{ color: "var(--paper)", fontSize: "1.6rem", fontWeight: 800, marginBottom: 22 }}>Contact &amp; Fulfillment</h4>
   
                     <div style={{ marginBottom: 16 }}>
                       <label style={labelStyle} htmlFor="name">Full Name</label>
@@ -220,7 +220,7 @@ const CheckoutPage = () => {
   
                 {stage === "pay" && (
                   <div>
-                    <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 20 }}>Order Summary</h4>
+                    <h4 style={{ color: "var(--paper)", fontSize: "1.6rem", fontWeight: 800, marginBottom: 20 }}>Order Summary</h4>
                     <div style={{ background: "var(--ink-800)", borderRadius: 12, padding: 20, marginBottom: 24 }}>
                       {items.map((item) => (
                         <div key={item.cartItemId} style={{ display: "flex", justifyContent: "space-between", marginBottom: 8, color: "var(--paper-dim)", fontSize: "0.9rem" }}>
@@ -238,7 +238,7 @@ const CheckoutPage = () => {
                       </div>
                     </div>
   
-                    <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 14 }}>Pay with Zelle</h4>
+                    <h4 style={{ color: "var(--paper)", fontSize: "1.6rem", fontWeight: 800, marginBottom: 14 }}>Pay with Zelle</h4>
                     <div className="zl-pay">
                       <img
                         className="zl-qr"

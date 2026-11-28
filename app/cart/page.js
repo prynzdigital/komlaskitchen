@@ -86,7 +86,7 @@ const CartPage = () => {
                       </div>
   
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ color: "var(--paper)", fontFamily: "var(--font-display)", fontSize: "1.35rem", fontWeight: 600, lineHeight: 1.15, marginBottom: 4 }}>{item.name}</div>
+                        <div style={{ color: "var(--paper)", fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: 800, lineHeight: 1.15, marginBottom: 4 }}>{item.name}</div>
                         {describeSelections(item) && (
                           <div style={{ color: "var(--paper-faint)", fontSize: "0.8rem" }}>
                             {describeSelections(item)}
@@ -164,7 +164,7 @@ const CartPage = () => {
                       top: 120,
                     }}
                   >
-                    <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 18 }}>Order Summary</h4>
+                    <h4 style={{ color: "var(--paper)", fontSize: "1.6rem", fontWeight: 800, marginBottom: 18 }}>Order Summary</h4>
                     <div style={{ display: "flex", justifyContent: "space-between", color: "var(--paper-dim)", marginBottom: 8 }}>
                       <span>Subtotal</span>
                       <span>{formatCurrency(subtotal)}</span>
