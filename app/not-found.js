@@ -24,7 +24,7 @@ const NotFound = () => (
             <Link href="/" className="kw-btn kw-btn-fill">
               Back to Home <i className="fas fa-arrow-right" />
             </Link>
-            <Link href="/food-menu" className="kw-btn kw-btn-glass" style={{ color: "var(--wine-800)", borderColor: "var(--gilt-500)" }}>
+            <Link href="/food-menu" className="kw-btn kw-btn-glass" style={{ color: "var(--forest-800)", borderColor: "var(--gilt-500)" }}>
               View the Menu
             </Link>
           </div>

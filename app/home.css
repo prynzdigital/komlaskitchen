@@ -1,9 +1,9 @@
 /* ══════════════════════════════════════════════════════════════
-   Homepage — frosted wine & gold
+   Homepage — Ghanaian heritage: green, cream, red & gold
    ══════════════════════════════════════════════════════════════ */
 .kk {
   overflow-x: clip;
-  background: #fbf7f1;
+  background: #f7eedb;
 }
 
 /* Entrance + scroll reveal */
@@ -44,7 +44,7 @@
   }
 }
 
-/* ══ HERO — frosted wine ══ */
+/* ══ HERO — frosted Ghana green ══ */
 .kw-hero {
   position: relative;
   margin-top: -84px;
@@ -53,10 +53,10 @@
   overflow: hidden;
   isolation: isolate;
   background:
-    radial-gradient(55% 60% at 80% 35%, rgba(155, 31, 69, 0.55), transparent 70%),
-    radial-gradient(40% 45% at 8% 15%, rgba(110, 22, 50, 0.55), transparent 70%),
-    radial-gradient(35% 40% at 50% 110%, rgba(201, 154, 60, 0.22), transparent 70%),
-    linear-gradient(160deg, var(--wine-900) 0%, var(--wine-950) 70%);
+    radial-gradient(55% 60% at 80% 35%, rgba(47, 122, 77, 0.55), transparent 70%),
+    radial-gradient(40% 45% at 8% 15%, rgba(37, 104, 67, 0.55), transparent 70%),
+    radial-gradient(35% 40% at 50% 110%, rgba(201, 154, 50, 0.22), transparent 70%),
+    linear-gradient(160deg, var(--forest-900) 0%, var(--forest-950) 70%);
 }
 .kw-hero::before {
   content: "";
@@ -83,7 +83,7 @@
   height: 380px;
   right: -4%;
   top: -6%;
-  background: #b3264f;
+  background: #1f6b43;
   opacity: 0.55;
 }
 .kw-blob-2 {
@@ -91,7 +91,7 @@
   height: 300px;
   right: 34%;
   bottom: 8%;
-  background: #c9873d;
+  background: #c99a32;
   opacity: 0.35;
   animation-delay: -5s;
 }
@@ -100,7 +100,7 @@
   height: 260px;
   left: -60px;
   top: 40%;
-  background: #6e1632;
+  background: #256843;
   animation-delay: -9s;
 }
 @keyframes kw-drift {
@@ -137,7 +137,7 @@
   height: 22px;
   border-radius: 50%;
   background: var(--gilt-400);
-  color: var(--wine-950);
+  color: var(--forest-950);
   font-size: 0.6rem;
 }
 html body .kw-hero h1 {
@@ -189,7 +189,7 @@ html body .kw-hero h1 {
   font-size: 0.75rem;
   font-weight: 700;
   color: #fff;
-  border: 2px solid var(--wine-900);
+  border: 2px solid var(--forest-900);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
 }
 .kw-avatars span:first-child {
@@ -220,11 +220,11 @@ html body .kw-hero h1 {
   height: 380px;
   border-radius: 96px;
   transform: translate(-50%, -50%) rotate(-8deg);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03) 60%, rgba(224, 187, 94, 0.08));
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03) 60%, rgba(219, 178, 78, 0.08));
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(22px) saturate(150%);
   -webkit-backdrop-filter: blur(22px) saturate(150%);
-  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -30px 60px rgba(155, 31, 69, 0.25);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -30px 60px rgba(47, 122, 77, 0.25);
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -242,11 +242,11 @@ html body .kw-hero h1 {
   font-size: 300px;
   line-height: 1;
   transform: translateY(-6px);
-  background: linear-gradient(165deg, #ffffff 0%, #f5e2b0 38%, var(--gilt-400) 72%, var(--gilt-500) 100%);
+  background: linear-gradient(165deg, #ffffff 0%, #f1dfa9 38%, var(--gilt-400) 72%, var(--gilt-500) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 18px 28px rgba(22, 4, 10, 0.55));
+  filter: drop-shadow(0 18px 28px rgba(11, 40, 24, 0.55));
 }
 .kw-plate {
   position: absolute;
@@ -335,7 +335,7 @@ html body .kw-hero h1 {
   display: grid;
   place-items: center;
   background: linear-gradient(135deg, var(--gilt-300), var(--gilt-500));
-  color: var(--wine-950);
+  color: var(--forest-950);
   font-size: 0.8rem;
 }
 .kw-chip small {
@@ -391,8 +391,8 @@ html body .kw-hero h1 {
   place-items: center;
   color: var(--gilt-300);
   font-size: 1.05rem;
-  background: rgba(201, 154, 60, 0.16);
-  border: 1px solid rgba(224, 187, 94, 0.32);
+  background: rgba(201, 154, 50, 0.16);
+  border: 1px solid rgba(219, 178, 78, 0.32);
 }
 html body .kw-feature h3 {
   font-family: var(--font-sans);
@@ -504,7 +504,7 @@ html body .kw-feature h3 {
 /* ══ Shared section shell ══ */
 .kw-sec {
   padding: 90px 0 0;
-  background: #fbf7f1;
+  background: #f7eedb;
 }
 .kw-sec:last-child {
   padding-bottom: 90px;
@@ -523,13 +523,13 @@ html body .kw-head h2 {
   font-size: clamp(1.6rem, 2.6vw, 2.1rem);
   letter-spacing: -0.02em;
   text-transform: none;
-  color: var(--wine-900);
+  color: var(--charcoal);
   margin: 0;
 }
 .kw-head p {
   margin: 6px 0 0;
   font-family: var(--font-sans);
-  color: #7a6a6e;
+  color: #64665e;
   font-size: 0.95rem;
 }
 .kw-more {
@@ -546,7 +546,7 @@ html body .kw-head h2 {
   transition: transform 0.25s;
 }
 .kw-more:hover {
-  color: var(--wine-600);
+  color: var(--forest-600);
 }
 .kw-more:hover i {
   transform: translateX(4px);
@@ -558,8 +558,8 @@ html body .kw-head h2 {
   padding: 24px 62px;
   border-radius: 26px;
   background: #fff;
-  border: 1px solid #f0e4d6;
-  box-shadow: 0 18px 40px -28px rgba(36, 7, 17, 0.35);
+  border: 1px solid #e9dcbf;
+  box-shadow: 0 18px 40px -28px rgba(18, 63, 39, 0.35);
 }
 .kw-strip-track {
   display: flex;
@@ -588,7 +588,7 @@ html body .kw-head h2 {
   margin: 0 auto 12px;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 0 0 4px #fff, 0 0 0 5px #efe2d2, 0 12px 24px -12px rgba(36, 7, 17, 0.55);
+  box-shadow: 0 0 0 4px #fff, 0 0 0 5px #e8dabb, 0 12px 24px -12px rgba(18, 63, 39, 0.55);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 .kw-circ-img img {
@@ -601,12 +601,12 @@ html body .kw-head h2 {
   font-family: var(--font-sans);
   font-size: 0.86rem;
   font-weight: 600;
-  color: var(--wine-900);
+  color: var(--charcoal);
   transition: color 0.25s;
 }
 .kw-circ:hover .kw-circ-img {
   transform: translateY(-4px);
-  box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--gilt-400), 0 16px 28px -12px rgba(36, 7, 17, 0.6);
+  box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--gilt-400), 0 16px 28px -12px rgba(18, 63, 39, 0.6);
 }
 .kw-circ:hover .kw-circ-img img {
   transform: scale(1.1);
@@ -625,15 +625,15 @@ html body .kw-head h2 {
   display: grid;
   place-items: center;
   font-size: 0.8rem;
-  color: var(--wine-800);
+  color: var(--forest-800);
   background: #fff;
-  border: 1px solid #eadccb;
-  box-shadow: 0 6px 16px -8px rgba(36, 7, 17, 0.45);
+  border: 1px solid #e2d3b1;
+  box-shadow: 0 6px 16px -8px rgba(18, 63, 39, 0.45);
   cursor: pointer;
   transition: background 0.25s, color 0.25s, opacity 0.25s;
 }
 .kw-arrow:hover:not(:disabled) {
-  color: var(--wine-950);
+  color: var(--forest-950);
   background: var(--gilt-400);
   border-color: var(--gilt-400);
 }
@@ -656,7 +656,7 @@ html body .kw-head h2 {
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #9a8a8e;
+  color: #85877e;
   margin-bottom: 6px;
 }
 .kw-mo {
@@ -670,13 +670,13 @@ html body .kw-head h2 {
   padding: 10px;
   border-radius: 24px;
   background: #fff;
-  border: 1px solid #f0e4d6;
-  box-shadow: 0 18px 40px -30px rgba(36, 7, 17, 0.45);
+  border: 1px solid #e9dcbf;
+  box-shadow: 0 18px 40px -30px rgba(18, 63, 39, 0.45);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 .kw-mo-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 28px 50px -30px rgba(36, 7, 17, 0.55);
+  box-shadow: 0 28px 50px -30px rgba(18, 63, 39, 0.55);
 }
 .kw-mo-img {
   position: relative;
@@ -703,7 +703,7 @@ html body .kw-head h2 {
   font-size: 0.72rem;
   font-weight: 700;
   color: #fff;
-  background: rgba(22, 4, 10, 0.45);
+  background: rgba(11, 40, 24, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -721,14 +721,14 @@ html body .kw-mo-body h3 {
   line-height: 1.25;
   letter-spacing: -0.01em;
   text-transform: none;
-  color: var(--wine-900);
+  color: var(--charcoal);
   margin: 0 0 4px;
 }
 .kw-mo-meta {
   margin: 0 0 10px;
   font-family: var(--font-sans);
   font-size: 0.84rem;
-  color: #8a7b7f;
+  color: #75776e;
 }
 .kw-mo-adds {
   align-self: flex-start;
@@ -739,8 +739,8 @@ html body .kw-mo-body h3 {
   font-size: 0.74rem;
   font-weight: 600;
   line-height: 1.4;
-  color: var(--wine-700);
-  background: #f8f0e4;
+  color: var(--forest-700);
+  background: #f4e9d1;
 }
 .kw-mo-foot {
   display: flex;
@@ -752,7 +752,7 @@ html body .kw-mo-body h3 {
   font-family: var(--font-sans);
   font-size: 1.35rem;
   font-weight: 800;
-  color: var(--wine-800);
+  color: var(--ghana-red);
 }
 .kw-mo-add {
   width: 46px;
@@ -762,9 +762,9 @@ html body .kw-mo-body h3 {
   display: grid;
   place-items: center;
   font-size: 0.95rem;
-  color: var(--wine-950);
-  background: linear-gradient(135deg, var(--gilt-300), var(--gilt-400) 45%, var(--gilt-500));
-  box-shadow: 0 10px 20px -10px rgba(201, 154, 60, 0.85);
+  color: #fff;
+  background: linear-gradient(135deg, #cf3236, var(--ghana-red) 55%, #9a1b1f);
+  box-shadow: 0 10px 20px -10px rgba(185, 35, 39, 0.8);
   cursor: pointer;
   transition: transform 0.25s, background 0.25s;
 }
@@ -793,8 +793,8 @@ html body .kw-mo-body h3 {
   overflow: hidden;
   isolation: isolate;
   color: #fff;
-  background: linear-gradient(160deg, var(--wine-800), var(--wine-950) 70%);
-  box-shadow: 0 40px 70px -40px rgba(36, 7, 17, 0.75);
+  background: linear-gradient(160deg, var(--forest-800), var(--forest-950) 70%);
+  box-shadow: 0 40px 70px -40px rgba(18, 63, 39, 0.75);
 }
 .kw-sides-feature > img {
   position: absolute;
@@ -845,8 +845,8 @@ html body .kw-sides-copy h2 {
   padding: 8px 22px;
   border-radius: 26px;
   background: #fff;
-  border: 1px solid #f0e4d6;
-  box-shadow: 0 18px 40px -30px rgba(36, 7, 17, 0.45);
+  border: 1px solid #e9dcbf;
+  box-shadow: 0 18px 40px -30px rgba(18, 63, 39, 0.45);
 }
 .kw-side {
   display: grid;
@@ -856,7 +856,7 @@ html body .kw-sides-copy h2 {
   padding: 16px 0;
 }
 .kw-side + .kw-side {
-  border-top: 1px dashed #eadccb;
+  border-top: 1px dashed #e2d3b1;
 }
 .kw-side-thumb {
   width: 68px;
@@ -868,9 +868,9 @@ html body .kw-sides-copy h2 {
   font-size: 1.35rem;
   color: var(--gilt-300);
   background:
-    radial-gradient(70% 70% at 30% 25%, rgba(155, 31, 69, 0.9), transparent 75%),
-    var(--wine-800);
-  box-shadow: 0 0 0 3px #fff, 0 0 0 4px #efe2d2, 0 10px 20px -10px rgba(36, 7, 17, 0.6);
+    radial-gradient(70% 70% at 30% 25%, rgba(47, 122, 77, 0.9), transparent 75%),
+    var(--forest-800);
+  box-shadow: 0 0 0 3px #fff, 0 0 0 4px #e8dabb, 0 10px 20px -10px rgba(18, 63, 39, 0.6);
 }
 .kw-side-thumb img {
   width: 100%;
@@ -883,7 +883,7 @@ html body .kw-side-body h3 {
   font-weight: 800;
   letter-spacing: -0.01em;
   text-transform: none;
-  color: var(--wine-900);
+  color: var(--charcoal);
   margin: 0 0 2px;
 }
 .kw-side-body p {
@@ -891,7 +891,7 @@ html body .kw-side-body h3 {
   font-family: var(--font-sans);
   font-size: 0.82rem;
   line-height: 1.45;
-  color: #8a7b7f;
+  color: #75776e;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -909,8 +909,8 @@ html body .kw-side-body h3 {
   font-family: var(--font-sans);
   font-size: 0.72rem;
   font-weight: 600;
-  color: var(--wine-700);
-  background: #f8f0e4;
+  color: var(--forest-700);
+  background: #f4e9d1;
   border: 1px solid transparent;
 }
 .kw-side-sizes button {
@@ -921,8 +921,8 @@ html body .kw-side-body h3 {
   border-color: var(--gilt-400);
 }
 .kw-side-sizes button.on {
-  color: var(--wine-950);
-  background: linear-gradient(135deg, var(--gilt-300), var(--gilt-400));
+  color: var(--cream);
+  background: var(--forest-900);
 }
 .kw-side-one {
   display: inline-block;
@@ -938,7 +938,7 @@ html body .kw-side-body h3 {
   font-family: var(--font-sans);
   font-size: 1.12rem;
   font-weight: 800;
-  color: var(--wine-800);
+  color: var(--ghana-red);
 }
 @media (max-width: 991px) {
   .kw-sides {
@@ -1051,11 +1051,11 @@ html body .kw-hero h1 {
   display: inline-block;
   padding: 0 0.12em 0.08em 0;
   vertical-align: -0.04em;
-  background: linear-gradient(100deg, #fff3d1 0%, var(--gilt-300) 25%, var(--gilt-400) 55%, var(--gilt-500) 100%);
+  background: linear-gradient(100deg, #fdf1cf 0%, var(--gilt-300) 25%, var(--gilt-400) 55%, var(--gilt-500) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 6px 16px rgba(201, 154, 60, 0.35));
+  filter: drop-shadow(0 6px 16px rgba(201, 154, 50, 0.35));
 }
 html body .kw-head h2,
 html body .kw-offer h2,
@@ -1106,7 +1106,7 @@ html body .kw-mo-body h3 {
   font-size: 250px;
   line-height: 1;
   transform: translate(-14px, 22px);
-  background: linear-gradient(160deg, #fff6dc 0%, var(--gilt-300) 30%, var(--gilt-400) 60%, var(--gilt-600) 100%);
+  background: linear-gradient(160deg, #fdf3d9 0%, var(--gilt-300) 30%, var(--gilt-400) 60%, var(--gilt-600) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1140,8 +1140,8 @@ html body .kw-mo-body h3 {
   border-radius: 20px;
   color: #fff;
   background:
-    radial-gradient(60% 120% at 100% 0%, rgba(224, 187, 94, 0.16), transparent 70%),
-    linear-gradient(150deg, rgba(110, 22, 50, 0.88), rgba(22, 4, 10, 0.94));
+    radial-gradient(60% 120% at 100% 0%, rgba(219, 178, 78, 0.16), transparent 70%),
+    linear-gradient(150deg, rgba(37, 104, 67, 0.88), rgba(11, 40, 24, 0.94));
   border: 1px solid rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
@@ -1161,8 +1161,8 @@ html body .kw-mo-body h3 {
   width: 46px;
   height: 46px;
   border-radius: 13px;
-  background: var(--wine-900);
-  box-shadow: 0 0 0 1px rgba(224, 187, 94, 0.4);
+  background: var(--forest-900);
+  box-shadow: 0 0 0 1px rgba(219, 178, 78, 0.4);
 }
 .kp-text {
   display: grid;

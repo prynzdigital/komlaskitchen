@@ -1,31 +1,36 @@
 /* ══════════════════════════════════════════════════════════════
-   Komla's Kitchen — Design Tokens (frosted wine & gold)
-   Token names are kept from the original midnight theme so every
-   component re-skins from here: --ink-* are surfaces (wine page,
-   frosted-glass cards) and --paper-* are text colours (light on wine).
-   "Red" is the primary-CTA role and resolves to gold; --red-400 is the
-   error/remove colour.
+   Komla's Kitchen — Design Tokens (Ghanaian heritage: green, cream, red & gold)
+   Brand palette (client brief): Deep Ghana Green #123F27 (primary),
+   Warm Cream #F7EEDB (main background), Ghanaian Red #B92327 (order
+   buttons, prices, specials), African Gold #C99A32 (decorative accents),
+   Charcoal #292B26 (text). Aim for roughly 50% cream, 30% green,
+   10% charcoal, 7% gold, 3% red.
+   Token names are kept from the original template so every component
+   re-skins from here: --ink-* are surfaces (green bands, frosted-glass
+   cards) and --paper-* are text colours (light on green; the cream zone
+   re-points them to charcoal). --red-500 is the order/CTA colour;
+   --red-400 is the error/remove colour on green.
    ══════════════════════════════════════════════════════════════ */
 :root {
-  --ink-950: #16040a; /* page background */
-  --ink-900: #240711; /* sticky surfaces / placeholders */
+  --ink-950: #0f3722; /* page background */
+  --ink-900: #123f27; /* sticky surfaces / placeholders */
   --ink-800: rgba(255, 255, 255, 0.06); /* frosted cards, panels, inputs */
   --ink-700: rgba(255, 255, 255, 0.1); /* raised / hover glass */
   --ink-line: rgba(255, 255, 255, 0.13);
-  --ink-line-hover: rgba(224, 187, 94, 0.5);
+  --ink-line-hover: rgba(219, 178, 78, 0.5);
   --paper: #ffffff;
   --paper-dim: rgba(255, 255, 255, 0.74);
   --paper-faint: rgba(255, 255, 255, 0.5);
 
-  --gold-300: #f2dca2;
-  --gold-400: #e0bb5e;
-  --gold-500: #c99a3c;
-  --gold-600: #a67c2c;
+  --gold-300: #efd89a;
+  --gold-400: #dbb24e;
+  --gold-500: #c99a32;
+  --gold-600: #a37c22;
 
   --red-400: #ff9d8f;
-  --red-500: #e0bb5e;
-  --red-600: #c99a3c;
-  --red-100: rgba(224, 187, 94, 0.15);
+  --red-500: #b92327;
+  --red-600: #9a1b1f;
+  --red-100: rgba(185, 35, 39, 0.12);
 
   --green-400: #7fd3a1;
   --green-500: #3f9d6b;
@@ -41,19 +46,21 @@
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-sans);
 
-  --gold: #c9a24d;
-  --charcoal: #1c1712;
+  --gold: #c99a32;
+  --charcoal: #292b26;
+  --cream: #f7eedb;
+  --ghana-red: #b92327;
 
-  --wine-950: #16040a;
-  --wine-900: #240711;
-  --wine-800: #350b19;
-  --wine-700: #4e1024;
-  --wine-600: #6e1632;
-  --wine-500: #9b1f45;
-  --gilt-600: #a67c2c;
-  --gilt-500: #c99a3c;
-  --gilt-400: #e0bb5e;
-  --gilt-300: #f2dca2;
+  --forest-950: #0f3722;
+  --forest-900: #123f27;
+  --forest-800: #17492e;
+  --forest-700: #1d5638;
+  --forest-600: #256843;
+  --forest-500: #2f7a4d;
+  --gilt-600: #a37c22;
+  --gilt-500: #c99a32;
+  --gilt-400: #dbb24e;
+  --gilt-300: #efd89a;
   --frost: rgba(255, 255, 255, 0.07);
   --frost-strong: rgba(255, 255, 255, 0.12);
   --frost-line: rgba(255, 255, 255, 0.14);
@@ -165,9 +172,9 @@ html body .section-title span {
 html body {
   color: var(--paper);
   background:
-    radial-gradient(60% 45% at 90% 0%, rgba(155, 31, 69, 0.35), transparent 70%),
-    radial-gradient(45% 40% at 0% 55%, rgba(110, 22, 50, 0.3), transparent 70%),
-    var(--wine-950);
+    radial-gradient(60% 45% at 90% 0%, rgba(47, 122, 77, 0.35), transparent 70%),
+    radial-gradient(45% 40% at 0% 55%, rgba(37, 104, 67, 0.3), transparent 70%),
+    var(--forest-950);
   background-attachment: fixed;
 }
 
@@ -237,10 +244,10 @@ img.mfp-img {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Header — transparent over heroes, frosted wine glass on scroll
+   Header — transparent over heroes, frosted green glass on scroll
    ══════════════════════════════════════════════════════════════ */
 .kh-ticker {
-  background: var(--wine-950);
+  background: var(--forest-950);
   border-bottom: 1px solid var(--frost-line);
   overflow: hidden;
   padding: 8px 0;
@@ -278,7 +285,7 @@ img.mfp-img {
   border-bottom: 1px solid transparent;
 }
 .kh-scrolled {
-  background: rgba(36, 7, 17, 0.72);
+  background: rgba(18, 63, 39, 0.72);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   border-bottom-color: var(--frost-line);
@@ -315,7 +322,7 @@ img.mfp-img {
   font-size: 2.05rem;
   line-height: 0.95;
   padding: 0 0.12em;
-  background: linear-gradient(100deg, #fff3d1 0%, var(--gilt-300) 30%, var(--gilt-400) 60%, var(--gilt-500) 100%);
+  background: linear-gradient(100deg, #fdf1cf 0%, var(--gilt-300) 30%, var(--gilt-400) 60%, var(--gilt-500) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -367,7 +374,7 @@ img.mfp-img {
   width: 6px;
   height: 6px;
   background: var(--gilt-400);
-  box-shadow: 0 0 10px rgba(224, 187, 94, 0.8);
+  box-shadow: 0 0 10px rgba(219, 178, 78, 0.8);
   transform: translateX(-50%) rotate(45deg) scale(0);
   transition: transform 0.3s ease;
 }
@@ -386,7 +393,7 @@ img.mfp-img {
   right: 0;
   bottom: -1px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(224, 187, 94, 0.75), transparent);
+  background: linear-gradient(90deg, transparent, rgba(219, 178, 78, 0.75), transparent);
 }
 .kh-actions {
   display: flex;
@@ -413,7 +420,7 @@ img.mfp-img {
 .kh-icon:hover {
   color: #fff;
   background: var(--frost-strong);
-  border-color: rgba(224, 187, 94, 0.55);
+  border-color: rgba(219, 178, 78, 0.55);
   transform: translateY(-2px);
 }
 .kh-icon b {
@@ -425,12 +432,12 @@ img.mfp-img {
   padding: 0 5px;
   border-radius: 10px;
   background: var(--gilt-400);
-  color: var(--wine-950);
+  color: var(--forest-950);
   font-size: 0.65rem;
   font-weight: 700;
   display: grid;
   place-items: center;
-  box-shadow: 0 0 0 2px var(--wine-900);
+  box-shadow: 0 0 0 2px var(--forest-900);
 }
 
 /* Wine buttons (shared) */
@@ -454,19 +461,19 @@ img.mfp-img {
   transform: translateX(4px);
 }
 .kw-btn-fill {
-  color: var(--wine-950);
-  background: linear-gradient(135deg, var(--gilt-300), var(--gilt-400) 40%, var(--gilt-500) 75%, var(--gilt-600));
-  box-shadow: 0 12px 30px -10px rgba(201, 154, 60, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  color: #fff;
+  background: linear-gradient(135deg, #cf3236, var(--ghana-red) 55%, #9a1b1f);
+  box-shadow: 0 12px 30px -12px rgba(185, 35, 39, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .kw-btn-fill:hover {
-  color: var(--wine-950);
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 18px 40px -12px rgba(201, 154, 60, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 18px 40px -12px rgba(185, 35, 39, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .kw-btn-glass {
   color: #fff;
   background: var(--frost);
-  border: 1px solid rgba(224, 187, 94, 0.5);
+  border: 1px solid rgba(219, 178, 78, 0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -492,8 +499,8 @@ img.mfp-img {
   color: rgba(255, 255, 255, 0.72);
   font-family: var(--font-sans);
   background:
-    radial-gradient(50% 80% at 90% 0%, rgba(155, 31, 69, 0.35), transparent 70%),
-    var(--wine-950);
+    radial-gradient(50% 80% at 90% 0%, rgba(47, 122, 77, 0.35), transparent 70%),
+    var(--forest-950);
   border-top: 1px solid var(--frost-line);
 }
 .kf-grid {
@@ -580,12 +587,12 @@ html body .kf h4 {
   }
 }
 
-/* ══ Mobile menu drawer — faded glossy wine ══ */
+/* ══ Mobile menu drawer — faded glossy green ══ */
 .kh-scrim {
   position: fixed;
   inset: 0;
   z-index: 1090;
-  background: rgba(12, 2, 6, 0.45);
+  background: rgba(5, 20, 12, 0.45);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   opacity: 0;
@@ -612,8 +619,8 @@ html body .kf h4 {
   color: #fff;
   font-family: var(--font-sans);
   background:
-    radial-gradient(70% 40% at 100% 0%, rgba(224, 187, 94, 0.14), transparent 70%),
-    linear-gradient(165deg, rgba(110, 22, 50, 0.82) 0%, rgba(53, 11, 25, 0.86) 45%, rgba(22, 4, 10, 0.92) 100%);
+    radial-gradient(70% 40% at 100% 0%, rgba(219, 178, 78, 0.14), transparent 70%),
+    linear-gradient(165deg, rgba(37, 104, 67, 0.82) 0%, rgba(23, 73, 46, 0.86) 45%, rgba(11, 40, 24, 0.92) 100%);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border-left: 1px solid rgba(255, 255, 255, 0.12);
@@ -689,12 +696,12 @@ html body .kf h4 {
 }
 .kh-drawer-nav a.on {
   color: var(--gilt-300);
-  background: linear-gradient(90deg, rgba(224, 187, 94, 0.16), rgba(224, 187, 94, 0.03));
-  border-color: rgba(224, 187, 94, 0.3);
+  background: linear-gradient(90deg, rgba(219, 178, 78, 0.16), rgba(219, 178, 78, 0.03));
+  border-color: rgba(219, 178, 78, 0.3);
   box-shadow: inset 3px 0 0 var(--gilt-400);
 }
 .kh-drawer-nav a.on > i:first-child {
-  color: var(--wine-950);
+  color: var(--forest-950);
   background: linear-gradient(135deg, var(--gilt-300), var(--gilt-500));
   border-color: transparent;
 }
@@ -707,8 +714,8 @@ html body .kf h4 {
   place-items: center;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--wine-950);
-  background: var(--gilt-400);
+  color: #fff;
+  background: var(--ghana-red);
 }
 .kh-drawer-ctas {
   position: relative;

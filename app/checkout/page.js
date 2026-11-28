@@ -97,7 +97,7 @@ const CheckoutPage = () => {
               <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>Add something from the menu before checking out.</p>
               <Link
                 href="/food-menu"
-                style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red-500)", color: "#1c1712", padding: "13px 30px", borderRadius: 12, fontWeight: 700, textDecoration: "none" }}
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red-500)", color: "#fff", padding: "13px 30px", borderRadius: 12, fontWeight: 700, textDecoration: "none" }}
               >
                 <i className="fas fa-utensils" /> Browse Menu
               </Link>
@@ -160,7 +160,7 @@ const CheckoutPage = () => {
                               alignItems: "center",
                               gap: 8,
                               border: `1.5px solid ${form.fulfillment === option ? "var(--red-500)" : "var(--ink-line)"}`,
-                              background: form.fulfillment === option ? "rgba(201, 162, 77, 0.14)" : "var(--ink-800)",
+                              background: form.fulfillment === option ? "rgba(201, 154, 50, 0.14)" : "var(--ink-800)",
                               color: "var(--paper)",
                               borderRadius: 10,
                               padding: "12px 16px",
@@ -203,7 +203,7 @@ const CheckoutPage = () => {
                       style={{
                         width: "100%",
                         background: "var(--red-500)",
-                        color: "#1c1712",
+                        color: "#fff",
                         border: "none",
                         borderRadius: 10,
                         padding: "14px",
@@ -277,7 +277,7 @@ const CheckoutPage = () => {
                         style={{
                           flex: 2,
                           background: "var(--red-500)",
-                          color: "#1c1712",
+                          color: "#fff",
                           border: "none",
                           borderRadius: 10,
                           padding: "14px",
@@ -305,7 +305,7 @@ const CheckoutPage = () => {
                     </p>
                     <Link
                       href="/"
-                      style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red-500)", color: "#1c1712", padding: "13px 30px", borderRadius: 12, fontWeight: 700, textDecoration: "none" }}
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--red-500)", color: "#fff", padding: "13px 30px", borderRadius: 12, fontWeight: 700, textDecoration: "none" }}
                     >
                       Back to Home
                     </Link>

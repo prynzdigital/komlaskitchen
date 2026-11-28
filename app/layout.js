@@ -5,7 +5,7 @@ import { CartProvider } from "@/context/CartContext";
 import PwaSetup from "@/components/PwaSetup";
 
 export const viewport = {
-  themeColor: "#240711",
+  themeColor: "#123f27",
 };
 
 export const metadata = {

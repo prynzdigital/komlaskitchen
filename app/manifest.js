@@ -7,8 +7,8 @@ export default function manifest() {
     scope: "/",
     display: "standalone",
     orientation: "portrait",
-    background_color: "#16040a",
-    theme_color: "#240711",
+    background_color: "#0b2818",
+    theme_color: "#123f27",
     categories: ["food", "shopping"],
     icons: [
       { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },

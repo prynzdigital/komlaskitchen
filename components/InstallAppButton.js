@@ -45,7 +45,7 @@ export default function InstallAppButton({ className = "kw-btn kw-btn-fill", lab
         <i className="fas fa-mobile-alt" /> {label}
       </button>
       {hint && (
-        <small role="status" style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.78rem", maxWidth: 260 }}>
+        <small role="status" style={{ color: "rgba(255, 255, 255,0.7)", fontSize: "0.78rem", maxWidth: 260 }}>
           {hint}
         </small>
       )}
