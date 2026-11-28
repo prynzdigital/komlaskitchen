@@ -1,6 +1,7 @@
 "use client";
 import "@/app/home.css";
 import ReviewsSection from "@/components/ReviewsSection";
+import HeroSlider from "@/components/HeroSlider";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
 import InstallPrompt from "@/components/InstallPrompt";
 import { useCart } from "@/context/CartContext";
@@ -281,39 +282,8 @@ const HomePage = ({ google = null }) => {
                 </div>
               </div>
 
-              <div className="kw-art kk-fade" style={{ "--d": "0.3s" }} aria-hidden="true">
-                <div className="kw-tile">
-                  <span>K</span>
-                </div>
-                <div className="kw-glass">
-                  <img src="/pictures/opt/sobolo.webp" alt="" />
-                </div>
-                <div className="kw-plate kw-plate-top">
-                  <img src="/pictures/opt/waakye_platter.webp" alt="" />
-                </div>
-                <div className="kw-plate kw-plate-main">
-                  <img src="/pictures/opt/jollof_main_dish.webp" alt="" />
-                </div>
-                <div className="kw-plate kw-plate-kele">
-                  <img src="/pictures/opt/kelewele.webp" alt="" />
-                </div>
-                <div className="kw-chip kw-chip-a">
-                  <i className="fas fa-fire" />
-                  <div>
-                    Cooked fresh today
-                    <small>Traditional recipes</small>
-                  </div>
-                </div>
-                <div className="kw-chip kw-chip-b">
-                  <i className="fas fa-motorcycle" />
-                  <div>
-                    Delivered daily
-                    <small>Afternoon slots, Chicago</small>
-                  </div>
-                </div>
-                <i className="fas fa-pepper-hot kw-spark" style={{ left: "50%", top: "-1%", fontSize: "1.2rem", animationDelay: "-2s" }} />
-                <i className="fas fa-leaf kw-spark" style={{ right: "34%", top: "8%", fontSize: "1rem" }} />
-                <i className="fas fa-star kw-spark" style={{ left: "4%", top: "46%", fontSize: "0.7rem", animationDelay: "-3s" }} />
+              <div className="kw-art kk-fade" style={{ "--d": "0.3s" }}>
+                <HeroSlider />
               </div>
             </div>
 

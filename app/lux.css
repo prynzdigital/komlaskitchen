@@ -1764,23 +1764,12 @@ html body .kw-kicker {
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 800;
+  color: var(--gilt-600);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   line-height: 1.2;
   margin-bottom: 8px;
 }
-html body .kw-tile span {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 220px;
-  transform: none;
-}
-@media (max-width: 575px) {
-  html body .kw-tile span {
-    font-size: 140px;
-  }
-}
-
 /* Wordmark: "Komla's" over "KITCHEN", both sans-serif */
 html body .kh-word b {
   font-family: var(--font-display);
@@ -1811,9 +1800,6 @@ html body .kw-sec:last-child {
 }
 html body .kw-head h2 {
   font-size: clamp(1.6rem, 2.6vw, 2.15rem);
-}
-html body .kw-kicker {
-  font-size: 1.85rem;
 }
 html body .kw-head {
   margin-bottom: 22px;
@@ -2049,9 +2035,6 @@ html body .mc-body h4 {
   }
   html body .kw-sec:last-child {
     padding-bottom: 52px;
-  }
-  html body .kw-kicker {
-    font-size: 1.6rem;
   }
 }
 @media (max-width: 575px) {
