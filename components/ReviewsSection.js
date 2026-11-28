@@ -1,5 +1,5 @@
 import { GOOGLE_REVIEW_URL } from "@/data/schedule";
-import { testimonials } from "@/data/testimonials";
+import { googleReviewsSnapshot } from "@/data/googleReviews";
 
 const initials = (name) =>
   name
@@ -17,13 +17,11 @@ const Stars = ({ rating }) => (
   </div>
 );
 
-// `google` is the result of getGoogleReviews() (fetched by the page on the server),
-// or null — then the kitchen's own testimonials are shown instead.
+// `google` is the live result of getGoogleReviews() (fetched by the page on the server).
+// When it's null, the saved snapshot of real Google reviews is shown instead.
 const ReviewsSection = ({ google, limit = 3 }) => {
-  const live = Boolean(google?.reviews?.length);
-  const cards = live
-    ? google.reviews.slice(0, limit)
-    : testimonials.slice(0, limit).map((t) => ({ author: t.name, when: t.role, text: t.text, rating: 5 }));
+  const data = google?.reviews?.length ? google : googleReviewsSnapshot;
+  const cards = data.reviews.slice(0, limit);
 
   return (
     <section className="lx-sec rv lx-light">
@@ -33,21 +31,22 @@ const ReviewsSection = ({ google, limit = 3 }) => {
           <h2 className="lx-h2">
             Loved across <em>Chicago</em>
           </h2>
-          {live && google.rating && (
-            <a className="rv-summary" href={google.mapsUrl} target="_blank" rel="noopener noreferrer">
+          {data.rating && (
+            <a className="rv-summary" href={data.mapsUrl} target="_blank" rel="noopener noreferrer">
               <i className="fab fa-google" aria-hidden="true" />
-              <b>{google.rating.toFixed(1)}</b>
-              <span className="rv-summary-stars" aria-hidden="true">
-                ★★★★★
+              <b>{data.rating.toFixed(1)}</b>
+              <span className="rv-summary-stars" aria-label={`${data.rating.toFixed(1)} out of 5 stars`}>
+                {"★".repeat(Math.round(data.rating))}
+                <span className="rv-star-off">{"★".repeat(5 - Math.round(data.rating))}</span>
               </span>
               <small>
-                {google.count} Google review{google.count === 1 ? "" : "s"}
+                {data.count} Google review{data.count === 1 ? "" : "s"}
               </small>
             </a>
           )}
         </div>
 
-        <div className="lx-reviews">
+        <div className={`lx-reviews${cards.length < 3 ? " rv-few" : ""}`}>
           {cards.map((r, i) => (
             <figure key={`${r.author}-${i}`} className="lx-review lx-glass lx-lift" style={{ margin: 0 }}>
               <Stars rating={Math.min(5, Math.max(1, r.rating || 5))} />
@@ -68,7 +67,7 @@ const ReviewsSection = ({ google, limit = 3 }) => {
                   )}
                   <small>{r.when}</small>
                 </div>
-                {live && <i className="fab fa-google rv-g" aria-label="Posted on Google" />}
+                <i className="fab fa-google rv-g" aria-label="Posted on Google" />
               </figcaption>
             </figure>
           ))}
@@ -78,11 +77,9 @@ const ReviewsSection = ({ google, limit = 3 }) => {
           <a className="kw-btn rv-write" href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer">
             <i className="fas fa-pen" /> Write a Google Review
           </a>
-          {live && (
-            <a className="rv-all" href={google.mapsUrl} target="_blank" rel="noopener noreferrer">
-              Read all reviews on Google <i className="fas fa-arrow-right" />
-            </a>
-          )}
+          <a className="rv-all" href={data.mapsUrl} target="_blank" rel="noopener noreferrer">
+            Read all reviews on Google <i className="fas fa-arrow-right" />
+          </a>
         </div>
       </div>
     </section>

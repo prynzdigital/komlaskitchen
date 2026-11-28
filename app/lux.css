@@ -2458,3 +2458,13 @@ html body .bl-cta h3 {
     padding: 24px 20px;
   }
 }
+.lx-reviews.rv-few {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 900px;
+  margin-inline: auto;
+}
+@media (max-width: 767px) {
+  .lx-reviews.rv-few {
+    grid-template-columns: 1fr;
+  }
+}

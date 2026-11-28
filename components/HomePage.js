@@ -276,10 +276,9 @@ const HomePage = ({ google = null }) => {
             <div className="kw-proof kk-fade" style={{ "--d": "0.65s" }}>
               <div className="kw-avatars" aria-hidden="true">
                 {[
-                  ["AM", "#c99a32"],
-                  ["KB", "#2f7a4d"],
-                  ["EA", "#a37c22"],
-                  ["+", "#1d5638"],
+                  ["EK", "#c99a32"],
+                  ["EJ", "#2f7a4d"],
+                  ["+3", "#1d5638"],
                 ].map(([t, c]) => (
                   <span key={t} style={{ background: c }}>
                     {t}
