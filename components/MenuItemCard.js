@@ -83,7 +83,7 @@ const MenuItemCard = ({ item }) => {
             {item.description}
           </p>
           <div className="mc-foot">
-            <a href="tel:+17736902745" className="kw-btn kw-btn-fill mc-add">
+            <a href="tel:+13125545481" className="kw-btn kw-btn-fill mc-add">
               <i className="fas fa-phone" /> Call to Order
             </a>
           </div>
@@ -189,7 +189,7 @@ const MenuItemCard = ({ item }) => {
                 </>
               )}
             </button>
-            <a href="tel:+17736902745" aria-label="Call to order" className="mc-call">
+            <a href="tel:+13125545481" aria-label="Call to order" className="mc-call">
               <i className="fas fa-phone" />
             </a>
           </div>

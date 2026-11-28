@@ -72,7 +72,7 @@ const CheckoutPage = () => {
       clearCart();
       setStage("done");
     } catch (err) {
-      setSubmitError(err.message || "Something went wrong. Please call us instead: +1 (773) 690-2745.");
+      setSubmitError(err.message || "Something went wrong. Please call us instead: +1 (312) 554-5481.");
     } finally {
       setSubmitting(false);
     }
@@ -271,7 +271,7 @@ const CheckoutPage = () => {
                           </a>
                         </p>
                         <p className="zl-note">
-                          Trouble paying? Call <a href="tel:+17736902745">+1 (773) 690-2745</a>.
+                          Trouble paying? Call <a href="tel:+13125545481">+1 (312) 554-5481</a>.
                         </p>
                       </div>
                     </div>
@@ -319,7 +319,7 @@ const CheckoutPage = () => {
                       Order reference: <strong style={{ color: "var(--gold-400)" }}>{orderRef}</strong>
                     </p>
                     <p style={{ color: "var(--paper-dim)", marginBottom: 24 }}>
-                      We&apos;ll confirm your payment and get your order started. Call +1 (773) 690-2745 with any questions.
+                      We&apos;ll confirm your payment and get your order started. Call +1 (312) 554-5481 with any questions.
                     </p>
                     <Link
                       href="/"

@@ -22,7 +22,7 @@ const TICKER_ITEMS = [
   "Mon · Tue · Thu · Fri deliveries 12 – 5 PM",
   "Wednesday Special: Beans & Plantain",
   "Try our legendary Party Jollof",
-  "Call us: +1 (773) 690-2745",
+  "Call us: +1 (312) 554-5481 or +1 (708) 808-0303",
   "Open Mon–Sun, 11 AM – 9 PM · Chicago, IL",
 ];
 
@@ -87,7 +87,7 @@ const Header = () => {
           </nav>
 
           <div className="kh-actions">
-            <a href="tel:+17736902745" className="kh-icon d-none d-md-grid" aria-label="Call +1 (773) 690-2745">
+            <a href="tel:+13125545481" className="kh-icon d-none d-md-grid" aria-label="Call +1 (312) 554-5481">
               <i className="fas fa-phone" />
             </a>
             <a href={IG_URL} target="_blank" rel="noopener noreferrer" className="kh-icon d-none d-md-grid" aria-label="Instagram">
@@ -150,7 +150,7 @@ const Header = () => {
           <Link href="/food-menu" className="kw-btn kw-btn-fill" onClick={() => setToggle(false)}>
             Order Now <i className="fas fa-arrow-right" />
           </Link>
-          <a href="tel:+17736902745" className="kw-btn kw-btn-glass">
+          <a href="tel:+13125545481" className="kw-btn kw-btn-glass">
             <i className="fas fa-phone" /> Call
           </a>
         </div>
@@ -166,7 +166,11 @@ const Header = () => {
           </li>
           <li>
             <i className="fas fa-phone" aria-hidden="true" />
-            <a href="tel:+17736902745">+1 (773) 690-2745</a>
+            <a href="tel:+13125545481">+1 (312) 554-5481</a>
+          </li>
+          <li>
+            <i className="fas fa-phone" aria-hidden="true" />
+            <a href="tel:+17088080303">+1 (708) 808-0303</a>
           </li>
         </ul>
 

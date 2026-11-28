@@ -1,5 +1,7 @@
-export const PHONE_DISPLAY = "+1 (773) 690-2745";
-export const PHONE_TEL = "tel:+17736902745";
+export const PHONE_DISPLAY = "+1 (312) 554-5481";
+export const PHONE_TEL = "tel:+13125545481";
+export const PHONE2_DISPLAY = "+1 (708) 808-0303";
+export const PHONE2_TEL = "tel:+17088080303";
 
 export const weeklySchedule = [
   {

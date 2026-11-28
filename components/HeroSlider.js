@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 const SLIDES = [
   { src: "/pictures/opt/hero_trays.webp", alt: "Trays of jollof rice, fried tilapia with peppers, grilled chicken and banku", caption: "Jollof, tilapia, chicken & banku" },
+  { src: "/pictures/opt/tilapia.webp", alt: "Grilled whole tilapia, golden and charred", caption: "Grilled tilapia, fresh from the fire" },
   { src: "/pictures/opt/hero_jollof_chicken.webp", alt: "A tray of jollof rice beside roasted chicken drumsticks", caption: "Party jollof with roasted chicken" },
   { src: "/pictures/opt/hero_party_spread.webp", alt: "Fresh pepper and onion salad in front of party trays of jollof and chicken", caption: "Party trays, packed fresh" },
 ];

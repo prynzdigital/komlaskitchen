@@ -56,7 +56,7 @@ const ContactForm = () => {
         <h4>Message Sent!</h4>
         <p>
           Thank you for reaching out. We&apos;ll get back to you shortly. Or call us at{" "}
-          <a href="tel:+17736902745">+1 (773) 690-2745</a>.
+          <a href="tel:+13125545481">+1 (312) 554-5481</a>.
         </p>
       </div>
     );
@@ -99,7 +99,7 @@ const ContactForm = () => {
         {sendError && (
           <div className="col-lg-12">
             <p role="alert" style={{ color: "var(--red-400)", fontSize: "0.88rem", margin: 0 }}>
-              {sendError} Please call us at <a href="tel:+17736902745" style={{ color: "var(--gilt-600)", fontWeight: 600 }}>+1 (773) 690-2745</a>.
+              {sendError} Please call us at <a href="tel:+13125545481" style={{ color: "var(--gilt-600)", fontWeight: 600 }}>+1 (312) 554-5481</a>.
             </p>
           </div>
         )}

@@ -199,7 +199,7 @@ const AboutPage = ({ google = null }) => {
               <Link href="/food-menu" className="kw-btn kw-btn-fill">
                 <i className="fas fa-motorcycle" /> Order Now
               </Link>
-              <a href="tel:+17736902745" className="kw-btn kw-btn-glass">
+              <a href="tel:+13125545481" className="kw-btn kw-btn-glass">
                 <i className="fas fa-phone" /> Call Us
               </a>
             </div>

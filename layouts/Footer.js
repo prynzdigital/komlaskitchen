@@ -21,7 +21,7 @@ const COLUMNS = [
       { href: "/food-menu", label: "Family Trays" },
       { href: "/cart", label: "Your Cart" },
       { href: "/checkout", label: "Checkout" },
-      { href: "tel:+17736902745", label: "Catering" },
+      { href: "tel:+13125545481", label: "Catering" },
     ],
   },
 ];
@@ -62,7 +62,10 @@ const Footer = () => {
                 <i className="fas fa-map-marker-alt" /> 3718 S Indiana Ave, Chicago, IL
               </li>
               <li>
-                <i className="fas fa-phone" /> <a href="tel:+17736902745">+1 (773) 690-2745</a>
+                <i className="fas fa-phone" /> <a href="tel:+13125545481">+1 (312) 554-5481</a>
+              </li>
+              <li>
+                <i className="fas fa-phone" /> <a href="tel:+17088080303">+1 (708) 808-0303</a>
               </li>
               <li>
                 <i className="fas fa-clock" /> Mon–Sun, 11 AM – 9 PM

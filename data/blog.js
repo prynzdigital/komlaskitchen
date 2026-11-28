@@ -40,7 +40,7 @@ export const posts = [
       { h2: "Ordering and payment" },
       {
         list: [
-          "Order online from our menu, or call +1 (773) 690-2745.",
+          "Order online from our menu, or call +1 (312) 554-5481.",
           "Dishes without a listed price are priced when you call — just ask.",
           "Pay securely with Zelle at checkout by scanning our QR code.",
           "Delivery is free on orders over $50, or pick up from 3718 S Indiana Ave, Chicago.",

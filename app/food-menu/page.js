@@ -45,8 +45,8 @@ const MenuPage = () => {
               </h2>
               <p className="lx-lead">
                 Pick a size, choose your protein and add to cart — or call{" "}
-                <a href="tel:+17736902745" style={{ color: "var(--gilt-600)", fontWeight: 700, whiteSpace: "nowrap" }}>
-                  +1 (773) 690-2745
+                <a href="tel:+13125545481" style={{ color: "var(--gilt-600)", fontWeight: 700, whiteSpace: "nowrap" }}>
+                  +1 (312) 554-5481
                 </a>{" "}
                 and we&apos;ll take care of everything.
               </p>
@@ -94,7 +94,7 @@ const MenuPage = () => {
                   be shared. Tell us your guest count and we&apos;ll plan the perfect spread.
                 </p>
                 <div className="lx-actions">
-                  <a href="tel:+17736902745" className="kw-btn kw-btn-fill">
+                  <a href="tel:+13125545481" className="kw-btn kw-btn-fill">
                     <i className="fas fa-phone" /> Plan Your Order
                   </a>
                   <Link href="/contact" className="kw-btn kw-btn-glass">

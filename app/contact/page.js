@@ -1,13 +1,13 @@
 import PageBanner from "@/components/PageBanner";
 import OfferBanner from "@/components/OfferBanner";
 import FoodKingLayout from "@/layouts/FoodKingLayout";
-import { PHONE_DISPLAY, PHONE_TEL, weeklySchedule } from "@/data/schedule";
+import { PHONE2_DISPLAY, PHONE2_TEL, PHONE_DISPLAY, PHONE_TEL, weeklySchedule } from "@/data/schedule";
 import ContactForm from "./ContactForm";
 
 export const metadata = {
   title: "Contact Us | Komla's Kitchen - Chicago African Food",
   description:
-    "Contact Komla's Kitchen for authentic Ghanaian food delivery in Chicago. Call +1 (773) 690-2745 or visit us at 3718 S Indiana Ave, Chicago, IL.",
+    "Contact Komla's Kitchen for authentic Ghanaian food delivery in Chicago. Call +1 (312) 554-5481 or +1 (708) 808-0303, or visit us at 3718 S Indiana Ave, Chicago, IL.",
 };
 
 const ADDRESS = "3718 S Indiana Ave, Chicago, IL 60653";
@@ -48,18 +48,23 @@ const ContactPage = () => {
                 <p className="lx-lead">Call for the fastest answer, or send a message and we&apos;ll get back to you.</p>
 
                 <div className="cx-cards">
-                  <a href={PHONE_TEL} className="cx-card cx-featured lx-glass lx-lift">
+                  <div className="cx-card cx-featured lx-glass lx-lift">
                     <span className="lx-icon">
                       <i className="fas fa-phone" />
                     </span>
                     <div>
                       <h3>Call to Order</h3>
                       <p>
-                        <strong>{PHONE_DISPLAY}</strong>
+                        <a className="cx-phone" href={PHONE_TEL}>
+                          {PHONE_DISPLAY}
+                        </a>
+                        <a className="cx-phone" href={PHONE2_TEL}>
+                          {PHONE2_DISPLAY}
+                        </a>
                         The quickest way to order or ask a question.
                       </p>
                     </div>
-                  </a>
+                  </div>
 
                   <a href={DIRECTIONS} target="_blank" rel="noopener noreferrer" className="cx-card lx-glass lx-lift">
                     <span className="lx-icon">

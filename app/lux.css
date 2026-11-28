@@ -1584,12 +1584,20 @@ html body .cx-card h3 {
   border-color: var(--gilt-400);
   background: linear-gradient(135deg, #fff 0%, #f9efd8 100%);
 }
-.cx-card.cx-featured p strong {
+.cx-card.cx-featured p strong,
+.cx-card.cx-featured p .cx-phone {
   display: block;
+  text-decoration: none;
   font-family: var(--font-sans);
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--forest-800);
+}
+.cx-card.cx-featured p .cx-phone:hover {
+  color: var(--ghana-red);
+}
+.cx-card.cx-featured p .cx-phone + .cx-phone {
+  margin-bottom: 4px;
 }
 .cx-social {
   display: flex;
