@@ -10,13 +10,13 @@ export const googleReviewsSnapshot = {
     {
       author: "Emily Knurr",
       rating: 5,
-      when: "Google review · Local Guide",
+      when: "Local Guide on Google",
       text: "Komla’s Kitchen was my first experience of African food and I was immediately converted. The jollof rice hooked me initially, but at this point, I’ve tried almost everything on menu and there’s not a weak link. The most recent dish I tried was banku & pepper with fish 🤤 I’ve already had them cater an event and my friends all loved it too! You’ve found a loyal customer 🤝",
     },
     {
       author: "Erbynn John",
       rating: 5,
-      when: "Google review · Local Guide",
+      when: "Local Guide on Google",
       text: "Have always wanted a place to purchase good healthy food. After chancing on Komla kitchen, I’ve not looked back. The quality is worth the price. Not to talk of the food’s scrumptiousness and yummyness. 😋",
     },
   ],
