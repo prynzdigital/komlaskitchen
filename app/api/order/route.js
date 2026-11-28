@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { describeCartItemSelections } from "@/lib/pricing";
 import { priceOrder } from "@/lib/orderPricing";
-import { EMAIL_RE, cleanLine, cleanText, crossSite, escapeHtml, rateLimited, readJson } from "@/lib/requestGuard";
+import { EMAIL_RE, cleanLine, cleanText, crossSite, escapeHtml, rateLimited, readJson, recipientList } from "@/lib/requestGuard";
 
 const FROM_ADDRESS = "Komla's Kitchen <jacob@komlaskitchen.com>";
 
@@ -54,8 +54,9 @@ export async function POST(request) {
     const { lines, subtotal } = priced;
 
     const apiKey = process.env.RESEND_API_KEY;
-    const notifyEmail = process.env.ORDER_NOTIFICATION_EMAIL;
-    if (!apiKey || !notifyEmail) return fail("Email notifications are not configured.", 500);
+    // ORDER_NOTIFICATION_EMAIL may list several addresses, separated by commas.
+    const notifyEmails = recipientList(process.env.ORDER_NOTIFICATION_EMAIL);
+    if (!apiKey || notifyEmails.length === 0) return fail("Email notifications are not configured.", 500);
 
     const shownTotal = Number(clientSubtotal);
     const totalMismatch = !Number.isFinite(shownTotal) || Math.abs(shownTotal - subtotal) > 0.009;
@@ -90,17 +91,30 @@ export async function POST(request) {
     const paymentHtml = `
       <h2>Zelle Payment Confirmed (Customer-Reported) — ${orderRef}</h2>
       <p>${customerName} reported completing a Zelle payment for order ${orderRef}. The order totals <strong>${formatMoney(subtotal)}</strong> at menu prices.</p>
+      <p>${escapeHtml(customer.phone)} · ${escapeHtml(customer.email)}<br/>${fulfillmentLine}</p>
       ${mismatchHtml}
       <p style="color:#a00;">This is not independently verified — please confirm the transfer actually landed in your Zelle account before preparing the order.</p>
     `;
 
     const [orderResult, paymentResult] = await Promise.all([
       resend.emails.send(
-        { from: FROM_ADDRESS, to: notifyEmail, replyTo: customer.email, subject: `New Order Received — ${orderRef}`, html: orderHtml },
+        {
+          from: FROM_ADDRESS,
+          to: notifyEmails,
+          replyTo: customer.email,
+          subject: `New order ${orderRef} — ${formatMoney(subtotal)} — ${customer.name.slice(0, 60)}`,
+          html: orderHtml,
+        },
         { idempotencyKey: `order-received/${orderRef}` }
       ),
       resend.emails.send(
-        { from: FROM_ADDRESS, to: notifyEmail, subject: `Zelle Payment Confirmed — ${orderRef}`, html: paymentHtml },
+        {
+          from: FROM_ADDRESS,
+          to: notifyEmails,
+          replyTo: customer.email,
+          subject: `Zelle payment reported: ${formatMoney(subtotal)} from ${customer.name.slice(0, 60)} — ${orderRef}`,
+          html: paymentHtml,
+        },
         { idempotencyKey: `payment-confirmed/${orderRef}` }
       ),
     ]);

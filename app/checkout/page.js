@@ -239,23 +239,41 @@ const CheckoutPage = () => {
                     </div>
   
                     <h4 style={{ color: "var(--paper)", fontSize: "1.9rem", fontWeight: 500, marginBottom: 14 }}>Pay with Zelle</h4>
-                    <div
-                      style={{
-                        border: "2px dashed var(--ink-line-hover)",
-                        borderRadius: 12,
-                        padding: 28,
-                        textAlign: "center",
-                        marginBottom: 20,
-                      }}
-                    >
-                      <i className="fas fa-qrcode" style={{ fontSize: "3rem", color: "var(--gold-400)", marginBottom: 12 }} />
-                      <div style={{ color: "var(--paper)", fontWeight: 700, marginBottom: 4 }}>
-                        Zelle QR code coming soon
+                    <div className="zl-pay">
+                      <img
+                        className="zl-qr"
+                        src="/pictures/zelle-qr.png"
+                        alt="Zelle QR code — pay Jacob Mortty of Komla's Kitchen"
+                        width={400}
+                        height={584}
+                      />
+                      <div className="zl-steps">
+                        <div className="zl-amount">
+                          <span>Amount to send</span>
+                          <strong>{formatCurrency(subtotal)}</strong>
+                        </div>
+                        <ol>
+                          <li>
+                            Open your banking app and choose <b>Zelle</b>.
+                          </li>
+                          <li>
+                            Scan the QR code — it pays <b>Jacob Mortty</b> (Komla&apos;s Kitchen).
+                          </li>
+                          <li>
+                            Send exactly <b>{formatCurrency(subtotal)}</b>, then tap &ldquo;I&apos;ve Paid&rdquo; below.
+                          </li>
+                        </ol>
+                        <p className="zl-note">
+                          Ordering on your phone? Save the code, then use &ldquo;scan from photos&rdquo; in your bank&apos;s
+                          Zelle screen.{" "}
+                          <a href="/pictures/zelle-qr.png" download="komlas-kitchen-zelle-qr.png">
+                            <i className="fas fa-download" /> Save QR code
+                          </a>
+                        </p>
+                        <p className="zl-note">
+                          Trouble paying? Call <a href="tel:+17736902745">+1 (773) 690-2745</a>.
+                        </p>
                       </div>
-                      <p style={{ color: "var(--paper-faint)", fontSize: "0.85rem", margin: 0 }}>
-                        In the meantime, please Zelle {formatCurrency(subtotal)} to Komla&apos;s Kitchen directly, or
-                        call +1 (773) 690-2745 for payment details, then click &ldquo;I&apos;ve Paid&rdquo; below.
-                      </p>
                     </div>
   
                     {submitError && (

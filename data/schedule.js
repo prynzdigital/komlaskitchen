@@ -27,3 +27,6 @@ export const weeklySchedule = [
     delivery: [{ label: "Delivery window", time: "12:00 PM – 5:00 PM" }],
   },
 ];
+
+// Google Business "write a review" link for Komla's Kitchen.
+export const GOOGLE_REVIEW_URL = "https://g.page/r/CTAQ88sbRGdaEAI/review";

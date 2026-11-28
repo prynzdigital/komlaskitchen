@@ -431,8 +431,8 @@ img.mfp-img {
   height: 19px;
   padding: 0 5px;
   border-radius: 10px;
-  background: var(--gilt-400);
-  color: var(--forest-950);
+  background: var(--ghana-red);
+  color: #fff;
   font-size: 0.65rem;
   font-weight: 700;
   display: grid;
@@ -440,7 +440,7 @@ img.mfp-img {
   box-shadow: 0 0 0 2px var(--forest-900);
 }
 
-/* Wine buttons (shared) */
+/* Buttons (shared) */
 .kw-btn {
   display: inline-flex;
   align-items: center;

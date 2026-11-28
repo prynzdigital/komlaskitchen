@@ -8,7 +8,7 @@ const csp = [
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://*.googleusercontent.com",
   "connect-src 'self'",
   "frame-src https://www.google.com https://maps.google.com",
   "worker-src 'self'",
@@ -35,6 +35,13 @@ const nextConfig = {
   poweredByHeader: false,
   // The site uses plain <img> tags; turning the optimizer off removes its endpoint as an attack surface.
   images: { unoptimized: true },
+  // Old template blog URLs now point at the real blog.
+  async redirects() {
+    return [
+      { source: "/news", destination: "/blog", permanent: true },
+      { source: "/news-details", destination: "/blog", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { EMAIL_RE, cleanLine, cleanText, crossSite, escapeHtml, rateLimited, readJson } from "@/lib/requestGuard";
+import { EMAIL_RE, cleanLine, cleanText, crossSite, escapeHtml, rateLimited, readJson, recipientList } from "@/lib/requestGuard";
 
 const FROM_ADDRESS = "Komla's Kitchen <jacob@komlaskitchen.com>";
 
@@ -28,8 +28,8 @@ export async function POST(request) {
     if (!EMAIL_RE.test(email)) return fail("Please enter a valid email address.");
 
     const apiKey = process.env.RESEND_API_KEY;
-    const notifyEmail = process.env.CONTACT_NOTIFICATION_EMAIL || process.env.ORDER_NOTIFICATION_EMAIL;
-    if (!apiKey || !notifyEmail) return fail("Messages are not configured yet.", 500);
+    const notifyEmails = recipientList(process.env.CONTACT_NOTIFICATION_EMAIL || process.env.ORDER_NOTIFICATION_EMAIL);
+    if (!apiKey || notifyEmails.length === 0) return fail("Messages are not configured yet.", 500);
 
     const html = `
       <h2>New website message</h2>
@@ -41,7 +41,7 @@ export async function POST(request) {
 
     const result = await new Resend(apiKey).emails.send({
       from: FROM_ADDRESS,
-      to: notifyEmail,
+      to: notifyEmails,
       replyTo: email,
       subject: `Website message from ${name.slice(0, 80)}`,
       html,

@@ -8,8 +8,12 @@ const navLinks = [
   { href: "/", label: "Home", icon: "fas fa-home" },
   { href: "/food-menu", label: "Menu", icon: "fas fa-utensils" },
   { href: "/about", label: "About Us", icon: "fas fa-heart" },
+  { href: "/blog", label: "Blog", icon: "fas fa-book-open" },
   { href: "/contact", label: "Contact", icon: "fas fa-envelope" },
 ];
+
+// "/blog/some-post" keeps "Blog" highlighted.
+const isActive = (pathname, href) => pathname === href || (href !== "/" && pathname?.startsWith(`${href}/`));
 
 const TICKER_ITEMS = [
   "Authentic Ghanaian cuisine, made fresh daily",
@@ -76,7 +80,7 @@ const Header = () => {
 
           <nav className="kh-nav d-none d-lg-flex" aria-label="Main navigation">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className={pathname === link.href ? "on" : ""}>
+              <Link key={link.href} href={link.href} className={isActive(pathname, link.href) ? "on" : ""}>
                 {link.label}
               </Link>
             ))}
@@ -129,7 +133,7 @@ const Header = () => {
 
         <nav className="kh-drawer-nav" aria-label="Mobile navigation">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className={pathname === link.href ? "on" : ""} onClick={() => setToggle(false)}>
+            <Link key={link.href} href={link.href} className={isActive(pathname, link.href) ? "on" : ""} onClick={() => setToggle(false)}>
               <i className={link.icon} aria-hidden="true" />
               <span>{link.label}</span>
               <i className="fas fa-chevron-right kh-chev" aria-hidden="true" />
