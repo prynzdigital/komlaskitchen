@@ -500,6 +500,31 @@ img.mfp-img {
     radial-gradient(50% 80% at 90% 0%, rgba(47, 122, 77, 0.35), transparent 70%),
     var(--forest-950);
   border-top: 1px solid var(--frost-line);
+  overflow: hidden;
+}
+/* African pattern strip down the left edge */
+.kf::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--kf-strip);
+  background: url("/pictures/kente_strip.webp") left top / cover no-repeat;
+  pointer-events: none;
+}
+.kf {
+  --kf-strip: clamp(44px, 5.5vw, 110px);
+}
+@media (max-width: 1299px) {
+  html body .kf .container {
+    padding-left: calc(var(--kf-strip) + 16px);
+  }
+}
+@media (max-width: 575px) {
+  .kf {
+    --kf-strip: 34px;
+  }
 }
 .kf-grid {
   display: grid;
@@ -616,7 +641,10 @@ html body .kf h4 {
   overscroll-behavior: contain;
   color: #fff;
   font-family: var(--font-sans);
+  padding-right: 64px;
+  /* African pattern strip down the right edge, above the green glass */
   background:
+    url("/pictures/kente_strip_r.webp") right top / 52px 100% no-repeat,
     radial-gradient(70% 40% at 100% 0%, rgba(219, 178, 78, 0.14), transparent 70%),
     linear-gradient(165deg, rgba(37, 104, 67, 0.82) 0%, rgba(23, 73, 46, 0.86) 45%, rgba(11, 40, 24, 0.92) 100%);
   backdrop-filter: blur(24px) saturate(150%);
