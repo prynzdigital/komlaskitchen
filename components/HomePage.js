@@ -295,6 +295,9 @@ const HomePage = ({ google = null }) => {
           </HeroSlider>
         </section>
 
+        {/* ══ African pattern separator ══ */}
+        <div className="kw-band" aria-hidden="true" />
+
         {/* ══ Category carousel ══ */}
         <section className="kw-sec">
           <div className="container">

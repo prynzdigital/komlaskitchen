@@ -1041,3 +1041,19 @@ html body .kw-mo-body h3 {
     transition: none;
   }
 }
+
+/* ══ African pattern band between the hero and the page body ══ */
+.kw-band {
+  position: relative;
+  z-index: 1;
+  height: 64px;
+  margin-bottom: -24px;
+  background: url("/pictures/kente_band.webp") left top / auto 100% repeat-x;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .kw-band {
+    height: 42px;
+    margin-bottom: -14px;
+  }
+}
