@@ -2626,3 +2626,88 @@ html body .rv-card p {
     padding: 13px 20px;
   }
 }
+/* Honest filler cards: Google rating + "write a review" */
+.rv-card-rating,
+.rv-card-write {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  padding: 28px 22px;
+  border-radius: 22px;
+  scroll-snap-align: start;
+  text-decoration: none;
+}
+.rv-card-rating {
+  color: #fff;
+  background: linear-gradient(160deg, var(--forest-700), var(--forest-950));
+  box-shadow: 0 18px 40px -26px rgba(18, 63, 39, 0.8);
+}
+.rv-card-rating:hover {
+  color: #fff;
+}
+.rv-card-g {
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+.rv-card-rating strong {
+  font-size: 3.4rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--gilt-300);
+}
+.rv-card-rating .rv-summary-stars {
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  color: var(--gilt-400);
+}
+.rv-card-rating p {
+  margin: 4px 0 6px;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+.rv-card-link {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--gilt-300);
+}
+.rv-card-link i {
+  font-size: 0.75rem;
+  margin-left: 4px;
+  transition: transform 0.25s;
+}
+.rv-card-rating:hover .rv-card-link i {
+  transform: translateX(4px);
+}
+.rv-card-write {
+  background: #fff;
+  border: 2px dashed var(--gilt-400);
+}
+.rv-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 4px;
+  color: var(--gilt-600);
+  background: rgba(201, 154, 50, 0.12);
+  font-size: 1.1rem;
+}
+html body .rv-card-write h3 {
+  font-size: 1.3rem;
+  color: var(--charcoal);
+  margin: 0;
+}
+.rv-card-write p {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--paper-dim);
+}
+.rv-card-write .rv-write {
+  padding: 11px 18px;
+  font-size: 0.88rem;
+}

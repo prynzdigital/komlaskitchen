@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GOOGLE_REVIEW_URL } from "@/data/schedule";
-import { googleReviewsSnapshot } from "@/data/googleReviews";
+import { extraReviews, googleReviewsSnapshot } from "@/data/googleReviews";
 
 const AUTOPLAY_MS = 5000;
 
@@ -13,6 +13,15 @@ const initials = (name) =>
     .map((w) => w[0])
     .join("")
     .toUpperCase();
+
+const SOURCES = {
+  google: { icon: "fab fa-google", label: "Google" },
+  facebook: { icon: "fab fa-facebook-f", label: "Facebook" },
+  instagram: { icon: "fab fa-instagram", label: "Instagram" },
+  whatsapp: { icon: "fab fa-whatsapp", label: "WhatsApp" },
+  text: { icon: "fas fa-comment-dots", label: "a message" },
+};
+const MIN_CARDS = 4;
 
 const Stars = ({ rating }) => (
   <div className="lx-stars" aria-label={`${rating} out of 5 stars`}>
@@ -26,7 +35,11 @@ const Stars = ({ rating }) => (
 // when it's null, the saved snapshot of real Google reviews is shown instead.
 const ReviewsSection = ({ google }) => {
   const data = google?.reviews?.length ? google : googleReviewsSnapshot;
-  const cards = data.reviews;
+  const reviews = [...data.reviews, ...extraReviews];
+  // With fewer than 4 real reviews, top the row up with honest cards (never invented reviews).
+  const fillers = ["rating", "write"].slice(0, Math.max(0, MIN_CARDS - reviews.length));
+  const showWriteCard = fillers.includes("write");
+  const cards = [...reviews, ...fillers];
 
   const trackRef = useRef(null);
   const [perView, setPerView] = useState(4);
@@ -115,7 +128,39 @@ const ReviewsSection = ({ google }) => {
           )}
 
           <div className="rv-track" ref={trackRef} onScroll={measure}>
-            {cards.map((r, i) => (
+            {cards.map((r, i) => {
+              if (r === "rating")
+                return (
+                  <a key="rating" className="rv-card rv-card-rating" href={data.mapsUrl} target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-google rv-card-g" aria-hidden="true" />
+                    <strong>{data.rating.toFixed(1)}</strong>
+                    <span className="rv-summary-stars" aria-label={`${data.rating.toFixed(1)} out of 5 stars`}>
+                      {"★".repeat(Math.round(data.rating))}
+                      <span className="rv-star-off">{"★".repeat(5 - Math.round(data.rating))}</span>
+                    </span>
+                    <p>
+                      Rated by {data.count} customer{data.count === 1 ? "" : "s"} on Google
+                    </p>
+                    <span className="rv-card-link">
+                      Read all reviews <i className="fas fa-arrow-right" />
+                    </span>
+                  </a>
+                );
+              if (r === "write")
+                return (
+                  <div key="write" className="rv-card rv-card-write">
+                    <span className="rv-card-icon">
+                      <i className="fas fa-pen" aria-hidden="true" />
+                    </span>
+                    <h3>Loved your meal?</h3>
+                    <p>Tell Chicago about it — every review helps a small family kitchen grow.</p>
+                    <a className="kw-btn rv-write" href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer">
+                      Write a Google Review
+                    </a>
+                  </div>
+                );
+              const src = SOURCES[r.source] || SOURCES.google;
+              return (
               <figure key={`${r.author}-${i}`} className="rv-card lx-review lx-glass" style={{ margin: 0 }}>
                 <Stars rating={Math.min(5, Math.max(1, r.rating || 5))} />
                 <p>&ldquo;{r.text}&rdquo;</p>
@@ -135,10 +180,11 @@ const ReviewsSection = ({ google }) => {
                     )}
                     <small>{r.when}</small>
                   </div>
-                  <i className="fab fa-google rv-g" aria-label="Posted on Google" />
+                  <i className={`${src.icon} rv-g`} aria-label={`Posted on ${src.label}`} />
                 </figcaption>
               </figure>
-            ))}
+              );
+            })}
           </div>
 
           {scrollable && (
@@ -164,9 +210,11 @@ const ReviewsSection = ({ google }) => {
         )}
 
         <div className="rv-actions">
-          <a className="kw-btn rv-write" href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer">
-            <i className="fas fa-pen" /> Write a Google Review
-          </a>
+          {!showWriteCard && (
+            <a className="kw-btn rv-write" href={GOOGLE_REVIEW_URL} target="_blank" rel="noopener noreferrer">
+              <i className="fas fa-pen" /> Write a Google Review
+            </a>
+          )}
           <a className="rv-all" href={data.mapsUrl} target="_blank" rel="noopener noreferrer">
             Read all reviews on Google <i className="fas fa-arrow-right" />
           </a>

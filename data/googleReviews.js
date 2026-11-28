@@ -21,3 +21,10 @@ export const googleReviewsSnapshot = {
     },
   ],
 };
+
+// Real reviews from other places (Facebook, Instagram, WhatsApp, text messages…),
+// added only with the customer's OK. They join the carousel after the Google ones.
+// source: "facebook" | "instagram" | "whatsapp" | "text" | "google"
+// Example:
+//   { author: "Prince Boateng", rating: 5, source: "facebook", when: "Facebook review", text: "…their exact words…" },
+export const extraReviews = [];
