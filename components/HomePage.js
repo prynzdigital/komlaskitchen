@@ -230,80 +230,70 @@ const HomePage = ({ google = null }) => {
       <div className="kk">
         {/* ══ Hero ══ */}
         <section className="kw-hero">
-          <span className="kw-blob kw-blob-1" />
-          <span className="kw-blob kw-blob-2" />
-          <span className="kw-blob kw-blob-3" />
-
-          <div className="container">
-            <div className="kw-hero-grid">
-              <div>
-                <span className="kw-pill kk-fade" style={{ "--d": "0.1s" }}>
-                  <b>
-                    <i className="fas fa-utensils" />
-                  </b>
-                  Authentic Ghanaian Kitchen · Chicago
-                </span>
-                <h1 className="kk-fade" style={{ "--d": "0.2s" }}>
-                  Taste of Ghana,
-                  <br />
-                  <span>Delivered</span> Fresh.
-                </h1>
-                <p className="kw-hero-lead kk-fade" style={{ "--d": "0.35s" }}>
-                  Party jollof, okra soup, kelewele and more — traditional recipes cooked fresh every day and delivered to
-                  your door across Chicago.
-                </p>
-                <div className="kw-ctas kk-fade" style={{ "--d": "0.5s" }}>
-                  <Link href="/food-menu" className="kw-btn kw-btn-fill">
-                    Order Now <i className="fas fa-arrow-right" />
-                  </Link>
-                  <Link href="/food-menu" className="kw-btn kw-btn-glass">
-                    Explore Menu
-                  </Link>
-                </div>
-                <div className="kw-proof kk-fade" style={{ "--d": "0.65s" }}>
-                  <div className="kw-avatars" aria-hidden="true">
-                    {[
-                      ["AM", "#c99a32"],
-                      ["KB", "#2f7a4d"],
-                      ["EA", "#a37c22"],
-                      ["+", "#1d5638"],
-                    ].map(([t, c]) => (
-                      <span key={t} style={{ background: c }}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <div>
-                    <div className="kw-proof-stars" aria-label="Five-star reviews">
-                      ★★★★★
+          <HeroSlider
+            footer={
+              <div className="kw-features kk-fade" style={{ "--d": "0.8s" }}>
+                {[
+                  { icon: "fas fa-seedling", t: "Authentic Recipes", d: "Traditional Ghanaian cooking" },
+                  { icon: "fas fa-shipping-fast", t: "Daily Delivery", d: "Afternoon slots across Chicago" },
+                  { icon: "fas fa-shield-alt", t: "Easy Payment", d: "Simple, secure checkout" },
+                  { icon: "fas fa-fire-alt", t: "Cooked Fresh", d: "Prepared daily, packed hot" },
+                ].map((f) => (
+                  <div key={f.t} className="kw-feature">
+                    <i className={f.icon} />
+                    <div>
+                      <h3>{f.t}</h3>
+                      <p>{f.d}</p>
                     </div>
-                    <p>Loved by families across Chicago</p>
                   </div>
-                </div>
+                ))}
               </div>
-
-              <div className="kw-art kk-fade" style={{ "--d": "0.3s" }}>
-                <HeroSlider />
+            }
+          >
+            <span className="kw-pill kk-fade" style={{ "--d": "0.1s" }}>
+              <b>
+                <i className="fas fa-utensils" />
+              </b>
+              Authentic Ghanaian Kitchen · Chicago
+            </span>
+            <h1 className="kk-fade" style={{ "--d": "0.2s" }}>
+              Taste of Ghana,
+              <br />
+              <span>Delivered</span> Fresh.
+            </h1>
+            <p className="kw-hero-lead kk-fade" style={{ "--d": "0.35s" }}>
+              Party jollof, okra soup, kelewele and more — traditional recipes cooked fresh every day and delivered to
+              your door across Chicago.
+            </p>
+            <div className="kw-ctas kk-fade" style={{ "--d": "0.5s" }}>
+              <Link href="/food-menu" className="kw-btn kw-btn-fill">
+                Order Now <i className="fas fa-arrow-right" />
+              </Link>
+              <Link href="/food-menu" className="kw-btn kw-btn-glass">
+                Explore Menu
+              </Link>
+            </div>
+            <div className="kw-proof kk-fade" style={{ "--d": "0.65s" }}>
+              <div className="kw-avatars" aria-hidden="true">
+                {[
+                  ["AM", "#c99a32"],
+                  ["KB", "#2f7a4d"],
+                  ["EA", "#a37c22"],
+                  ["+", "#1d5638"],
+                ].map(([t, c]) => (
+                  <span key={t} style={{ background: c }}>
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <div>
+                <div className="kw-proof-stars" aria-label="Five-star reviews">
+                  ★★★★★
+                </div>
+                <p>Loved by families across Chicago</p>
               </div>
             </div>
-
-            <div className="kw-features kk-fade" style={{ "--d": "0.8s" }}>
-              {[
-                { icon: "fas fa-seedling", t: "Authentic Recipes", d: "Traditional Ghanaian cooking" },
-                { icon: "fas fa-shipping-fast", t: "Daily Delivery", d: "Afternoon slots across Chicago" },
-                { icon: "fas fa-shield-alt", t: "Easy Payment", d: "Simple, secure checkout" },
-                { icon: "fas fa-fire-alt", t: "Cooked Fresh", d: "Prepared daily, packed hot" },
-              ].map((f) => (
-                <div key={f.t} className="kw-feature">
-                  <i className={f.icon} />
-                  <div>
-                    <h3>{f.t}</h3>
-                    <p>{f.d}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          </HeroSlider>
         </section>
 
         {/* ══ Category carousel ══ */}
